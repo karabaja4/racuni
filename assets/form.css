@@ -37,12 +37,14 @@ body {
 
 .title-links a {
     color: #FFFFFF;
-    vertical-align: middle;
+    text-decoration: none;
+    display: inline-block;
 }
 
-.title-links .github {
-    vertical-align: middle;
-    margin-right: 5px;
+.title-links img {
+    vertical-align: top;
+    padding-top: 12px;
+    padding-right: 3px;
 }
 
 .content {
