@@ -24,7 +24,13 @@ API is available for public use:
 
 **Endpoint**
 ```
-POST https://racuni.aerium.hr/generate
+HTTP Method
+POST
+
+URL
+https://racuni.aerium.hr/generate
+
+Headers
 Content-Type: application/json
 ```
 
