@@ -49,7 +49,7 @@ function addInputNumberValidation(ids, validateInteger) {
       event.preventDefault();
     });
   }
-};
+}
 
 var integerIds = [
   'invoiceId',
@@ -72,7 +72,7 @@ function lsGet(key) {
     }
   } catch (err) {}
   return null;
-};
+}
 
 function lsSet(key, value) {
   try {
@@ -80,7 +80,7 @@ function lsSet(key, value) {
       localStorage.setItem(key, value);
     }
   } catch (err) {}
-};
+}
 
 window.addEventListener('load', function() {
   var json = lsGet('invoiceJson');
@@ -121,7 +121,7 @@ function getJson() {
     quantity: parseInt(document.getElementById('itemQuantity').value)
   }];
   return JSON.stringify(result);
-};
+}
 
 function showErrors(message) {
   var parsed = JSON.parse(message);
@@ -137,14 +137,14 @@ function showErrors(message) {
       elem.classList.add('invalid');
     }
   }
-};
+}
 
 function removeErrors() {
   var elems = document.getElementsByTagName('input');
   for (let i = 0; i < elems.length; i++) {
     elems[i].classList.remove('invalid');
   }
-};
+}
 
 document.getElementById('submitButton').addEventListener('click', function () {
 
