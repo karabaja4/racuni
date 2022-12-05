@@ -16,7 +16,14 @@ table {
 }
 
 .logo {
-    width: 40%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 340px;
+}
+
+.logo img {
+    width: 320px;
 }
 
 .meta {
@@ -60,16 +67,17 @@ table {
 
 .seller,
 .buyer {
-    width: 318px;
     font-size: 12px;
     padding: 10px;
 }
 
 .seller {
+    width: 320px;
     background-color: #ECEFF1;
 }
 
 .buyer {
+    width: 318px;
     border: 1px solid #212121;
 }
 
