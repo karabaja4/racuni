@@ -105,8 +105,17 @@
   </div>
 
   <div class="bottom">
-    <div><%= sellerName %> <div>●</div> Address: <%= sellerStreet %>, <%= sellerPostCode %> <%= sellerCity %>, <%= sellerCountry %> <div>●</div> VAT number: <%= sellerVatNumber %></div>
-    <div>IBAN: <%= sellerIBAN %> <div>●</div> SWIFT: <%= sellerSWIFT %> <div>●</div> Bank: <%= sellerBank %></div>
+    <div class="line"><%= sellerName %></div>
+    <div class="bullet">●</div>
+    <div class="line">Address: <%= sellerStreet %>, <%= sellerPostCode %> <%= sellerCity %>, <%= sellerCountry %></div>
+    <div class="bullet">●</div>
+    <div class="line">VAT number: <%= sellerVatNumber %></div>
+    <div class="bullet">●</div>
+    <div class="line">IBAN: <%= sellerIBAN %></div>
+    <div class="bullet">●</div>
+    <div class="line">SWIFT: <%= sellerSWIFT %></div>
+    <div class="bullet">●</div>
+    <div class="line">Bank: <%= sellerBank %></div>
   </div>
 
 </body>

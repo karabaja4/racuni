@@ -20,6 +20,8 @@ table {
     align-items: center;
     justify-content: center;
     width: 340px;
+    height: 150px;
+    overflow: hidden;
 }
 
 .logo img {
@@ -28,6 +30,9 @@ table {
 
 .meta {
     font-size: 12px;
+    width: 340px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .meta td {
@@ -47,7 +52,7 @@ table {
 }
 
 .meta td:first-child {
-    padding-right: 14px;
+    padding-right: 13px;
 }
 
 .meta tr:last-child > td {
@@ -69,6 +74,8 @@ table {
 .buyer {
     font-size: 12px;
     padding: 10px;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .seller {
@@ -152,9 +159,19 @@ table.items {
     margin-top: 40px;
 }
 
-.bottom > div > div {
+.bottom {
+    height: 45px;
+    overflow: hidden;
+}
+
+.bottom .bullet {
     font-size: 6px;
     display: inline-block;
     vertical-align: top;
     padding-top: 5px;
+}
+
+.bottom .line {
+    display: inline-block;
+    white-space: nowrap;
 }
