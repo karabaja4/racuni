@@ -3,7 +3,7 @@ var utc = require('dayjs/plugin/utc')
 dayjs.extend(utc);
 
 const isValidString = (data, field) => {
-  return !!data[field] && typeof data[field] === 'string' && data[field].length > 0;
+  return !!data[field] && typeof data[field] === 'string' && data[field].length > 0 && data[field].length < 200;
 }
 
 const isValidInteger = (data, field) => {
