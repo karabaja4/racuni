@@ -144,7 +144,9 @@ table.items {
     margin-top: 40px;
 }
 
-.bottom span {
+.bottom > div > div {
     font-size: 6px;
-    vertical-align: middle;
+    display: inline-block;
+    vertical-align: top;
+    padding-top: 4px;
 }
