@@ -7,11 +7,11 @@ const isValidString = (data, field) => {
 }
 
 const isValidInteger = (data, field) => {
-  return !!data[field] && Number.isInteger(data[field]) && data[field] > 0;
+  return !!data[field] && Number.isInteger(data[field]) && data[field] > 0 && data < 100000000;
 }
 
 const isValidNumber = (data, field) => {
-  return !!data[field] && typeof data[field] === 'number' && data[field] > 0;
+  return !!data[field] && typeof data[field] === 'number' && data[field] > 0 && data < 100000000;
 }
 
 const isValidArray = (data, field) => {
