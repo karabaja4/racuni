@@ -49,6 +49,7 @@ app.post('/generate', async (request, response) => {
   const encoded = stringToHex(JSON.stringify(model));
 
   const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium-browser',
     headless: true
   });
 

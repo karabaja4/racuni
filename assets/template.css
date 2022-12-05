@@ -143,3 +143,7 @@ table.items {
     border-top: 1px solid #212121;
     margin-top: 40px;
 }
+
+.bottom span {
+    font-size: 8px;
+}
