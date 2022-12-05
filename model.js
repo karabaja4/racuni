@@ -3,19 +3,19 @@ var utc = require('dayjs/plugin/utc')
 dayjs.extend(utc);
 
 const isValidString = (data, field) => {
-  return !!data[field] && typeof data[field] === 'string' && data[field].length > 0 && data[field].length < 200;
+  return !!data[field] && typeof data[field] === 'string' && data[field].length > 0 && data[field].length <= 200;
 }
 
 const isValidInteger = (data, field) => {
-  return !!data[field] && Number.isInteger(data[field]) && data[field] > 0 && data[field] < 100000000;
+  return !!data[field] && Number.isInteger(data[field]) && data[field] > 0 && data[field] <= 100000000;
 }
 
 const isValidNumber = (data, field) => {
-  return !!data[field] && typeof data[field] === 'number' && data[field] > 0 && data[field] < 100000000;
+  return !!data[field] && typeof data[field] === 'number' && data[field] > 0 && data[field] <= 100000000;
 }
 
 const isValidArray = (data, field) => {
-  return !!data[field] && Array.isArray(data[field]) && data[field].length > 0;
+  return !!data[field] && Array.isArray(data[field]) && data[field].length > 0 && data[field].length <= 5;
 }
 
 const validateDataModel = (model) => {
