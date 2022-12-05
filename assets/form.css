@@ -20,8 +20,13 @@ body {
     user-select: none;
 }
 
-.title-text {
+.title-text > div {
+    display: inline-block;
+}
+
+.title-text .icon {
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 .title-text,
