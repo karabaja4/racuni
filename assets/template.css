@@ -143,6 +143,7 @@ table.items {
     font-size: 12px;
     color: #212121;
     margin-bottom: 20px;
+    white-space: nowrap;
 }
 
 .details div:first-child {
