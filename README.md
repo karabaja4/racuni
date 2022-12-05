@@ -22,13 +22,13 @@ Use at your own risk, under the conditions of [MIT licence](https://github.com/k
 
 API is available for public use:
 
-Endpoint
+**Endpoint**
 ```
 POST https://racuni.aerium.hr/generate
 Content-Type: application/json
 ```
 
-Body (JSON)
+**Body (JSON)**
 ```json
 {
   "invoiceId": 1,
