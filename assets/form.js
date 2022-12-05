@@ -28,7 +28,7 @@ var itemInputIds = [
   'itemQuantity'
 ];
 
-var addInputNumberValidation = function(ids, validateInteger) {
+function addInputNumberValidation(ids, validateInteger) {
   for (var i = 0; i < ids.length; i++) {
     var input = document.getElementById(ids[i]);
     input.addEventListener('keypress', function(event) {
@@ -65,7 +65,7 @@ var floatIds = [
 addInputNumberValidation(integerIds, true);
 addInputNumberValidation(floatIds, false);
 
-var lsGet = function(key) {
+function lsGet(key) {
   try {
     if (window.localStorage) {
       return localStorage.getItem(key);
@@ -74,7 +74,7 @@ var lsGet = function(key) {
   return null;
 };
 
-var lsSet = function(key, value) {
+function lsSet(key, value) {
   try {
     if (window.localStorage) {
       localStorage.setItem(key, value);
@@ -104,7 +104,7 @@ window.addEventListener('load', function() {
   }
 });
 
-var getJson = function() {
+function getJson() {
   var result = {};
   for (var i = 0; i < inputIds.length; i++) {
     var inputId = inputIds[i];
@@ -123,7 +123,7 @@ var getJson = function() {
   return JSON.stringify(result);
 };
 
-var showErrors = function(message) {
+function showErrors(message) {
   var parsed = JSON.parse(message);
   for (let i = 0; i < parsed.errors.length; i++) {
     var field = parsed.errors[i].split(' ')[1];
@@ -139,7 +139,7 @@ var showErrors = function(message) {
   }
 };
 
-var removeErrors = function() {
+function removeErrors() {
   var elems = document.getElementsByTagName('input');
   for (let i = 0; i < elems.length; i++) {
     elems[i].classList.remove('invalid');
