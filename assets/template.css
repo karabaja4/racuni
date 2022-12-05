@@ -1,0 +1,145 @@
+body {
+    font-family: 'Roboto';
+    font-size: 0;
+    margin: 0;
+    padding: 40px;
+    color: #212121;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.logo {
+    width: 40%;
+}
+
+.meta {
+    font-size: 12px;
+}
+
+.meta td {
+    padding-top: 0;
+    padding-bottom: 5px;
+    padding-left: 0;
+}
+
+.meta tr:nth-child(1) > td {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.meta tr:nth-child(1) > td,
+.meta tr:nth-child(2) > td {
+    padding-bottom: 20px;
+}
+
+.meta td:first-child {
+    padding-right: 14px;
+}
+
+.meta tr:last-child > td {
+    padding-bottom: 0;
+}
+
+.header,
+.contact {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+.contact .tag {
+    color: #757575;
+}
+
+.seller,
+.buyer {
+    width: 318px;
+    font-size: 12px;
+    padding: 10px;
+}
+
+.seller {
+    background-color: #ECEFF1;
+}
+
+.buyer {
+    border: 1px solid #212121;
+}
+
+/* items */
+.items {
+    font-size: 12px;
+    height: 300px;
+}
+
+table.items {
+    border: 1px solid #212121;
+    width: 100%;
+}
+
+.items th,
+.items td {
+    vertical-align: top;
+    text-align: right;
+    font-weight: normal;
+    padding: 5px;
+}
+
+.items th {
+    border: 1px solid #212121;
+    white-space: nowrap;
+    background-color: #ECEFF1;
+    font-weight: bold;
+}
+
+.items td {
+    border-right: 1px solid #212121;
+}
+
+.items th:first-child,
+.items td:first-child {
+    text-align: left;
+}
+
+.items tr:not(:last-child) {
+    height: 1px;
+}
+
+.grand {
+    text-align: right;
+    font-size: 16px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+}
+
+.grand span:first-child {
+    margin-right: 40px;
+}
+
+.details {
+    font-size: 12px;
+    color: #212121;
+    margin-bottom: 20px;
+}
+
+.details div:first-child {
+    font-weight: bold;
+    margin-bottom: 2px;
+}
+
+.bottom {
+    font-size: 12px;
+    width: 100%;
+    color: #212121;
+    text-align: center;
+    border-top: 1px solid #212121;
+    margin-top: 40px;
+}

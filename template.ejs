@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="assets/template.css">
+</head>
+
+<body>
+
+  <div class="header">
+    <img class="logo" src="<%= logoUrl %>" alt="" />
+    <div class="meta">
+      <table>
+        <tr>
+          <td colspan="2">Račun (Invoice)</td>
+        </tr>
+        <tr>
+          <td>Broj računa (Invoice number):</td>
+          <td><%= invoiceNumber %></td>
+        </tr>
+        <tr>
+          <td>Datum računa (Invoice date):</td>
+          <td><%= invoiceDate %> (UTC)</td>
+        </tr>
+        <tr>
+          <td>Mjesto izdavanja (Place of issue):</td>
+          <td><%= placeOfIssue %></td>
+        </tr>
+        <tr>
+          <td>Datum isporuke (Delivery date):</td>
+          <td><%= deliveryDate %></td>
+        </tr>
+        <tr>
+          <td>Rok plaćanja (Due date):</td>
+          <td><%= dueDate %></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="contact">
+    <div class="seller">
+      <div class="tag">Prodavač (Seller):</div>
+      <div class="bold"><%= sellerName %></div><br>
+      <div><%= sellerStreet %></div>
+      <div><%= sellerPostCode %> <%= sellerCity %>, <%= sellerCountry %></div><br>
+      <div>PDV ID (VAT number): <%= sellerVatNumber %></div>
+    </div>
+    <div class="buyer">
+      <div class="tag">Kupac (Buyer):</div>
+      <div class="bold"><%= buyerName %></div><br>
+      <div><%= buyerStreet %></div>
+      <div><%= buyerPostCode %> <%= buyerCity %>, <%= buyerCountry %></div><br>
+      <div>PDV ID (VAT number): <%= buyerVatNumber %></div>
+    </div>
+  </div>
+
+  <table class="items">
+    <tr>
+      <th>Opis (Description)</th>
+      <th>Jedinica (Unit)</th>
+      <th>Cijena (Price)</th>
+      <th>Količina (Quantity)</th>
+      <th>Iznos stavke (Sub total)</th>
+    </tr>
+    <% for (let i = 0; i < items.length; i++) { %>
+      <tr>
+          <td><%= items[i].description %></td>
+          <td><%= items[i].unit %></td>
+          <td><%= items[i].price %></td>
+          <td><%= items[i].quantity %></td>
+          <td><%= items[i].subTotal %></td>
+      </tr>
+    <% }; %>
+  </table>
+
+  <div class="grand">
+    <span>Ukupan iznos naplate (Grand total):</span>
+    <span><%= grandTotal %> €</span>
+  </div>
+
+  <div class="details">
+    <div>Način plaćanja (Payment type)</div>
+    <div>Transakcijski račun (Bank transfer)</div>
+  </div>
+
+  <div class="details">
+    <div>Detalji o transakciji (Transaction details)</div>
+    <div>IBAN: <%= sellerIBAN %></div>
+    <div>SWIFT: <%= sellerSWIFT %></div>
+    <div>Poziv na broj (Payee reference number): <%= referenceNumber %></div>
+  </div>
+
+  <div class="details">
+    <div>Napomena (Notes)</div>
+    <div>Ne podliježe oporezivanju prema čl. 17. St. 1. Zakona o PDV-u - prijenos porezne obveze.</div>
+    <div>(VAT not applied according to Article 17, section 1 of the Croatia VAT law - reverse charge.)</div>
+  </div>
+
+  <div class="details">
+    <div>Operater (Operator)</div>
+    <div><%= sellerOperator %></div>
+  </div>
+
+  <div class="bottom">
+    <div><%= sellerName %> ● Address: <%= sellerStreet %>, <%= sellerPostCode %> <%= sellerCity %>, <%= sellerCountry %> ● VAT number: <%= sellerVatNumber %></div>
+    <div>IBAN: <%= sellerIBAN %> ● SWIFT: <%= sellerSWIFT %> ● Bank: <%= sellerBank %></div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    font-size: 0;
+    background-color: #FAFAFA;
+    margin: 0;
+}
+
+.header {
+    background-color: #212121;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.title-text {
+    padding-left: 10px;
+}
+
+.title-text,
+.title-links {
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 50px;
+}
+
+.title-links {
+    padding-right: 20px;
+}
+
+.title-links a {
+    color: #FFFFFF;
+}
+
+.content {
+    padding: 40px;
+}
+
+.column {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 40px;
+}
+
+.label {
+    margin-right: 10px;
+    font-size: 14px;
+    width: 180px;
+    display: inline-block;
+}
+
+.input-row {
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+input {
+    width: 342px;
+    height: 22px;
+    border: 1px solid #E0E0E0;
+    padding: 8px;
+    border-radius: 0;
+    color: #212121;
+}
+
+input::-webkit-input-placeholder {
+    color: #BDBDBD;
+}
+
+input:-moz-placeholder {
+    color: #BDBDBD;
+}
+
+input::-moz-placeholder {
+    color: #BDBDBD;
+}
+
+input:-ms-input-placeholder {
+    color: #BDBDBD;
+}
+
+input.invalid {
+    background-color: mistyrose;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    appearance: none;
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.submit-button {
+    margin-top: 20px;
+    border-radius: 0;
+    border: 0;
+    background-color: #0D47A1;
+    color: #FFFFFF;
+    width: 160px;
+    height: 40px;
+}
+
+.submit-button:hover {
+    background-color: #1565C0;
+    cursor: pointer;
+}
+
+.submit-button.disabled,
+.submit-button.disabled:hover
+{
+    background-color: #BDBDBD;
+    color: #EEEEEE;
+    cursor: default;
+}

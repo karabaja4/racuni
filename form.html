@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="assets/form.css">
+  <script src="assets/form.js" defer></script>
+</head>
+
+<body>
+
+  <div class="header">
+    <div class="title-text">📝 Računi - Hrvatska tvrtka, u sustavu PDV-a, za usluge izvan Hrvatske (unutar ili izvan EU)</div>
+    <div class="title-links">
+      <span>🌍</span>
+      <a href="https://www.google.com">GitHub</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <div class="column">
+
+      <div class="input-row">
+        <div class="label">Broj računa:</div>
+        <input type="text" id="invoiceId" placeholder="Redni broj računa, npr. 1">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Mjesec računa:</div>
+        <input type="text" id="invoiceMonth" placeholder="Mjesec računa, npr. 4">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Godina računa:</div>
+        <input type="text" id="invoiceYear" placeholder="Godina računa, npr. 2022">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Logo URL (neobavezno):</div>
+        <input type="text" id="logoUrl" placeholder="URL na logo tvrtke, npr. https://www.oblak.hr/logo.svg">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Ime prodavača:</div>
+        <input type="text" id="sellerName" placeholder="Ime prodavača, npr. Oblak d.o.o.">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Ulica prodavača:</div>
+        <input type="text" id="sellerStreet" placeholder="Ulica prodavača, npr. Trg Bana Jelačića 1">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Poštanski broj prodavača:</div>
+        <input type="text" id="sellerPostCode" placeholder="Poštanski broj prodavača, npr. 10000">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Grad prodavača:</div>
+        <input type="text" id="sellerCity" placeholder="Grad prodavača, npr. Zagreb">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Država prodavača:</div>
+        <input type="text" id="sellerCountry" placeholder="Država prodavača, npr. Hrvatska">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">PDV ID prodavača:</div>
+        <input type="text" id="sellerVatNumber" placeholder="PDV ID prodavača, npr. HR43739213344">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">IBAN prodavača:</div>
+        <input type="text" id="sellerIBAN" placeholder="IBAN prodavača, npr. HR1234567890987654321">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">SWIFT banke prodavača:</div>
+        <input type="text" id="sellerSWIFT" placeholder="SWIFT banke prodavača, npr. ESBCHR22">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Banka prodavača:</div>
+        <input type="text" id="sellerBank" placeholder="Banka prodavača, npr. Erste&Steiermärkische Bank d.d.">
+      </div>
+    
+      <div class="input-row">
+        <div class="label">Operator prodavača:</div>
+        <input type="text" id="sellerOperator" placeholder="Operator prodavač, npr. Pero Perić">
+      </div>
+  
+    </div>
+  
+    <div class="column">
+  
+      <div class="input-row">
+        <div class="label">Ime kupca:</div>
+        <input type="text" id="buyerName" placeholder="Ime kupca, npr. Evil Corp Ltd">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Ulica kupca:</div>
+        <input type="text" id="buyerStreet" placeholder="Ulica kupca, npr. Sesame Street">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Poštanski broj kupca:</div>
+        <input type="text" id="buyerPostCode" placeholder="Poštanski broj kupca, npr. 22412">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Grad kupca:</div>
+        <input type="text" id="buyerCity" placeholder="Grad kupca, npr. Hamburg">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Država kupca:</div>
+        <input type="text" id="buyerCountry" placeholder="Država kupca, npr. Germany">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">PDV ID kupca:</div>
+        <input type="text" id="buyerVatNumber" placeholder="PDV ID kupca, npr. DE12345678901">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Opis usluge:</div>
+        <input type="text" id="itemDescription" placeholder="Opis usluge, npr. Software development">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Jedinica usluge:</div>
+        <input type="text" id="itemUnit" placeholder="Jedinica usluge, npr. dan (day)">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Cijena usluge (u €):</div>
+        <input type="text" id="itemPrice" placeholder="Cijena usluge (u €), npr. 323.50">
+      </div>
+  
+      <div class="input-row">
+        <div class="label">Količina usluge:</div>
+        <input type="text" id="itemQuantity" placeholder="Količina usluge, npr. 21">
+      </div>
+  
+    </div>
+  
+    <div>
+      <button id="submitButton" class="submit-button">Generiraj</button>
+    </div>
+
+  </div>
+
+</body>
+
+</html>
