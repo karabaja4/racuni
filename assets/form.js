@@ -130,7 +130,7 @@ var showErrors = function(message) {
     if (field.indexOf('items[0].') > -1) {
       field = field.replace('items[0].', '');
       field = field.charAt(0).toUpperCase() + field.slice(1);
-      field = `item${field}`;
+      field = 'item' + field;
     }
     var elem = document.getElementById(field);
     if (elem) {
@@ -169,13 +169,13 @@ document.getElementById('submitButton').addEventListener('click', function () {
       var file = new Blob([this.response], { type: 'application/pdf' });
       var link = document.createElement('a');
       link.href = URL.createObjectURL(file);
-      link.download = `${parsed.invoiceId}-1-1.pdf`;
+      link.download = parsed.invoiceYear + '-' + parsed.invoiceId + '-1-1.pdf';
       link.click();
     } else if (this.status === 400) {
       var decoded = new TextDecoder().decode(this.response);
       showErrors(decoded);
     } else {
-      alert(`Unexpected error: ${this.status}`);
+      alert('Unexpected error: ' + this.status);
     }
     btn.classList.remove('disabled');
   };
