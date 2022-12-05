@@ -8,7 +8,7 @@ body {
 .header {
     background-color: #212121;
     width: 100%;
-    height: 50px;
+    height: 40px;
     display: flex;
     justify-content: space-between;
     overflow: hidden;
@@ -28,15 +28,21 @@ body {
 .title-links {
     color: #FFFFFF;
     font-size: 14px;
-    line-height: 50px;
+    line-height: 40px;
 }
 
 .title-links {
-    padding-right: 20px;
+    padding-right: 10px;
 }
 
 .title-links a {
     color: #FFFFFF;
+    vertical-align: middle;
+}
+
+.title-links .github {
+    vertical-align: middle;
+    margin-right: 5px;
 }
 
 .content {
