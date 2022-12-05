@@ -121,10 +121,14 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.submit-button {
+.generate {
     margin-top: 20px;
+}
+
+.submit-button {
     border-radius: 0;
     border: 0;
+    padding: 0;
     background-color: #0D47A1;
     color: #FFFFFF;
     width: 160px;
