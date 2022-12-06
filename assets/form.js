@@ -166,11 +166,16 @@ document.getElementById('submitButton').addEventListener('click', function () {
   xhr.onload = function () {
     if (this.status === 200) {
       lsSet('invoiceJson', json);
-      var file = new Blob([this.response], { type: 'application/pdf' });
-      var link = document.createElement('a');
-      link.href = URL.createObjectURL(file);
-      link.download = parsed.invoiceYear + '-' + parsed.invoiceId + '-1-1.pdf';
-      link.click();
+      var blob = new Blob([this.response], { type: 'application/pdf' });
+      var filename = parsed.invoiceYear + '-' + parsed.invoiceId + '-1-1.pdf';
+      if (window.navigator && window.navigator.msSaveBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+      } else {
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename;
+        link.click();
+      }
     } else if (this.status === 400) {
       var decoded = new TextDecoder().decode(this.response);
       showErrors(decoded);
