@@ -70,9 +70,20 @@ const validateDataModel = (model) => {
 const fullDateFormat = 'DD.MM.YYYY. HH:mm:ss';
 const shortDateFormat = 'DD.MM.YYYY.';
 
-const formatDecimal = (value) => {
-  return value.toString().replace('.', ',');
-}
+const formatMoney = (amount, divisor) => {
+  const value = !!divisor ? (amount / divisor) : amount;
+  return new Intl.NumberFormat('de-DE', {
+    style: 'currency',
+    currency: 'EUR'
+  }).format(value);
+};
+
+const formatDecimal = (amount) => {
+  return new Intl.NumberFormat('de-DE', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  }).format(amount);
+};
 
 const buildDataModel = (requestModel) => {
 
@@ -99,17 +110,16 @@ const buildDataModel = (requestModel) => {
     if (!Number.isInteger(praw) || !Number.isInteger(qraw) || !Number.isInteger(raw)) {
       throw new Error('invalid total calculation');
     }
-    const subTotal = parseFloat((raw / (100 * 100)).toFixed(2));
-    model.items[i].subTotal = subTotal;
-    model.grandTotal += subTotal;
+    model.items[i].subTotal = raw;
+    model.grandTotal += raw;
   }
   
   // fix decimal commas
-  model.grandTotal = formatDecimal(model.grandTotal);
+  model.grandTotal = formatMoney(model.grandTotal, 10000);
   for (let i = 0; i < model.items.length; i++) {
-    model.items[i].price = formatDecimal(model.items[i].price);
+    model.items[i].price = formatMoney(model.items[i].price, null);
     model.items[i].quantity = formatDecimal(model.items[i].quantity);
-    model.items[i].subTotal = formatDecimal(model.items[i].subTotal);
+    model.items[i].subTotal = formatMoney(model.items[i].subTotal, 10000);
   }
 
   return model;
