@@ -72,14 +72,14 @@ const shortDateFormat = 'DD.MM.YYYY.';
 
 const formatMoney = (amount, divisor) => {
   const value = !!divisor ? (amount / divisor) : amount;
-  return new Intl.NumberFormat('de_DE', {
+  return new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR'
   }).format(value);
 };
 
 const formatDecimal = (amount) => {
-  return new Intl.NumberFormat('de_DE', {
+  return new Intl.NumberFormat('de-DE', {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2
   }).format(amount);
