@@ -54,12 +54,12 @@ function addInputNumberValidation(ids, validateInteger) {
 var integerIds = [
   'invoiceId',
   'invoiceMonth',
-  'invoiceYear',
-  'itemQuantity'
+  'invoiceYear'
 ];
 
 var floatIds = [
-  'itemPrice'
+  'itemPrice',
+  'itemQuantity'
 ];
 
 addInputNumberValidation(integerIds, true);
@@ -118,7 +118,7 @@ function getJson() {
     description: document.getElementById('itemDescription').value,
     unit: document.getElementById('itemUnit').value,
     price: parseFloat(document.getElementById('itemPrice').value),
-    quantity: parseInt(document.getElementById('itemQuantity').value)
+    quantity: parseFloat(document.getElementById('itemQuantity').value)
   }];
   return JSON.stringify(result);
 }
@@ -139,7 +139,7 @@ function showErrors(message) {
   }
 }
 
-function removeErrors() {
+function clearErrors() {
   var elems = document.getElementsByTagName('input');
   for (let i = 0; i < elems.length; i++) {
     elems[i].classList.remove('invalid');
@@ -153,7 +153,7 @@ document.getElementById('submitButton').addEventListener('click', function () {
     return;
   }
 
-  removeErrors();
+  clearErrors();
   btn.classList.add('disabled');
   var xhr = new XMLHttpRequest();
   xhr.open('POST', '/generate', true);

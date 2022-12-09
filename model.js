@@ -10,8 +10,9 @@ const isValidInteger = (data, field) => {
   return !!data[field] && Number.isInteger(data[field]) && data[field] > 0 && data[field] <= 100000000;
 }
 
-const isValidNumber = (data, field) => {
-  return !!data[field] && typeof data[field] === 'number' && data[field] > 0 && data[field] <= 100000000;
+const isValidDecimal = (data, field) => {
+  // max 2 decimal places
+  return !!data[field] && typeof data[field] === 'number' && Number.isInteger(data[field] * 100) && data[field] > 0 && data[field] <= 100000000;
 }
 
 const isValidArray = (data, field) => {
@@ -59,8 +60,8 @@ const validateDataModel = (model) => {
       const item = model.items[i];
       if (!isValidString(item, 'description')) invalids.push(`items[${i}].description`);
       if (!isValidString(item, 'unit')) invalids.push(`items[${i}].unit`);
-      if (!isValidNumber(item, 'price')) invalids.push(`items[${i}].price`);
-      if (!isValidInteger(item, 'quantity')) invalids.push(`items[${i}].quantity`);
+      if (!isValidDecimal(item, 'price')) invalids.push(`items[${i}].price`);
+      if (!isValidDecimal(item, 'quantity')) invalids.push(`items[${i}].quantity`);
     }
   }
 
@@ -69,6 +70,10 @@ const validateDataModel = (model) => {
 
 const fullDateFormat = 'DD.MM.YYYY. HH:mm:ss';
 const shortDateFormat = 'DD.MM.YYYY.';
+
+const formatDecimal = (value) => {
+  return value.toString().replace('.', ',');
+}
 
 const buildDataModel = (requestModel) => {
 
@@ -89,17 +94,18 @@ const buildDataModel = (requestModel) => {
   // calculate totals
   model.grandTotal = 0;
   for (let i = 0; i < model.items.length; i++) {
-    const subTotal = parseFloat(model.items[i].price) * parseInt(model.items[i].quantity);
-    model.items[i].subTotal = subTotal.toFixed(2);
+    const raw = parseFloat(model.items[i].price) * parseFloat(model.items[i].quantity);
+    const subTotal = parseFloat(raw.toFixed(2));
+    model.items[i].subTotal = subTotal;
     model.grandTotal += subTotal;
   }
-  model.grandTotal = model.grandTotal.toFixed(2);
-
+  
   // fix decimal commas
-  model.grandTotal = model.grandTotal.replace('.', ',');
+  model.grandTotal = formatDecimal(model.grandTotal);
   for (let i = 0; i < model.items.length; i++) {
-    model.items[i].price = model.items[i].price.toFixed(2).replace('.', ',');
-    model.items[i].subTotal = model.items[i].subTotal.replace('.', ',');
+    model.items[i].price = formatDecimal(model.items[i].price);
+    model.items[i].quantity = formatDecimal(model.items[i].quantity);
+    model.items[i].subTotal = formatDecimal(model.items[i].subTotal);
   }
 
   return model;
