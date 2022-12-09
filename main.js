@@ -30,7 +30,13 @@ const validate = (model) => {
   return errors;
 }
 
-app.post('/generate', async (request, response) => {
+const wrap = fn => (req, res, next) => {
+  return Promise
+      .resolve(fn(req, res, next))
+      .catch(next);
+};
+
+app.post('/generate', wrap(async (request, response) => {
 
   if (!Object.keys(request.body).length) {
     return response.status(400).send({
@@ -75,24 +81,19 @@ app.post('/generate', async (request, response) => {
   response.set('Content-Length', pdf.length);
   response.send(pdf);
 
-});
+}));
 
-app.get('/render', async (request, response) => {
+app.get('/render', wrap(async (request, response) => {
 
   const decoded = hexToString(request.query.data);
   const model = JSON.parse(decoded);
 
   const templatePath = path.join(__dirname, 'template.ejs');
 
-  try {
-    const html = await ejs.renderFile(templatePath, model);
-    return response.send(html);
-  } catch (err) {
-    console.log(err);
-    return response.status(500).send();
-  }
+  const html = await ejs.renderFile(templatePath, model);
+  return response.send(html);
 
-});
+}));
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
