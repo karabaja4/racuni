@@ -46,7 +46,10 @@ app.post('/generate', async (request, response) => {
   }
 
   const model = buildDataModel(request.body);
-  const encoded = stringToHex(JSON.stringify(model));
+  const json = JSON.stringify(model);
+  const encoded = stringToHex(json);
+
+  console.log(`Generating ${json}`);
 
   const browser = await puppeteer.launch({
     executablePath: '/usr/bin/chromium-browser',
@@ -61,7 +64,6 @@ app.post('/generate', async (request, response) => {
   });
 
   await browser.close();
-  console.log(`Generating ${JSON.stringify(model)}`);
 
   response.set('Content-Type', 'application/pdf');
   response.set('Content-Disposition', `attachment; filename=${model.referenceNumber}.pdf`);
