@@ -98,5 +98,5 @@ app.get('/render', wrap(async (request, response) => {
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 app.listen(port, () => {
-  console.log(`The server is running on port ${port}`);
+  console.log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
 });
