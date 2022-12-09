@@ -57,7 +57,12 @@ app.post('/generate', async (request, response) => {
   });
 
   const page = await browser.newPage();
-  await page.goto(`http://localhost:${port}/render?data=${encoded}`);
+  const status = await page.goto(`http://localhost:${port}/render?data=${encoded}`);
+  if (!status.ok()) {
+    console.log(`Failed to render (${status.status()})`);
+    return response.status(500).send();
+  }
+  
   const pdf = await page.pdf({
     format: 'A4',
     printBackground: true
