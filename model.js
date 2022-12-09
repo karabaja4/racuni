@@ -93,9 +93,12 @@ const buildDataModel = (requestModel) => {
   // calculate totals
   model.grandTotal = 0;
   for (let i = 0; i < model.items.length; i++) {
-    const priceRaw = model.items[i].price * 100;
-    const quantityRaw = model.items[i].quantity * 100;
-    const raw = priceRaw * quantityRaw;
+    const praw = model.items[i].price * 100;
+    const qraw = model.items[i].quantity * 100;
+    const raw = praw * qraw;
+    if (!Number.isInteger(praw) || !Number.isInteger(qraw) || !Number.isInteger(raw)) {
+      throw new Error('invalid total calculation');
+    }
     const subTotal = parseFloat((raw / (100 * 100)).toFixed(2));
     model.items[i].subTotal = subTotal;
     model.grandTotal += subTotal;
