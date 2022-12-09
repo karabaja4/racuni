@@ -11,7 +11,6 @@ const isValidInteger = (data, field) => {
 }
 
 const isValidDecimal = (data, field) => {
-  // max 2 decimal places
   return !!data[field] && typeof data[field] === 'number' && Number.isInteger(data[field] * 100) && data[field] > 0 && data[field] <= 100000000;
 }
 
@@ -94,8 +93,10 @@ const buildDataModel = (requestModel) => {
   // calculate totals
   model.grandTotal = 0;
   for (let i = 0; i < model.items.length; i++) {
-    const raw = parseFloat(model.items[i].price) * parseFloat(model.items[i].quantity);
-    const subTotal = parseFloat(raw.toFixed(2));
+    const priceRaw = model.items[i].price * 100;
+    const quantityRaw = model.items[i].quantity * 100;
+    const raw = priceRaw * quantityRaw;
+    const subTotal = parseFloat((raw / (100 * 100)).toFixed(2));
     model.items[i].subTotal = subTotal;
     model.grandTotal += subTotal;
   }
