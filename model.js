@@ -2,16 +2,26 @@ const dayjs = require('dayjs');
 var utc = require('dayjs/plugin/utc')
 dayjs.extend(utc);
 
+const max = 1000000;
+
 const isValidString = (data, field) => {
   return !!data[field] && typeof data[field] === 'string' && data[field].length > 0 && data[field].length <= 200;
 }
 
 const isValidInteger = (data, field) => {
-  return !!data[field] && Number.isInteger(data[field]) && data[field] > 0 && data[field] <= 100000000;
+  return !!data[field] && Number.isInteger(data[field]) && data[field] > 0 && data[field] <= max;
 }
 
 const isValidDecimal = (data, field) => {
-  return !!data[field] && typeof data[field] === 'number' && Number.isInteger(data[field] * 100) && data[field] > 0 && data[field] <= 100000000;
+  if (!data[field] || typeof data[field] !== 'number' || data[field] <= 0 || data[field] > max) {
+    return false;
+  }
+  const str = data[field].toString();
+  const regex = /^[0-9]+(?:\.[0-9]{1,2})?$/;
+  if (!regex.test(str)) {
+    return false;
+  }
+  return true;
 }
 
 const isValidArray = (data, field) => {
@@ -104,12 +114,9 @@ const buildDataModel = (requestModel) => {
   // calculate totals
   model.grandTotal = 0;
   for (let i = 0; i < model.items.length; i++) {
-    const praw = model.items[i].price * 100;
-    const qraw = model.items[i].quantity * 100;
+    const praw = Math.round(model.items[i].price * 100);
+    const qraw = Math.round(model.items[i].quantity * 100);
     const raw = praw * qraw;
-    if (!Number.isInteger(praw) || !Number.isInteger(qraw) || !Number.isInteger(raw)) {
-      throw new Error('invalid total calculation');
-    }
     model.items[i].subTotal = raw;
     model.grandTotal += raw;
   }
