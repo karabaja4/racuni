@@ -30,70 +30,83 @@ const validate = (model) => {
   return errors;
 }
 
-const wrap = fn => (req, res, next) => {
-  return Promise
-      .resolve(fn(req, res, next))
-      .catch(next);
-};
+app.post('/generate', async (request, response) => {
 
-app.post('/generate', wrap(async (request, response) => {
+  try {
 
-  if (!Object.keys(request.body).length) {
-    return response.status(400).send({
-      errors: ['Unable to parse JSON.']
-    });
-  }
-
-  const errors = validate(request.body);
-  if (errors.length) {
-    return response.status(400).send({
-      errors: errors
-    });
-  }
-
-  const model = buildDataModel(request.body);
-  const json = JSON.stringify(model);
-  const encoded = stringToHex(json);
-
-  console.log(`Generating ${json}`);
-
-  const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium-browser',
-    headless: true
-  });
-
-  const page = await browser.newPage();
-  const status = await page.goto(`http://localhost:${port}/render?data=${encoded}`);
-  if (!status.ok()) {
-    console.log(`Failed to render (${status.status()})`);
-    return response.status(500).send();
-  }
+    if (!Object.keys(request.body).length) {
+      return response.status(400).send({
+        errors: ['Unable to parse JSON.']
+      });
+    }
   
-  const pdf = await page.pdf({
-    format: 'A4',
-    printBackground: true
-  });
+    const errors = validate(request.body);
+    if (errors.length) {
+      return response.status(400).send({
+        errors: errors
+      });
+    }
+  
+    const model = buildDataModel(request.body);
+    const json = JSON.stringify(model);
+    const encoded = stringToHex(json);
+  
+    console.log(`Generating ${json}`);
+  
+    const browser = await puppeteer.launch({
+      executablePath: '/usr/bin/chromium-browser',
+      headless: true
+    });
+  
+    const page = await browser.newPage();
+    const status = await page.goto(`http://localhost:${port}/render?data=${encoded}`);
+    if (!status.ok()) {
+      throw new Error(`Failed to render (${status.status()})`);
+    }
+    
+    const pdf = await page.pdf({
+      format: 'A4',
+      printBackground: true
+    });
+  
+    await browser.close();
+  
+    response.set('Content-Type', 'application/pdf');
+    response.set('Content-Disposition', `attachment; filename=${model.referenceNumber}.pdf`);
+    response.set('Content-Length', pdf.length);
+    response.send(pdf);
 
-  await browser.close();
+  } catch (err) {
 
-  response.set('Content-Type', 'application/pdf');
-  response.set('Content-Disposition', `attachment; filename=${model.referenceNumber}.pdf`);
-  response.set('Content-Length', pdf.length);
-  response.send(pdf);
+    console.log(err);
+    return response.status(500).send({
+      errors: ['Internal server error.']
+    });
 
-}));
+  }
 
-app.get('/render', wrap(async (request, response) => {
+});
 
-  const decoded = hexToString(request.query.data);
-  const model = JSON.parse(decoded);
+app.get('/render', async (request, response) => {
 
-  const templatePath = path.join(__dirname, 'template.ejs');
+  try {
 
-  const html = await ejs.renderFile(templatePath, model);
-  return response.send(html);
+    const decoded = hexToString(request.query.data);
+    const model = JSON.parse(decoded);
+  
+    const templatePath = path.join(__dirname, 'template.ejs');
+  
+    const html = await ejs.renderFile(templatePath, model);
+    return response.send(html);
 
-}));
+  } catch (err) {
+
+    console.log(err);
+    return response.status(500).send();
+
+  }
+
+});
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
