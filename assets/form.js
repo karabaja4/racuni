@@ -152,6 +152,15 @@ function clearErrors() {
   }
 }
 
+function arrayBufferToString(buffer) {
+  if (window.TextEncoder) {
+    return new TextDecoder().decode(buffer);
+  }
+  var arr = new Uint8Array(buffer);
+  var str = String.fromCharCode.apply(String, arr);
+  return str;
+}
+
 document.getElementById('submitButton').addEventListener('click', function () {
 
   var btn = this;
@@ -183,7 +192,7 @@ document.getElementById('submitButton').addEventListener('click', function () {
         link.click();
       }
     } else if (this.status === 400) {
-      var decoded = new TextDecoder().decode(this.response);
+      var decoded = arrayBufferToString(this.response);
       showErrors(decoded);
     } else {
       alert('Unexpected error: ' + this.status);
