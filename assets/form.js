@@ -46,8 +46,15 @@ function addInputNumberValidation(ids, validateInteger) {
       event.preventDefault();
     });
     input.addEventListener('paste', function(event) {
-      var clipdata = event.clipboardData || window.clipboardData;
-      var text = clipdata.getData('text/plain');
+      var text = null;
+      if (event.clipboardData && event.clipboardData.getData) {
+        text = event.clipboardData.getData('text/plain');
+      } else if (window.clipboardData && window.clipboardData.getData) { // IE
+        text = window.clipboardData.getData('Text');
+      }
+      if (!text) {
+        event.preventDefault();
+      }
       var regex = /^[0-9]+(?:\.[0-9]{1,2})?$/;
       var validDecimal = regex.test(text);
       if (!validDecimal) {
