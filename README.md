@@ -81,6 +81,15 @@ The response is a binary file (PDF) with HTTP status code 200.
 
 ### Validation and error handling
 
+Validation rules:
+
+* `invoiceId` must be an integer.
+* `invoiceMonth` must be an integer between 1 and 12.
+* `invoiceYear` must be an integer representing a year, but not earlier than last year.
+* `items[].price` must be a decimal with at most 2 decimals, e.g. `400.55`.
+* `items[].quantity` must be a decimal with at most 2 decimals, e.g. `1.75`.
+* All string lengths must be less than or equal to 200 characters.
+
 If there are errors in the request body, the response will return the list of invalid fields, for example:
 
 ```json
@@ -95,4 +104,4 @@ The HTTP status code in this case is 400.
 
 ## Screenshot
 
-![Alt text](https://user-images.githubusercontent.com/1043015/205694080-cbe2198e-09f1-428b-a8ad-af50f9b3cfc4.png)
+![Alt text](https://user-images.githubusercontent.com/1043015/206886295-584a9ce5-bf3c-49af-8a20-dffcc16a888a.png)
