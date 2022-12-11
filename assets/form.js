@@ -38,7 +38,7 @@ function addInputNumberValidation(ids, validateInteger) {
         return;
       }
       if (!validateInteger) {
-        var validDot = event.key === '.' && (this.value !== '' && this.value.indexOf('.') === -1);
+        var validDot = event.key === '.' && (this.value !== '' && this.value.indexOf('.') === -1) && this.selectionStart > 0;
         if (validDot) {
           return;
         }
@@ -88,17 +88,17 @@ window.addEventListener('load', function() {
     var parsed = JSON.parse(json);
     for (var i = 0; i < inputIds.length; i++) {
       var inputId = inputIds[i];
-      var value = parsed[inputId];
-      if (value !== null && value !== undefined) {
-        document.getElementById(inputId).value = value;
+      var v = parsed[inputId];
+      if (v !== null && v !== undefined) {
+        document.getElementById(inputId).value = v;
       }
     }
-    for (var i = 0; i < itemInputIds.length; i++) {
-      var itemInputId = itemInputIds[i];
+    for (var j = 0; j < itemInputIds.length; j++) {
+      var itemInputId = itemInputIds[j];
       var realId = itemInputId.replace('item', '').toLowerCase();
-      var value = parsed.items[0][realId];
-      if (value !== null && value !== undefined) {
-        document.getElementById(itemInputId).value = value;
+      var iv = parsed.items[0][realId];
+      if (iv !== null && iv !== undefined) {
+        document.getElementById(itemInputId).value = iv;
       }
     }
   }
@@ -125,7 +125,7 @@ function getJson() {
 
 function showErrors(message) {
   var parsed = JSON.parse(message);
-  for (let i = 0; i < parsed.errors.length; i++) {
+  for (var i = 0; i < parsed.errors.length; i++) {
     var field = parsed.errors[i].split(' ')[1];
     if (field.indexOf('items[0].') > -1) {
       field = field.replace('items[0].', '');
@@ -141,7 +141,7 @@ function showErrors(message) {
 
 function clearErrors() {
   var elems = document.getElementsByTagName('input');
-  for (let i = 0; i < elems.length; i++) {
+  for (var i = 0; i < elems.length; i++) {
     elems[i].classList.remove('invalid');
   }
 }
