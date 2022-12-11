@@ -46,7 +46,13 @@ function addInputNumberValidation(ids, validateInteger) {
       event.preventDefault();
     });
     input.addEventListener('paste', function(event) {
-      event.preventDefault();
+      var clipdata = event.clipboardData || window.clipboardData;
+      var text = clipdata.getData('text/plain');
+      var regex = /^[0-9]+(?:\.[0-9]{1,2})?$/;
+      var validDecimal = regex.test(text);
+      if (!validDecimal) {
+        event.preventDefault();
+      }
     });
   }
 }
