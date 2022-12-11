@@ -52,7 +52,7 @@ function addInputNumberValidation(ids, validateInteger) {
       var text = null;
       if (event.clipboardData && event.clipboardData.getData) {
         text = event.clipboardData.getData('text/plain');
-      } else if (window.clipboardData && window.clipboardData.getData) { // IE
+      } else if (window.clipboardData && window.clipboardData.getData) {
         text = window.clipboardData.getData('Text');
       }
       if (!text) {
