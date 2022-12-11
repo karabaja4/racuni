@@ -38,7 +38,10 @@ function addInputNumberValidation(ids, validateInteger) {
         return;
       }
       if (!validateInteger) {
-        var validDot = event.key === '.' && (this.value !== '' && this.value.indexOf('.') === -1) && this.selectionStart > 0;
+        var validDot = event.key === '.' &&
+                       this.value !== '' &&
+                       this.value.indexOf('.') === -1 &&
+                       this.selectionStart > 0;
         if (validDot) {
           return;
         }
@@ -101,17 +104,17 @@ window.addEventListener('load', function() {
     var parsed = JSON.parse(json);
     for (var i = 0; i < inputIds.length; i++) {
       var inputId = inputIds[i];
-      var v = parsed[inputId];
-      if (v !== null && v !== undefined) {
-        document.getElementById(inputId).value = v;
+      var val = parsed[inputId];
+      if (val !== null && val !== undefined) {
+        document.getElementById(inputId).value = val;
       }
     }
     for (var j = 0; j < itemInputIds.length; j++) {
       var itemInputId = itemInputIds[j];
       var realId = itemInputId.replace('item', '').toLowerCase();
-      var iv = parsed.items[0][realId];
-      if (iv !== null && iv !== undefined) {
-        document.getElementById(itemInputId).value = iv;
+      var ival = parsed.items[0][realId];
+      if (ival !== null && ival !== undefined) {
+        document.getElementById(itemInputId).value = ival;
       }
     }
   }
