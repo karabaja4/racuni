@@ -45,6 +45,7 @@ body {
     color: #FFFFFF;
     text-decoration: none;
     display: inline-block;
+    white-space: nowrap;
 }
 
 .title-links a img {
