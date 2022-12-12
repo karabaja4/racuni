@@ -3,7 +3,7 @@ body {
     font-size: 0;
     background-color: #FAFAFA;
     margin: 0;
-    width: 440px;
+    min-width: 440px;
 }
 
 .header {
