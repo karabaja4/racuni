@@ -53,7 +53,7 @@ function addInputNumberValidation(ids, validateInteger) {
       if (event.clipboardData && event.clipboardData.getData) {
         text = event.clipboardData.getData('text/plain');
       } else if (window.clipboardData && window.clipboardData.getData) {
-        text = window.clipboardData.getData('Text');
+        text = window.clipboardData.getData('Text'); // IE
       }
       if (!text) {
         event.preventDefault();
@@ -166,6 +166,7 @@ function arrayBufferToString(buffer) {
   if (window.TextEncoder) {
     return new TextDecoder().decode(buffer);
   }
+  // IE
   var arr = new Uint8Array(buffer);
   var str = String.fromCharCode.apply(String, arr);
   return str;
@@ -194,7 +195,7 @@ document.getElementById('submitButton').addEventListener('click', function () {
       var blob = new Blob([this.response], { type: 'application/pdf' });
       var filename = parsed.invoiceYear + '-' + parsed.invoiceId + '-1-1.pdf';
       if (window.navigator && window.navigator.msSaveBlob) {
-        window.navigator.msSaveBlob(blob, filename);
+        window.navigator.msSaveBlob(blob, filename); // IE
       } else {
         var link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
