@@ -86,6 +86,7 @@ Validation rules:
 * `invoiceId` must be an integer.
 * `invoiceMonth` must be an integer between 1 and 12.
 * `invoiceYear` must be an integer representing a year, but not earlier than last year.
+* `items[]` array can contain at most 5 items.
 * `items[].price` must be a decimal with at most 2 decimals, e.g. `400.55`.
 * `items[].quantity` must be a decimal with at most 2 decimals, e.g. `1.75`.
 * All string lengths must be less than or equal to 200 characters.
