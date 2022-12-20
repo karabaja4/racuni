@@ -105,7 +105,7 @@ const buildDataModel = (requestModel) => {
 
   // enrich model
   model.invoiceNumber = fin;
-  model.invoiceDate = now.format(fullDateFormat);
+  model.invoiceDate = now.subtract(3, 'hour').format(fullDateFormat);
   model.placeOfIssue = `${model.sellerCity}, ${model.sellerCountry}`;
   model.deliveryDate = eom.format(shortDateFormat);
   model.dueDate = eom.add(15, 'day').format(shortDateFormat);
