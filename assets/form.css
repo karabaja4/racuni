@@ -63,7 +63,9 @@ body {
 
 .title-links a img {
     vertical-align: top;
-    padding: 16px 3px 16px 3px;
+    margin: 16px 6px 16px 6px;
+    width: 16px;
+    height: 16px;
 }
 
 .title-links a div {
