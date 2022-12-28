@@ -109,7 +109,7 @@ app.get('/render', async (request, response) => {
 });
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-app.get('/favicon.ico', (request, response) => response.status(204));
+app.get('/favicon.ico', (request, response) => response.status(204).send());
 
 app.listen(port, () => {
   console.log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
