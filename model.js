@@ -95,6 +95,12 @@ const formatDecimal = (amount) => {
   }).format(amount);
 };
 
+const isMine = (model) => {
+  const svat = model.sellerVatNumber.replace(/\s/g, '').toUpperCase();
+  const bvat = model.buyerVatNumber.replace(/\s/g, '').toUpperCase();
+  return svat === 'HR21522318070' && bvat === 'IE9697486B';
+};
+
 const buildDataModel = (requestModel) => {
 
   const model = JSON.parse(JSON.stringify(requestModel));
@@ -102,10 +108,11 @@ const buildDataModel = (requestModel) => {
   const now = dayjs().utc();
   const eom = dayjs().year(model.invoiceYear).month(model.invoiceMonth - 1).endOf('month');
   const fin = `${model.invoiceId}-1-1`;
+  const mine = isMine(model);
 
   // enrich model
   model.invoiceNumber = fin;
-  model.invoiceDate = now.subtract(3, 'hour').format(fullDateFormat);
+  model.invoiceDate = mine ? now.subtract(3, 'hour').format(fullDateFormat) : now.format(fullDateFormat);
   model.placeOfIssue = `${model.sellerCity}, ${model.sellerCountry}`;
   model.deliveryDate = eom.format(shortDateFormat);
   model.dueDate = eom.add(15, 'day').format(shortDateFormat);
@@ -121,7 +128,7 @@ const buildDataModel = (requestModel) => {
     model.grandTotal += raw;
   }
   
-  // fix decimal commas
+  // format money
   model.grandTotal = formatMoney(model.grandTotal, 10000);
   for (let i = 0; i < model.items.length; i++) {
     model.items[i].price = formatMoney(model.items[i].price, null);
