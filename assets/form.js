@@ -80,13 +80,13 @@ var integerIds = [
   'invoiceYear'
 ];
 
-var floatIds = [
+var decimalIds = [
   'itemPrice',
   'itemQuantity'
 ];
 
 addInputNumberValidation(integerIds, false);
-addInputNumberValidation(floatIds, true);
+addInputNumberValidation(decimalIds, true);
 
 function lsGet(key) {
   try {
