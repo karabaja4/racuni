@@ -28,16 +28,24 @@ var itemInputIds = [
   'itemQuantity'
 ];
 
-function addInputNumberValidation(ids, validateInteger) {
+function isValidInteger(value) {
+  var regex = /^[0-9]+$/i;
+  return regex.test(value);
+}
+
+function isValidDecimal(value) {
+  var regex = /^[0-9]+(?:\.[0-9]{1,2})?$/i;
+  return regex.test(value);
+}
+
+function addInputNumberValidation(ids, isDecimal) {
   for (var i = 0; i < ids.length; i++) {
     var input = document.getElementById(ids[i]);
     input.addEventListener('keypress', function(event) {
-      var regex = /^[0-9]$/i;
-      var validNumber = regex.test(event.key);
-      if (validNumber) {
+      if (isValidInteger(event.key)) {
         return;
       }
-      if (!validateInteger) {
+      if (isDecimal) {
         var validDot = event.key === '.' &&
                        this.value !== '' &&
                        this.value.indexOf('.') === -1 &&
@@ -58,9 +66,8 @@ function addInputNumberValidation(ids, validateInteger) {
       if (!text) {
         event.preventDefault();
       }
-      var regex = /^[0-9]+(?:\.[0-9]{1,2})?$/;
-      var validDecimal = regex.test(text);
-      if (!validDecimal) {
+      var isValid = isDecimal ? isValidDecimal(text) : isValidInteger(text);
+      if (!isValid) {
         event.preventDefault();
       }
     });
@@ -78,8 +85,8 @@ var floatIds = [
   'itemQuantity'
 ];
 
-addInputNumberValidation(integerIds, true);
-addInputNumberValidation(floatIds, false);
+addInputNumberValidation(integerIds, false);
+addInputNumberValidation(floatIds, true);
 
 function lsGet(key) {
   try {
