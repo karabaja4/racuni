@@ -34,7 +34,7 @@ const validateDataModel = (model) => {
   if (!model) invalids.push('body');
   if (!isValidInteger(model, 'invoiceId')) invalids.push('invoiceId');
   if (!isValidInteger(model, 'invoiceMonth') || model.invoiceMonth > 12) invalids.push('invoiceMonth');
-  if (!isValidInteger(model, 'invoiceYear') || model.invoiceYear < (dayjs().utc().year() - 1)) invalids.push('invoiceYear');
+  if (!isValidInteger(model, 'invoiceYear') || model.invoiceYear < (dayjs().utc().year() - 1) || model.invoiceYear > 2100) invalids.push('invoiceYear');
 
   if (model.logoUrl && !model.logoUrl.startsWith('http://') && !model.logoUrl.startsWith('https://')) {
     invalids.push('logoUrl');
