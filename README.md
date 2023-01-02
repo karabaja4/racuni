@@ -22,16 +22,16 @@ Use at your own risk, under the conditions of [MIT licence](https://github.com/k
 
 API is available for public use:
 
-**Endpoint**
+**Url**
+```nginx
+POST https://racuni.aerium.hr/generate
 ```
-HTTP Method
-POST
 
-URL
-https://racuni.aerium.hr/generate
-
-Headers
-Content-Type: application/json
+**Headers**
+```json
+{
+  "Content-Type": "application/json"
+}
 ```
 
 **Body (JSON)**
