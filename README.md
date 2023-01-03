@@ -1,4 +1,4 @@
-# Računi (Invoices)
+# 📝 Računi (Invoices)
 
 ### Croatian
 
