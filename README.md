@@ -79,7 +79,7 @@ POST https://racuni.aerium.hr/generate
 ```
 The response is a binary file (PDF) with HTTP status code 200.
 
-### ✅ Validation and error handling
+### Validation and error handling
 
 Validation rules:
 
