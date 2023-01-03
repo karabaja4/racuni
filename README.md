@@ -103,6 +103,6 @@ If there are errors in the request body, the response will return the list of in
 ```
 The HTTP status code in this case is 400.
 
-## 💻 Screenshot
+## Screenshot
 
 ![Alt text](https://user-images.githubusercontent.com/1043015/210459104-2bdcd361-4271-47a8-acdc-71ccdea5d373.png)
