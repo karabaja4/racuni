@@ -41,7 +41,7 @@ POST https://racuni.aerium.hr/generate
   "invoiceMonth": 4,
   "invoiceYear": 2022,
   
-  "logoUrl": "https://avacyn.aerium.hr/stuff/oblak.svg",
+  "logoUrl": "https://avacyn.aerium.hr/radiance/oblak.svg",
   
   "sellerName": "Oblak d.o.o.",
   "sellerStreet": "Trg Bana Jelačića 1",
@@ -65,13 +65,13 @@ POST https://racuni.aerium.hr/generate
     {
       "description": "Software Development",
       "unit": "dan (day)",
-      "price": 400,
+      "price": 420,
       "quantity": 6
     },
     {
       "description": "Technical Support",
       "unit": "dan (day)",
-      "price": 400,
+      "price": 69,
       "quantity": 5
     }
   ]
@@ -105,4 +105,4 @@ The HTTP status code in this case is 400.
 
 ## Screenshot
 
-![Alt text](https://user-images.githubusercontent.com/1043015/209738631-46230f36-161a-402f-9955-7e40ab2d6147.png)
+![Alt text](https://user-images.githubusercontent.com/1043015/210459104-2bdcd361-4271-47a8-acdc-71ccdea5d373.png)
