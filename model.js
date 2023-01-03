@@ -118,6 +118,13 @@ const buildDataModel = (requestModel) => {
   model.dueDate = eom.add(15, 'day').format(shortDateFormat);
   model.referenceNumber = `${model.invoiceYear}-${fin}`;
 
+  // Dublin has postcode after city, e.g. "Dublin 7"
+  if (model.buyerCity.toLowerCase() === 'dublin') {
+    const pc = model.buyerPostCode;
+    model.buyerPostCode = model.buyerCity;
+    model.buyerCity = pc;
+  }
+
   // calculate totals
   model.grandTotal = 0;
   for (let i = 0; i < model.items.length; i++) {
