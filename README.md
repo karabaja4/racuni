@@ -1,6 +1,6 @@
 # 📝 Računi (Invoices)
 
-### Croatian
+### 🌍 Croatian
 
 Generiranje računa za hrvatsku tvrtku, u sustavu PDV-a, za usluge izvan Hrvatske (unutar ili izvan EU).
 
@@ -10,7 +10,7 @@ Korištenje na vlastitu odgovornost, pod uvjetima [MIT licence](https://github.c
 
 ***
 
-### English
+### 🌍 English
 
 Invoice generation for a Croatian company, VAT registered, for services outside Croatia (inside or outside EU).
 
@@ -18,7 +18,7 @@ The application is available on: https://racuni.aerium.hr
 
 Use at your own risk, under the conditions of [MIT licence](https://github.com/karabaja4/racuni/blob/master/LICENSE).
 
-## API Documentation
+## 🔌 API Documentation
 
 API is available for public use:
 
@@ -79,7 +79,7 @@ POST https://racuni.aerium.hr/generate
 ```
 The response is a binary file (PDF) with HTTP status code 200.
 
-### Validation and error handling
+### ✅ Validation and error handling
 
 Validation rules:
 
@@ -103,6 +103,6 @@ If there are errors in the request body, the response will return the list of in
 ```
 The HTTP status code in this case is 400.
 
-## Screenshot
+## 📷 Screenshot
 
 ![Alt text](https://user-images.githubusercontent.com/1043015/210459104-2bdcd361-4271-47a8-acdc-71ccdea5d373.png)
