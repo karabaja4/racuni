@@ -105,4 +105,4 @@ The HTTP status code in this case is 400.
 
 ## 📸 Screenshot
 
-![Alt text](https://user-images.githubusercontent.com/1043015/210465247-e4c75831-ef97-4719-bc6b-6dc4fbebf23d.png)
+![Alt text](https://user-images.githubusercontent.com/1043015/210459104-2bdcd361-4271-47a8-acdc-71ccdea5d373.png)
