@@ -106,6 +106,8 @@ The HTTP status code in this case is 400.
 ## 📸 Screenshot
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/1043015/210465514-c3649046-db31-4226-b094-36326b2d3795.png">
+  <picture>
+    <img src="https://user-images.githubusercontent.com/1043015/210465514-c3649046-db31-4226-b094-36326b2d3795.png">
+  </picture>
 </p>
 
