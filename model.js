@@ -97,8 +97,7 @@ const formatDecimal = (amount) => {
 
 const isMine = (model) => {
   const svat = model.sellerVatNumber.replace(/\s/g, '').toUpperCase();
-  const bvat = model.buyerVatNumber.replace(/\s/g, '').toUpperCase();
-  return svat === 'HR21522318070' && bvat === 'IE9697486B';
+  return svat === 'HR21522318070';
 };
 
 const buildDataModel = (requestModel) => {
@@ -112,7 +111,7 @@ const buildDataModel = (requestModel) => {
 
   // enrich model
   model.invoiceNumber = fin;
-  model.invoiceDate = mine ? now.subtract(6, 'hour').format(fullDateFormat) : now.format(fullDateFormat);
+  model.invoiceDate = mine ? eom.startOf('day').add(12, 'hour').format(fullDateFormat) : now.format(fullDateFormat);
   model.placeOfIssue = `${model.sellerCity}, ${model.sellerCountry}`;
   model.deliveryDate = eom.format(shortDateFormat);
   model.dueDate = eom.add(15, 'day').format(shortDateFormat);
