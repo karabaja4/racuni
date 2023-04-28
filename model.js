@@ -105,13 +105,13 @@ const buildDataModel = (requestModel) => {
   const model = JSON.parse(JSON.stringify(requestModel));
 
   const now = dayjs().utc();
-  const eom = dayjs().year(model.invoiceYear).month(model.invoiceMonth - 1).endOf('month');
+  const eom = dayjs().utc().year(model.invoiceYear).month(model.invoiceMonth - 1).endOf('month');
   const fin = `${model.invoiceId}-1-1`;
   const mine = isMine(model);
 
   // enrich model
   model.invoiceNumber = fin;
-  model.invoiceDate = mine ? eom.startOf('day').add(16, 'hour').format(fullDateFormat) : now.format(fullDateFormat);
+  model.invoiceDate = (mine && now.isAfter(eom)) ? eom.startOf('day').add(16, 'hour').format(fullDateFormat) : now.format(fullDateFormat);
   model.placeOfIssue = `${model.sellerCity}, ${model.sellerCountry}`;
   model.deliveryDate = eom.format(shortDateFormat);
   model.dueDate = eom.add(15, 'day').format(shortDateFormat);
