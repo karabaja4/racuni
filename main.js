@@ -55,7 +55,7 @@ app.post('/generate', async (request, response) => {
   
     const browser = await puppeteer.launch({
       executablePath: '/usr/bin/chromium-browser',
-      headless: 'new'
+      headless: true
     });
   
     const page = await browser.newPage();
