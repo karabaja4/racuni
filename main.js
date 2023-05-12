@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer-core');
 const express = require('express');
 const ejs = require('ejs');
 const path = require('path');
