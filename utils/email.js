@@ -54,7 +54,7 @@ const main = async () => {
     }
   }
   if (invoices.length !== 1) {
-    error('More than one invoice found!');
+    error('Cannot find a single invoice!');
   }
 
   // process
