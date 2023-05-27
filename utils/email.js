@@ -47,8 +47,7 @@ const main = async () => {
       const lines = data.text.split('\n').filter(x => x);
       if (lines[0] === 'Račun (Invoice)') {
         invoices.push({
-          filename: filename,
-          fullpath: fullpath,
+          path: fullpath,
           lines: lines
         });
       }
@@ -102,8 +101,8 @@ const main = async () => {
       email.subject = email.subject.replace(`{${key}}`, dict[key]);
     }
     email.attachments = [{
-      filename: invoice.filename,
-      path: invoice.fullpath
+      filename: path.basename(invoice.path),
+      path: invoice.path
     }];
     await send(email);
   }
