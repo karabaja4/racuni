@@ -2,3 +2,4 @@ node_modules/
 my-fance-invoice.pdf
 .vscode/
 package-lock.json
+emails.json
