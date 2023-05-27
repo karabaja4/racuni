@@ -69,13 +69,17 @@ const main = async () => {
   }
 
   const invoice = invoices[0];
+
+  const amount = getValue(invoice.lines, 'Ukupan iznos naplate (Grand total): ');
+  const invoiceNumber = getValue(invoice.lines, 'Broj računa (Invoice number):');
   const dateText = getValue(invoice.lines, 'Datum isporuke (Delivery date):');
+
+  console.log(chalk.blue(`Invoice ${invoiceNumber} for ${amount}`));
+ 
   const date = dayjs(dateText, 'DD.MM.YYYY.');
   if (!date.isValid()) {
     error('Cannot parse delivery date!');
   }
-
-  const invoiceNumber = getValue(invoice.lines, 'Broj računa (Invoice number):');
 
   const dict = {
     monthnumber: date.month() + 1,
