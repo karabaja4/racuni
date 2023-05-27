@@ -136,7 +136,7 @@ const send = async (email) => {
     };
     const transporter = nodemailer.createTransport(transport);
     const info = await transporter.sendMail(mail);
-    console.log(chalk.red(`Message sent to ${email.recipient}\n${info.messageId}`));
+    console.log(chalk.blue(`Message sent to ${email.recipient}\n${info.messageId}`));
   } else {
     console.log(chalk.red('Email NOT sent.'));
   }
