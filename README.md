@@ -18,7 +18,7 @@ The application is available on: https://racuni.aerium.hr
 
 Use at your own risk, under the conditions of [MIT licence](https://github.com/karabaja4/racuni/blob/master/LICENSE).
 
-## 🔌 API Documentation
+## API Documentation
 
 API is available for public use:
 
@@ -103,7 +103,7 @@ If there are errors in the request body, the response will return the list of in
 ```
 The HTTP status code in this case is 400.
 
-## 📸 Screenshot
+## Screenshot
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/1043015/210465514-c3649046-db31-4226-b094-36326b2d3795.png">
