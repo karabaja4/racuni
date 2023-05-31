@@ -164,3 +164,9 @@ input[type=number] {
     color: #EEEEEE;
     cursor: default;
 }
+
+.monster {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
