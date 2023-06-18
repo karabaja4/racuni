@@ -105,7 +105,7 @@ const buildDataModel = (requestModel) => {
   const model = JSON.parse(JSON.stringify(requestModel));
 
   const now = dayjs().utc();
-  const eom = now.year(model.invoiceYear).month(model.invoiceMonth - 1).endOf('month');
+  const eom = dayjs().utc().year(model.invoiceYear).month(model.invoiceMonth - 1).endOf('month');
   const fin = `${model.invoiceId}-1-1`;
   const mine = isMine(model);
 
