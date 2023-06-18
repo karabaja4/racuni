@@ -9,6 +9,11 @@ const port = 33198;
 
 app.use(express.json());
 
+const log = (message) => {
+  var date = (new Date()).toISOString();
+  console.log(`[${date}] ${message}`);
+}
+
 app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, '/form.html'));
 });
@@ -51,7 +56,7 @@ app.post('/generate', async (request, response) => {
     const json = JSON.stringify(model);
     const encoded = stringToHex(json);
   
-    console.log(`Generating ${json}`);
+    log(`Generating: ${json}`);
   
     const browser = await puppeteer.launch({
       executablePath: '/usr/bin/chromium-browser',
@@ -78,7 +83,7 @@ app.post('/generate', async (request, response) => {
 
   } catch (err) {
 
-    console.log(err);
+    log(err.stack);
     return response.status(500).send({
       errors: ['Internal server error.']
     });
@@ -101,7 +106,7 @@ app.get('/render', async (request, response) => {
 
   } catch (err) {
 
-    console.log(err);
+    log(err.stack);
     return response.status(500).send();
 
   }
@@ -112,5 +117,5 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.get('/favicon.ico', (request, response) => response.status(204).send());
 
 app.listen(port, () => {
-  console.log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
+  log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
 });
