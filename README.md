@@ -4,7 +4,7 @@
 
 Generiranje računa za hrvatsku tvrtku, u sustavu PDV-a, za usluge izvan Hrvatske (unutar ili izvan EU).
 
-Aplikacija dostupna na: https://racuni.aerium.hr
+Aplikacija dostupna na: https://racuni.radiance.hr
 
 Korištenje na vlastitu odgovornost, pod uvjetima [MIT licence](https://github.com/karabaja4/racuni/blob/master/LICENSE).
 
@@ -14,7 +14,7 @@ Korištenje na vlastitu odgovornost, pod uvjetima [MIT licence](https://github.c
 
 Invoice generation for a Croatian company, VAT registered, for services outside Croatia (inside or outside EU).
 
-The application is available on: https://racuni.aerium.hr
+The application is available on: https://racuni.radiance.hr
 
 Use at your own risk, under the conditions of [MIT licence](https://github.com/karabaja4/racuni/blob/master/LICENSE).
 
@@ -24,7 +24,7 @@ API is available for public use:
 
 **Url**
 ```nginx
-POST https://racuni.aerium.hr/generate
+POST https://racuni.radiance.hr/generate
 ```
 
 **Headers**
@@ -41,7 +41,7 @@ POST https://racuni.aerium.hr/generate
   "invoiceMonth": 4,
   "invoiceYear": 2022,
   
-  "logoUrl": "https://avacyn.aerium.hr/radiance/oblak.svg",
+  "logoUrl": "https://avacyn.radiance.hr/radiance/oblak.svg",
   
   "sellerName": "Oblak d.o.o.",
   "sellerStreet": "Trg Bana Jelačića 1",
