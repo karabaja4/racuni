@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer-core');
 const express = require('express');
 const ejs = require('ejs');
-const path = require('path');
+const path = require('node:path');
 const app = express();
 const { validateDataModel, buildDataModel } = require('./model');
 
