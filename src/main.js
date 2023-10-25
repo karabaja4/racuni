@@ -1,7 +1,10 @@
+const path = require('node:path');
+const crypto = require('node:crypto');
+const fs = require('node:fs');
+const os = require('node:os');
 const puppeteer = require('puppeteer-core');
 const express = require('express');
 const ejs = require('ejs');
-const path = require('node:path');
 const app = express();
 const { validateDataModel, buildDataModel } = require('./model');
 
@@ -12,19 +15,11 @@ app.use(express.json());
 const log = (message) => {
   var date = (new Date()).toISOString();
   console.log(`[${date}] ${message}`);
-}
+};
 
 app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, '/form.html'));
 });
-
-const stringToHex = (str) => {
-  return Buffer.from(str, 'utf8').toString('hex');
-}
-
-const hexToString = (hex) => {
-  return Buffer.from(hex, 'hex').toString('utf8');
-}
 
 const validate = (model) => {
   const errors = [];
@@ -33,7 +28,12 @@ const validate = (model) => {
     errors.push(`Field ${invalids[i]} is invalid.`);
   }
   return errors;
-}
+};
+
+const getJsonPath = (json) => {
+  const hash = crypto.createHash('sha256').update(json).digest('hex');
+  return path.join(os.tmpdir(), `${hash}.json`);
+};
 
 app.post('/generate', async (request, response) => {
 
@@ -54,9 +54,11 @@ app.post('/generate', async (request, response) => {
   
     const model = buildDataModel(request.body);
     const json = JSON.stringify(model);
-    const encoded = stringToHex(json);
-  
+
     log(`Generating: ${json}`);
+    const jsonPath = getJsonPath(json);
+    await fs.promises.writeFile(jsonPath, json);
+    log(`Saved to: ${jsonPath}`);
   
     const browser = await puppeteer.launch({
       executablePath: '/usr/bin/chromium-browser',
@@ -64,7 +66,7 @@ app.post('/generate', async (request, response) => {
     });
   
     const page = await browser.newPage();
-    const status = await page.goto(`http://localhost:${port}/render?data=${encoded}`);
+    const status = await page.goto(`http://localhost:${port}/render?path=${encodeURIComponent(jsonPath)}`);
     if (!status.ok()) {
       throw new Error(`Failed to render (${status.status()})`);
     }
@@ -95,9 +97,8 @@ app.post('/generate', async (request, response) => {
 app.get('/render', async (request, response) => {
 
   try {
-
-    const decoded = hexToString(request.query.data);
-    const model = JSON.parse(decoded);
+    const json = await fs.promises.readFile(request.query.path);
+    const model = JSON.parse(json);
   
     const templatePath = path.join(__dirname, 'template.ejs');
   

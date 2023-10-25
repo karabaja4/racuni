@@ -1,5 +1,6 @@
+const hex = require('./hex');
 const dayjs = require('dayjs');
-var utc = require('dayjs/plugin/utc')
+const utc = require('dayjs/plugin/utc');
 dayjs.extend(utc);
 
 const max = 1000000;
@@ -95,9 +96,12 @@ const formatDecimal = (amount) => {
   }).format(amount);
 };
 
+const formatVat = (vatNumber) => {
+  return vatNumber.replace(/\s/g, '').toUpperCase();
+};
+
 const isMine = (model) => {
-  const svat = model.sellerVatNumber.replace(/\s/g, '').toUpperCase();
-  return svat === 'HR21522318070';
+  return formatVat(model.sellerVatNumber) === 'HR21522318070';
 };
 
 const buildDataModel = (requestModel) => {
@@ -133,6 +137,14 @@ const buildDataModel = (requestModel) => {
     model.items[i].subTotal = raw;
     model.grandTotal += raw;
   }
+
+  // show barcode only for croatian customers
+  const buyerFrom = model.buyerCountry.toLowerCase();
+  if (formatVat(model.buyerVatNumber).startsWith("HR") || buyerFrom.includes("hrvatska") || buyerFrom.includes("croatia")) {
+    model.barcodeData = buildBarcodeData(Math.round(model.grandTotal / 100), model);
+  } else {
+    model.barcodeData = null;
+  }
   
   // format money
   model.grandTotal = formatMoney(model.grandTotal, 10000);
@@ -143,6 +155,30 @@ const buildDataModel = (requestModel) => {
   }
 
   return model;
+}
+
+const bcrow = (text, limit) => {
+  return text.toUpperCase().substring(0, limit) + '\n';
+};
+
+// https://avacyn.radiance.hr/stuff/2DBK_EUR_Uputa_1.pdf
+const buildBarcodeData = (amount, model) => {
+  let data = '';
+  data += bcrow('HRVHUB30', 8);                                          // 8
+  data += bcrow('EUR', 3);                                               // 3
+  data += bcrow(amount.toString().padStart(15, '0'), 15);                // 15
+  data += bcrow(model.buyerName, 30);                                    // 30
+  data += bcrow(model.buyerStreet, 27);                                  // 27
+  data += bcrow(`${model.buyerPostCode} ${model.buyerCity}`, 27);        // 27
+  data += bcrow(model.sellerName, 25);                                   // 25
+  data += bcrow(model.sellerStreet, 25);                                 // 25
+  data += bcrow(`${model.sellerPostCode} ${model.sellerCity}`, 27);      // 27
+  data += bcrow(model.sellerIBAN, 21);                                   // 21
+  data += bcrow('HR00', 4);                                              // 4
+  data += bcrow(`${dayjs().format('DDMMYYYY')}-${model.invoiceId}`, 22); // 22
+  data += bcrow('', 4);                                                  // 4
+  data += bcrow(`RAČUN ${model.invoiceNumber}`, 35);                     // 35
+  return hex.stringToHex(data.trim());
 }
 
 module.exports = {
