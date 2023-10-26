@@ -141,7 +141,7 @@ const buildDataModel = (requestModel) => {
   // show barcode only for croatian customers
   const buyerFrom = model.buyerCountry.toLowerCase();
   if (formatVat(model.buyerVatNumber).startsWith("HR") || buyerFrom.includes("hrvatska") || buyerFrom.includes("croatia")) {
-    model.barcodeData = buildBarcodeData(Math.round(model.grandTotal / 100), model);
+    model.barcodeData = buildBarcodeData(model);
   } else {
     model.barcodeData = null;
   }
@@ -162,7 +162,9 @@ const bcrow = (text, limit) => {
 };
 
 // https://avacyn.radiance.hr/stuff/2DBK_EUR_Uputa_1.pdf
-const buildBarcodeData = (amount, model) => {
+const buildBarcodeData = (model) => {
+  // grandTotal is multiplied by 10000 here
+  const amount = Math.round(model.grandTotal / 100);
   let data = '';
   data += bcrow('HRVHUB30', 8);                                          // 8
   data += bcrow('EUR', 3);                                               // 3
