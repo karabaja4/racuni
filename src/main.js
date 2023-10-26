@@ -1,7 +1,5 @@
 const path = require('node:path');
 const crypto = require('node:crypto');
-const fs = require('node:fs');
-const os = require('node:os');
 const puppeteer = require('puppeteer-core');
 const express = require('express');
 const ejs = require('ejs');
@@ -30,9 +28,10 @@ const validate = (model) => {
   return errors;
 };
 
-const getJsonPath = (json) => {
-  const hash = crypto.createHash('sha256').update(json).digest('hex');
-  return path.join(os.tmpdir(), `${hash}.json`);
+const jsonStore = {};
+
+const getJsonHash = (json) => {
+  return crypto.createHash('sha256').update(json).digest('hex');
 };
 
 app.post('/generate', async (request, response) => {
@@ -56,9 +55,8 @@ app.post('/generate', async (request, response) => {
     const json = JSON.stringify(model);
 
     log(`Generating: ${json}`);
-    const jsonPath = getJsonPath(json);
-    await fs.promises.writeFile(jsonPath, json);
-    log(`Saved to: ${jsonPath}`);
+    const jsonHash = getJsonHash(json);
+    jsonStore[jsonHash] = json;
   
     const browser = await puppeteer.launch({
       executablePath: '/usr/bin/chromium-browser',
@@ -66,7 +64,7 @@ app.post('/generate', async (request, response) => {
     });
   
     const page = await browser.newPage();
-    const status = await page.goto(`http://localhost:${port}/render?path=${encodeURIComponent(jsonPath)}`);
+    const status = await page.goto(`http://localhost:${port}/render?hash=${jsonHash}`);
     if (!status.ok()) {
       throw new Error(`Failed to render (${status.status()})`);
     }
@@ -97,7 +95,12 @@ app.post('/generate', async (request, response) => {
 app.get('/render', async (request, response) => {
 
   try {
-    const json = await fs.promises.readFile(request.query.path);
+    const jsonHash = request.query.hash;
+    const json = jsonStore[jsonHash];
+    if (!json) {
+      throw new Error(`JSON with ${jsonHash} not found.`);
+    }
+    delete jsonStore[jsonHash];
     const model = JSON.parse(json);
   
     const templatePath = path.join(__dirname, 'template.ejs');
