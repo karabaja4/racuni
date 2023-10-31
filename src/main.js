@@ -20,7 +20,7 @@ if (production) {
     standardHeaders: true,
     legacyHeaders: false
   });
-  app.use(limit);
+  app.use('/generate', limit);
 }
 
 app.use(express.json());
