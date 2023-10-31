@@ -1,12 +1,27 @@
 const path = require('node:path');
 const crypto = require('node:crypto');
+
 const puppeteer = require('puppeteer-core');
 const express = require('express');
+const limiter = require('express-rate-limit');
 const ejs = require('ejs');
-const app = express();
+
 const { validateDataModel, buildDataModel } = require('./model');
 
 const port = 33198;
+const app = express();
+
+const production = process.env.NODE_ENV?.toLowerCase() === 'production';
+if (production) {
+  app.set('trust proxy', 1);
+  const limit = limiter.rateLimit({
+    windowMs: 10000,
+    max: 2,
+    standardHeaders: true,
+    legacyHeaders: false
+  });
+  app.use(limit);
+}
 
 app.use(express.json());
 
@@ -54,10 +69,10 @@ app.post('/generate', async (request, response) => {
     const model = buildDataModel(request.body);
     const json = JSON.stringify(model);
 
-    log(`Generating: ${json}`);
     const jsonHash = getJsonHash(json);
     jsonStore[jsonHash] = json;
   
+    log(`Generating (${jsonHash}): ${json}`);
     const browser = await puppeteer.launch({
       executablePath: '/usr/bin/chromium-browser',
       headless: true
@@ -100,7 +115,9 @@ app.get('/render', async (request, response) => {
     if (!json) {
       throw new Error(`JSON with ${jsonHash} not found.`);
     }
-    delete jsonStore[jsonHash];
+    if (production) {
+      delete jsonStore[jsonHash];
+    }
     const model = JSON.parse(json);
   
     const templatePath = path.join(__dirname, 'template.ejs');
