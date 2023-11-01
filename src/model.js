@@ -190,7 +190,7 @@ const buildBarcodeData = (model, now) => {
   data += bcrow(`${model.sellerPostCode} ${model.sellerCity}`, 27);      // 27
   data += bcrow(model.sellerIBAN, 21);                                   // 21
   data += bcrow('HR00', 4);                                              // 4
-  data += bcrow(`${now.format('DDMMYYYY')}-${model.invoiceId}`, 22); // 22
+  data += bcrow(`${now.format('DDMMYYYY')}-${model.invoiceId}`, 22);     // 22
   data += bcrow('', 4);                                                  // 4
   data += bcrow(`RAČUN ${model.invoiceNumber}`, 35);                     // 35
   return hex.stringToHex(data.trim());
