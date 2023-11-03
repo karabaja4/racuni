@@ -13,7 +13,7 @@ const app = express();
 
 const production = process.env.NODE_ENV?.toLowerCase() === 'production';
 if (production) {
-  app.set('trust proxy', 1);
+  app.set('trust proxy', 'loopback');
   const limit = limiter.rateLimit({
     windowMs: 10000,
     max: 2,
