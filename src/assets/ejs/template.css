@@ -178,6 +178,7 @@ table.items {
 }
 
 .barcode {
+    width: 240px;
     height: 76px;
     float: right;
 }
