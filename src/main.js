@@ -92,7 +92,7 @@ app.post('/generate', async (request, response) => {
     await browser.close();
   
     response.set('Content-Type', 'application/pdf');
-    response.set('Content-Disposition', `attachment; filename=${model.referenceNumber}.pdf`);
+    response.set('Content-Disposition', `attachment; filename=${model.filename}.pdf`);
     response.set('Content-Length', pdf.length);
     response.send(pdf);
 

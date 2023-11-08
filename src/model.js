@@ -129,10 +129,10 @@ const buildDataModel = (requestModel) => {
   model.placeOfIssue = `${model.sellerCity}, ${model.sellerCountry}`;
   model.deliveryDate = eom.format(shortDateFormat);
   model.dueDate = eom.add(15, 'day').format(shortDateFormat);
-  model.referenceNumber = `${model.invoiceYear}-${fin}`;
+  model.filename = `${model.invoiceYear}-${fin}`;
 
   // Dublin has postcode after city, e.g. "Dublin 7"
-  if (model.buyerCity.toLowerCase() === 'dublin') {
+  if (model.buyerCity.toLowerCase().includes('dublin')) {
     const pc = model.buyerPostCode;
     model.buyerPostCode = model.buyerCity;
     model.buyerCity = pc;
@@ -158,17 +158,17 @@ const buildDataModel = (requestModel) => {
 
     const croatianVat = 0.25;
     const vatAmount = model.grandTotal * croatianVat;
-    const referenceNumber = `HR00 ${model.invoiceId}-1-1`;
 
     model.vat = {
       percentage: formatDecimal(Math.round(croatianVat * 100)) + ' %',
-      referenceNumber: referenceNumber,
-      barcodeData: buildBarcodeData(model, referenceNumber),
+      referenceNumber: `HR00 ${model.invoiceId}-1-1`,
+      barcodeData: null,
       grandTotalVatBase: formatMoney(model.grandTotal, 10000),
       vatAmount: formatMoney(vatAmount, 10000)
     };
 
     model.grandTotal += vatAmount;
+    model.vat.barcodeData = buildBarcodeData(model);
     
   } else {
     model.vat = null;
@@ -190,7 +190,7 @@ const bcrow = (text, limit) => {
 };
 
 // https://avacyn.radiance.hr/stuff/2DBK_EUR_Uputa_1.pdf
-const buildBarcodeData = (model, referenceNumber) => {
+const buildBarcodeData = (model) => {
   // grandTotal is multiplied by 10000 here
   const amount = Math.round(model.grandTotal / 100);
   let data = '';
@@ -204,8 +204,8 @@ const buildBarcodeData = (model, referenceNumber) => {
   data += bcrow(model.sellerStreet, 25);                                 // 25
   data += bcrow(`${model.sellerPostCode} ${model.sellerCity}`, 27);      // 27
   data += bcrow(model.sellerIBAN, 21);                                   // 21
-  data += bcrow(referenceNumber.split(' ')[0], 4);                       // 4
-  data += bcrow(referenceNumber.split(' ')[1], 22);                      // 22
+  data += bcrow(model.vat.referenceNumber.split(' ')[0], 4);             // 4
+  data += bcrow(model.vat.referenceNumber.split(' ')[1], 22);            // 22
   data += bcrow('', 4);                                                  // 4
   data += bcrow(`RAČUN ${model.invoiceNumber}`, 35);                     // 35
   return hex.stringToHex(data.trim());
