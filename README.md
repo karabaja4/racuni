@@ -2,7 +2,7 @@
 
 ### Croatian
 
-Generiranje računa za hrvatsku tvrtku, u sustavu PDV-a, za usluge izvan Hrvatske (unutar ili izvan EU).
+Generiranje računa za hrvatsku tvrtku, u sustavu PDV-a, za usluge.
 
 Aplikacija dostupna na: https://racuni.radiance.hr
 
@@ -12,7 +12,7 @@ Korištenje na vlastitu odgovornost, pod uvjetima [MIT licence](https://github.c
 
 ### English
 
-Invoice generation for a Croatian company, VAT registered, for services outside Croatia (inside or outside EU).
+Invoice generation for a Croatian company, VAT registered, for services.
 
 The application is available on: https://racuni.radiance.hr
 
