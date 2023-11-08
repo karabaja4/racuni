@@ -153,10 +153,28 @@ const buildDataModel = (requestModel) => {
 
   // show barcode only for croatian customers
   const buyerFrom = model.buyerCountry.toLowerCase();
-  if (formatVat(model.buyerVatNumber).startsWith("HR") || buyerFrom.includes("hrvatska") || buyerFrom.includes("croatia")) {
-    model.barcodeData = buildBarcodeData(model, now);
+  const isCroatian = formatVat(model.buyerVatNumber).startsWith("HR") ||
+                     buyerFrom.includes("hrvatska") ||
+                     buyerFrom.includes("croatia") ||
+                     model.buyerName.replace(/\s/g, '').includes('d.o.o');
+  if (isCroatian) {
+
+    const croatianVat = 0.25;
+    const vatAmount = model.grandTotal * croatianVat;
+    const referenceNumber = `HR00 ${model.invoiceId}-1-1`;
+
+    model.vat = {
+      percentage: formatDecimal(Math.round(croatianVat * 100)) + ' %',
+      referenceNumber: referenceNumber,
+      barcodeData: buildBarcodeData(model, referenceNumber),
+      grandTotalVatBase: formatMoney(model.grandTotal, 10000),
+      vatAmount: formatMoney(vatAmount, 10000)
+    };
+
+    model.grandTotal += vatAmount;
+    
   } else {
-    model.barcodeData = null;
+    model.vat = null;
   }
   
   // format money
@@ -175,7 +193,7 @@ const bcrow = (text, limit) => {
 };
 
 // https://avacyn.radiance.hr/stuff/2DBK_EUR_Uputa_1.pdf
-const buildBarcodeData = (model, now) => {
+const buildBarcodeData = (model, referenceNumber) => {
   // grandTotal is multiplied by 10000 here
   const amount = Math.round(model.grandTotal / 100);
   let data = '';
@@ -189,8 +207,8 @@ const buildBarcodeData = (model, now) => {
   data += bcrow(model.sellerStreet, 25);                                 // 25
   data += bcrow(`${model.sellerPostCode} ${model.sellerCity}`, 27);      // 27
   data += bcrow(model.sellerIBAN, 21);                                   // 21
-  data += bcrow('HR00', 4);                                              // 4
-  data += bcrow(`${now.format('DDMMYYYY')}-${model.invoiceId}`, 22);     // 22
+  data += bcrow(referenceNumber.split(' ')[0], 4);                       // 4
+  data += bcrow(referenceNumber.split(' ')[1], 22);                      // 22
   data += bcrow('', 4);                                                  // 4
   data += bcrow(`RAČUN ${model.invoiceNumber}`, 35);                     // 35
   return hex.stringToHex(data.trim());

@@ -121,28 +121,43 @@ table.items {
 .items th:first-child,
 .items td:first-child {
     text-align: left;
+    width: 99%;
 }
 
 .items tr:not(:last-child) {
     height: 1px;
 }
 
-.grand {
-    text-align: right;
-    font-size: 16px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    font-weight: bold;
+.vat-row {
+    display: flex;
+    justify-content: flex-end;
 }
 
-.grand span:first-child {
-    margin-right: 40px;
+.vat-row > .vat-container {
+    font-size: 12px;
+    width: 380px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vat-row > .vat-container.row1 {
+    padding-top: 10px;
+}
+.vat-row > .vat-container.row2 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #212121;
+}
+.vat-row > .vat-container.row3 {
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
 }
 
 .details {
     font-size: 12px;
     color: #212121;
-    margin-bottom: 20px;
+    margin-top: 20px;
     white-space: nowrap;
 }
 
@@ -153,17 +168,15 @@ table.items {
 
 .bottom {
     font-size: 12px;
-    width: 100%;
     color: #212121;
     text-align: center;
     border-top: 1px solid #212121;
-    margin-top: 55px;
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    left: 40px;
 }
 
-.bottom {
-    height: 45px;
-    overflow: hidden;
-}
 
 .bottom .bullet {
     font-size: 6px;
@@ -178,7 +191,7 @@ table.items {
 }
 
 .barcode {
-    width: 240px;
-    height: 76px;
-    float: right;
+    position: fixed;
+    right: 38px;
+    bottom: 140px;
 }

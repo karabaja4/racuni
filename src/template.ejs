@@ -63,24 +63,48 @@
     <tr>
       <th>Opis (Description)</th>
       <th>Jedinica (Unit)</th>
-      <th>Cijena (Price)</th>
       <th>Količina (Quantity)</th>
-      <th>Iznos stavke (Sub total)</th>
+      <th>Cijena (Price)</th>
+      <% if (vat) { %>
+        <th>PDV (VAT)</th>
+      <% }; %>
+      <th>Iznos (Sub total)</th>
     </tr>
     <% for (let i = 0; i < items.length; i++) { %>
       <tr>
           <td><%= items[i].description %></td>
           <td><%= items[i].unit %></td>
-          <td><%= items[i].price %></td>
           <td><%= items[i].quantity %></td>
+          <td><%= items[i].price %></td>
+          <% if (vat) { %>
+            <td><%= vat.percentage %></td>
+          <% }; %>
           <td><%= items[i].subTotal %></td>
       </tr>
     <% }; %>
   </table>
 
-  <div class="grand">
-    <span>Ukupan iznos naplate (Grand total):</span>
-    <span><%= grandTotal %></span>
+  
+  <% if (vat) { %>
+    <div class="vat-row">
+      <div class="vat-container row1">
+        <span>Ukupno (Total):</span>
+        <span><%= vat.grandTotalVatBase %></span>
+      </div>
+    </div>
+    <div class="vat-row">
+      <div class="vat-container row2">
+        <span>PDV (VAT): <%= vat.percentage %></span>
+        <span>(osnovica (base): <%= vat.grandTotalVatBase %>)</span>
+        <span><%= vat.vatAmount %></span>
+      </div>
+    </div>
+  <% }; %>
+  <div class="vat-row">
+    <div class="vat-container row3">
+      <span>Ukupan iznos naplate (Grand total):</span>
+      <span><%= grandTotal %></span>
+    </div>
   </div>
 
   <div class="details">
@@ -91,23 +115,29 @@
   <div class="details">
     <div>Detalji o transakciji (Transaction details)</div>
     <div>IBAN: <%= sellerIBAN %></div>
-    <div>SWIFT: <%= sellerSWIFT %></div>
+    <% if (vat) { %>
+      <div>Poziv na broj: <%= vat.referenceNumber %></div>
+    <% } else { %>
+      <div>SWIFT: <%= sellerSWIFT %></div>
+    <% }; %>
   </div>
 
-  <div class="details">
-    <div>Napomena (Notes)</div>
-    <div>Ne podliježe oporezivanju prema čl. 17. St. 1. Zakona o PDV-u - prijenos porezne obveze.</div>
-    <div>(VAT not applied according to Article 17, section 1 of the Croatia VAT law - reverse charge.)</div>
-  </div>
-
-  <% if (barcodeData) { %>
-    <canvas class="barcode" data-barcode="<%= barcodeData %>"></canvas>
+  <% if (!vat) { %>
+    <div class="details">
+      <div>Napomena (Notes)</div>
+      <div>Ne podliježe oporezivanju prema čl. 17. St. 1. Zakona o PDV-u - prijenos porezne obveze.</div>
+      <div>(VAT not applied according to Article 17, section 1 of the Croatia VAT law - reverse charge.)</div>
+    </div>
   <% }; %>
 
   <div class="details">
     <div>Operater (Operator)</div>
     <div><%= sellerOperator %></div>
   </div>
+
+  <% if (vat && vat.barcodeData) { %>
+    <canvas class="barcode" data-barcode="<%= vat.barcodeData %>"></canvas>
+  <% }; %>
 
   <div class="bottom">
     <div class="line"><%= sellerName %></div>
@@ -123,7 +153,7 @@
     <div class="line">Bank: <%= sellerBank %></div>
   </div>
 
-  <% if (barcodeData) { %>
+  <% if (vat && vat.barcodeData) { %>
     <script src="/assets/ejs/barcode/libbcmath.js" type="text/javascript"></script>
     <script src="/assets/ejs/barcode/bcmath.js" type="text/javascript"></script>
     <script src="/assets/ejs/barcode/pdf417.js" type="text/javascript"></script>
