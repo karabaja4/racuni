@@ -161,7 +161,7 @@ const buildDataModel = (requestModel) => {
 
     model.vat = {
       percentage: formatDecimal(Math.round(croatianVat * 100)) + ' %',
-      referenceNumber: `HR00 ${model.invoiceId}-1-1`,
+      referenceNumber: `HR00 ${fin}`,
       barcodeData: null,
       grandTotalVatBase: formatMoney(model.grandTotal, 10000),
       vatAmount: formatMoney(vatAmount, 10000)
