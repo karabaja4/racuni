@@ -23,10 +23,7 @@ const isValidDecimal = (data, field) => {
   }
   const str = data[field].toString();
   const regex = /^[0-9]+(?:\.[0-9]{1,2})?$/;
-  if (!regex.test(str)) {
-    return false;
-  }
-  return true;
+  return regex.test(str);
 };
 
 const isValidArray = (data, field) => {
