@@ -107,10 +107,10 @@ The HTTP status code in this case is 400.
 
 ### with VAT:
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/1043015/281577413-bee00a31-c885-431e-baae-6d8f18def44c.png">
+  <img src="https://github.com/karabaja4/racuni/assets/1043015/d26fb763-5fe7-49cc-ad35-4af0bbf64ecf">
 </p>
 
 ### without VAT:
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/1043015/281577411-26198075-fb39-4740-8070-ffa06dfa4957.png">
+  <img src="https://github.com/karabaja4/racuni/assets/1043015/ac3cde23-ab07-4aca-80f7-34141d844e10">
 </p>
