@@ -105,6 +105,12 @@ The HTTP status code in this case is 400.
 
 ## Screenshot
 
+with VAT:
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/1043015/210465514-c3649046-db31-4226-b094-36326b2d3795.png">
+  <img src="https://github.com/karabaja4/racuni/assets/1043015/bee00a31-c885-431e-baae-6d8f18def44c">
+</p>
+
+without VAT:
+<p align="center">
+  <img src="https://github.com/karabaja4/racuni/assets/1043015/26198075-fb39-4740-8070-ffa06dfa4957">
 </p>
