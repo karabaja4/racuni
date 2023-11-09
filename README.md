@@ -105,12 +105,12 @@ The HTTP status code in this case is 400.
 
 ## Screenshot
 
-with VAT:
+### with VAT:
 <p align="center">
   <img src="https://user-images.githubusercontent.com/1043015/281577413-bee00a31-c885-431e-baae-6d8f18def44c.png">
 </p>
 
-without VAT:
+### without VAT:
 <p align="center">
   <img src="https://user-images.githubusercontent.com/1043015/281577411-26198075-fb39-4740-8070-ffa06dfa4957.png">
 </p>
