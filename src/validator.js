@@ -54,7 +54,7 @@ const validate = (model) => {
       }
     }
   }
-  if (!result.valid && (!result.errors || result.errors.length === 0)) {
+  if (!result.valid && errors.length === 0) {
     errors.push({
       field: null,
       errors: 'Model is not valid (unexpected error).'
