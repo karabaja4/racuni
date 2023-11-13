@@ -8,9 +8,9 @@
 <body>
 
   <div class="header">
-    <% if (logoUrl) { %>
+    <% if (vm.logoUrl) { %>
     <div class="logo">
-      <img src="<%= logoUrl %>" alt="" />
+      <img src="<%= vm.logoUrl %>" alt="" />
     </div>
     <% }; %>
     <div class="meta">
@@ -20,23 +20,23 @@
         </tr>
         <tr>
           <td>Broj računa (Invoice number):</td>
-          <td><%= invoiceNumber %></td>
+          <td><%= vm.invoiceNumber %></td>
         </tr>
         <tr>
           <td>Datum računa (Invoice date):</td>
-          <td><%= invoiceDate %></td>
+          <td><%= vm.invoiceDate %></td>
         </tr>
         <tr>
           <td>Mjesto izdavanja (Place of issue):</td>
-          <td><%= placeOfIssue %></td>
+          <td><%= vm.placeOfIssue %></td>
         </tr>
         <tr>
           <td>Datum isporuke (Delivery date):</td>
-          <td><%= deliveryDate %></td>
+          <td><%= vm.deliveryDate %></td>
         </tr>
         <tr>
           <td>Rok plaćanja (Due date):</td>
-          <td><%= dueDate %></td>
+          <td><%= vm.dueDate %></td>
         </tr>
       </table>
     </div>
@@ -45,17 +45,17 @@
   <div class="contact">
     <div class="seller">
       <div class="tag">Prodavač (Seller):</div>
-      <div class="bold"><%= sellerName %></div><br>
-      <div><%= sellerStreet %></div>
-      <div><%= sellerPostCode %> <%= sellerCity %>, <%= sellerCountry %></div><br>
-      <div>PDV ID (VAT number): <%= sellerVatNumber %></div>
+      <div class="bold"><%= vm.sellerName %></div><br>
+      <div><%= vm.sellerStreet %></div>
+      <div><%= vm.sellerPostCode %> <%= vm.sellerCity %>, <%= vm.sellerCountry %></div><br>
+      <div>PDV ID (VAT number): <%= vm.sellerVatNumber %></div>
     </div>
     <div class="buyer">
       <div class="tag">Kupac (Buyer):</div>
-      <div class="bold"><%= buyerName %></div><br>
-      <div><%= buyerStreet %></div>
-      <div><%= buyerPostCode %> <%= buyerCity %>, <%= buyerCountry %></div><br>
-      <div>PDV ID (VAT number): <%= buyerVatNumber %></div>
+      <div class="bold"><%= vm.buyerName %></div><br>
+      <div><%= vm.buyerStreet %></div>
+      <div><%= vm.buyerPostCode %> <%= vm.buyerCity %>, <%= vm.buyerCountry %></div><br>
+      <div>PDV ID (VAT number): <%= vm.buyerVatNumber %></div>
     </div>
   </div>
 
@@ -65,45 +65,45 @@
       <th>Jedinica (Unit)</th>
       <th>Količina (Quantity)</th>
       <th>Cijena (Price)</th>
-      <% if (vat) { %>
+      <% if (vm.vat) { %>
         <th>PDV (VAT)</th>
       <% }; %>
       <th>Iznos (Sub total)</th>
     </tr>
-    <% for (let i = 0; i < items.length; i++) { %>
+    <% for (let i = 0; i < vm.items.length; i++) { %>
       <tr>
-          <td><%= items[i].description %></td>
-          <td><%= items[i].unit %></td>
-          <td><%= items[i].quantity %></td>
-          <td><%= items[i].price %></td>
-          <% if (vat) { %>
-            <td><%= vat.percentage %></td>
+          <td><%= vm.items[i].description %></td>
+          <td><%= vm.items[i].unit %></td>
+          <td><%= vm.items[i].quantity %></td>
+          <td><%= vm.items[i].price %></td>
+          <% if (vm.vat) { %>
+            <td><%= vm.vat.percentage %></td>
           <% }; %>
-          <td><%= items[i].subTotal %></td>
+          <td><%= vm.items[i].subTotal %></td>
       </tr>
     <% }; %>
   </table>
 
   
-  <% if (vat) { %>
+  <% if (vm.vat) { %>
     <div class="vat-row">
       <div class="vat-container row1">
         <span>Ukupno (Total):</span>
-        <span><%= vat.grandTotalVatBase %></span>
+        <span><%= vm.vat.grandTotalVatBase %></span>
       </div>
     </div>
     <div class="vat-row">
       <div class="vat-container row2">
-        <span>PDV (VAT): <%= vat.percentage %></span>
-        <span>(osnovica (base): <%= vat.grandTotalVatBase %>)</span>
-        <span><%= vat.vatAmount %></span>
+        <span>PDV (VAT): <%= vm.vat.percentage %></span>
+        <span>(osnovica (base): <%= vm.vat.grandTotalVatBase %>)</span>
+        <span><%= vm.vat.vatAmount %></span>
       </div>
     </div>
   <% }; %>
   <div class="vat-row">
     <div class="vat-container row3">
       <span>Ukupan iznos naplate (Grand total):</span>
-      <span><%= grandTotal %></span>
+      <span><%= vm.grandTotal %></span>
     </div>
   </div>
 
@@ -114,15 +114,15 @@
 
   <div class="details">
     <div>Detalji o transakciji (Transaction details)</div>
-    <div>IBAN: <%= sellerIBAN %></div>
-    <% if (vat) { %>
-      <div>Poziv na broj: <%= vat.referenceNumber %></div>
+    <div>IBAN: <%= vm.sellerIBAN %></div>
+    <% if (vm.vat) { %>
+      <div>Poziv na broj: <%= vm.vat.referenceNumber %></div>
     <% } else { %>
-      <div>SWIFT: <%= sellerSWIFT %></div>
+      <div>SWIFT: <%= vm.sellerSWIFT %></div>
     <% }; %>
   </div>
 
-  <% if (!vat) { %>
+  <% if (!vm.vat) { %>
     <div class="details">
       <div>Napomena (Notes)</div>
       <div>Ne podliježe oporezivanju prema čl. 17. St. 1. Zakona o PDV-u - prijenos porezne obveze.</div>
@@ -132,28 +132,28 @@
 
   <div class="details">
     <div>Operater (Operator)</div>
-    <div><%= sellerOperator %></div>
+    <div><%= vm.sellerOperator %></div>
   </div>
 
-  <% if (vat && vat.barcodeData) { %>
-    <canvas class="barcode" data-barcode="<%= vat.barcodeData %>"></canvas>
+  <% if (vm.vat && vm.vat.barcodeData) { %>
+    <canvas class="barcode" data-barcode="<%= vm.vat.barcodeData %>"></canvas>
   <% }; %>
 
   <div class="bottom">
-    <div class="line"><%= sellerName %></div>
+    <div class="line"><%= vm.sellerName %></div>
     <div class="bullet">●</div>
-    <div class="line">Address: <%= sellerStreet %>, <%= sellerPostCode %> <%= sellerCity %>, <%= sellerCountry %></div>
+    <div class="line">Address: <%= vm.sellerStreet %>, <%= vm.sellerPostCode %> <%= vm.sellerCity %>, <%= vm.sellerCountry %></div>
     <div class="bullet">●</div>
-    <div class="line">VAT number: <%= sellerVatNumber %></div>
+    <div class="line">VAT number: <%= vm.sellerVatNumber %></div>
     <div class="bullet">●</div>
-    <div class="line">IBAN: <%= sellerIBAN %></div>
+    <div class="line">IBAN: <%= vm.sellerIBAN %></div>
     <div class="bullet">●</div>
-    <div class="line">SWIFT: <%= sellerSWIFT %></div>
+    <div class="line">SWIFT: <%= vm.sellerSWIFT %></div>
     <div class="bullet">●</div>
-    <div class="line">Bank: <%= sellerBank %></div>
+    <div class="line">Bank: <%= vm.sellerBank %></div>
   </div>
 
-  <% if (vat && vat.barcodeData) { %>
+  <% if (vm.vat && vm.vat.barcodeData) { %>
     <script src="/assets/ejs/barcode/libbcmath.js" type="text/javascript"></script>
     <script src="/assets/ejs/barcode/bcmath.js" type="text/javascript"></script>
     <script src="/assets/ejs/barcode/pdf417.js" type="text/javascript"></script>

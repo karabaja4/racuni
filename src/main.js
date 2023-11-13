@@ -6,7 +6,8 @@ const express = require('express');
 const limiter = require('express-rate-limit');
 const ejs = require('ejs');
 
-const { validateDataModel, buildDataModel } = require('./model');
+const viewModel = require('./model');
+const validator = require('./validator');
 
 const port = 33198;
 const app = express();
@@ -34,15 +35,6 @@ app.get('/', (request, response) => {
   response.sendFile(path.join(__dirname, '/form.html'));
 });
 
-const validate = (model) => {
-  const errors = [];
-  const invalids = validateDataModel(model);
-  for (let i = 0; i < invalids.length; i++) {
-    errors.push(`Field ${invalids[i]} is invalid.`);
-  }
-  return errors;
-};
-
 const jsonStore = {};
 
 const getJsonHash = (json) => {
@@ -59,14 +51,14 @@ app.post('/generate', async (request, response) => {
       });
     }
   
-    const errors = validate(request.body);
-    if (errors.length) {
+    const result = validator.validate(request.body);
+    if (!result.valid) {
       return response.status(400).send({
-        errors: errors
+        errors: result.errors
       });
     }
   
-    const model = buildDataModel(request.body);
+    const model = viewModel.buildViewModel(request.body);
     const json = JSON.stringify(model);
 
     const jsonHash = getJsonHash(json);

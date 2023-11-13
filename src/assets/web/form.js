@@ -149,7 +149,7 @@ function getJson() {
 function showErrors(message) {
   var parsed = JSON.parse(message);
   for (var i = 0; i < parsed.errors.length; i++) {
-    var field = parsed.errors[i].split(' ')[1];
+    var field = parsed.errors[i].field;
     if (field.indexOf('items[0].') > -1) {
       field = field.replace('items[0].', '');
       field = field.charAt(0).toUpperCase() + field.slice(1);

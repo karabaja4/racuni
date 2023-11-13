@@ -1,87 +1,9 @@
-const hex = require('./hex');
-
 // dayjs
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
 const timezone = require('dayjs/plugin/timezone');
 dayjs.extend(utc);
 dayjs.extend(timezone);
-
-const max = 1000000;
-
-const isValidString = (data, field) => {
-  return !!data[field] && typeof data[field] === 'string' && data[field].length > 0 && data[field].length <= 200;
-};
-
-const isValidInteger = (data, field) => {
-  return !!data[field] && Number.isInteger(data[field]) && data[field] > 0 && data[field] <= max;
-};
-
-const isValidDecimal = (data, field) => {
-  if (!data[field] || typeof data[field] !== 'number' || data[field] <= 0 || data[field] > max) {
-    return false;
-  }
-  const str = data[field].toString();
-  const regex = /^[0-9]+(?:\.[0-9]{1,2})?$/;
-  return regex.test(str);
-};
-
-const isValidArray = (data, field) => {
-  return !!data[field] && Array.isArray(data[field]) && data[field].length > 0 && data[field].length <= 5;
-};
-
-const getNow = () => {
-  return dayjs().tz("Europe/Zagreb");
-};
-
-const validateDataModel = (model) => {
-
-  const invalids = [];
-  if (!model) invalids.push('body');
-  if (!isValidInteger(model, 'invoiceId')) invalids.push('invoiceId');
-  if (!isValidInteger(model, 'invoiceMonth') || model.invoiceMonth > 12) invalids.push('invoiceMonth');
-  if (!isValidInteger(model, 'invoiceYear') || model.invoiceYear < (getNow().year() - 1) || model.invoiceYear > 2100) invalids.push('invoiceYear');
-
-  if (model.logoUrl && !model.logoUrl.startsWith('http://') && !model.logoUrl.startsWith('https://')) {
-    invalids.push('logoUrl');
-  }
-
-  const stringFields = [
-    //'logoUrl',
-    'sellerName',
-    'sellerStreet',
-    'sellerPostCode',
-    'sellerCity',
-    'sellerCountry',
-    'sellerVatNumber',
-    'sellerIBAN',
-    'sellerSWIFT',
-    'sellerBank',
-    'sellerOperator',
-    'buyerName',
-    'buyerStreet',
-    'buyerPostCode',
-    'buyerCity',
-    'buyerCountry',
-    'buyerVatNumber'
-  ];
-  for (let i = 0; i < stringFields.length; i++) {
-    if (!isValidString(model, stringFields[i])) invalids.push(stringFields[i]);
-  }
-
-  if (!isValidArray(model, 'items')) invalids.push('items');
-  if (isValidArray(model, 'items')) {
-    for (let i = 0; i < model.items.length; i++) {
-      const item = model.items[i];
-      if (!isValidString(item, 'description')) invalids.push(`items[${i}].description`);
-      if (!isValidString(item, 'unit')) invalids.push(`items[${i}].unit`);
-      if (!isValidDecimal(item, 'price')) invalids.push(`items[${i}].price`);
-      if (!isValidDecimal(item, 'quantity')) invalids.push(`items[${i}].quantity`);
-    }
-  }
-
-  return invalids;
-};
 
 const fullDateFormat = 'DD.MM.YYYY. HH:mm';
 const shortDateFormat = 'DD.MM.YYYY.';
@@ -105,20 +27,20 @@ const formatVat = (vatNumber) => {
   return vatNumber.replace(/\s/g, '').toUpperCase();
 };
 
-const isMine = (model) => {
-  return formatVat(model.sellerVatNumber) === 'HR21522318070';
+const isMine = (vatNumber) => {
+  return formatVat(vatNumber) === 'HR21522318070';
 };
 
-const buildDataModel = (requestModel) => {
+const buildViewModel = (requestModel) => {
 
-  const now = getNow();
+  const now = dayjs().tz("Europe/Zagreb");
   const model = JSON.parse(JSON.stringify(requestModel));
 
   const eom = now.year(model.invoiceYear).month(model.invoiceMonth - 1).endOf('month');
   const fin = `${model.invoiceId}-1-1`;
-  const mine = isMine(model);
+  const mine = isMine(model.sellerVatNumber);
 
-  // enrich model
+  // start model calculations
   model.invoiceNumber = fin;
 
   // invoice date
@@ -151,11 +73,11 @@ const buildDataModel = (requestModel) => {
   // show barcode only for croatian customers
   const buyerFrom = model.buyerCountry.toLowerCase();
   const isCroatian = formatVat(model.buyerVatNumber).startsWith("HR") ||
-                     buyerFrom.includes("hrvatska") ||
-                     buyerFrom.includes("croatia") ||
+                     buyerFrom.includes("hrvat") ||
+                     buyerFrom.includes("croat") ||
                      model.buyerName.replace(/\s/g, '').includes('d.o.o');
+                     
   if (isCroatian) {
-
     const croatianVat = 0.25;
     const vatAmount = model.grandTotal * croatianVat;
 
@@ -182,11 +104,17 @@ const buildDataModel = (requestModel) => {
     model.items[i].subTotal = formatMoney(model.items[i].subTotal, 10000);
   }
 
-  return model;
+  return {
+    vm: model
+  };
 };
 
 const bcrow = (text, limit) => {
   return text.toUpperCase().substring(0, limit) + '\n';
+};
+
+const stringToHex = (str) => {
+  return Buffer.from(str, 'utf8').toString('hex');
 };
 
 // https://avacyn.radiance.hr/stuff/2DBK_EUR_Uputa_1.pdf
@@ -208,10 +136,9 @@ const buildBarcodeData = (model) => {
   data += bcrow(model.vat.referenceNumber.split(' ')[1], 22);            // 22
   data += bcrow('', 4);                                                  // 4
   data += bcrow(`RAČUN ${model.invoiceNumber}`, 35);                     // 35
-  return hex.stringToHex(data.trim());
+  return stringToHex(data.trim());
 };
 
 module.exports = {
-  validateDataModel,
-  buildDataModel
+  buildViewModel
 };

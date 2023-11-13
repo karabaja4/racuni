@@ -1,0 +1,65 @@
+{
+  "type": "object",
+  "properties": {
+    "invoiceId":       { "type": "integer", "format": "fmtInteger" },
+    "invoiceMonth":    { "type": "integer", "format": "fmtMonth"   },
+    "invoiceYear":     { "type": "integer", "format": "fmtYear"    },
+    "logoUrl":         { "type": "string",  "format": "fmtUrl"     },
+    "sellerName":      { "type": "string",  "format": "fmtString"  },
+    "sellerStreet":    { "type": "string",  "format": "fmtString"  },
+    "sellerPostCode":  { "type": "string",  "format": "fmtString"  },
+    "sellerCity":      { "type": "string",  "format": "fmtString"  },
+    "sellerCountry":   { "type": "string",  "format": "fmtString"  },
+    "sellerVatNumber": { "type": "string",  "format": "fmtString"  },
+    "sellerIBAN":      { "type": "string",  "format": "fmtString"  },
+    "sellerSWIFT":     { "type": "string",  "format": "fmtString"  },
+    "sellerBank":      { "type": "string",  "format": "fmtString"  },
+    "sellerOperator":  { "type": "string",  "format": "fmtString"  },
+    "buyerName":       { "type": "string",  "format": "fmtString"  },
+    "buyerStreet":     { "type": "string",  "format": "fmtString"  },
+    "buyerPostCode":   { "type": "string",  "format": "fmtString"  },
+    "buyerCity":       { "type": "string",  "format": "fmtString"  },
+    "buyerCountry":    { "type": "string",  "format": "fmtString"  },
+    "buyerVatNumber":  { "type": "string",  "format": "fmtString"  },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string", "format": "fmtString"  },
+          "unit":        { "type": "string", "format": "fmtString"  },
+          "price":       { "type": "number", "format": "fmtDecimal" },
+          "quantity":    { "type": "number", "format": "fmtDecimal" }
+        },
+        "required": [
+          "description",
+          "unit",
+          "price",
+          "quantity"
+        ]
+      }
+    }
+  },
+  "required": [
+    "invoiceId",
+    "invoiceMonth",
+    "invoiceYear",
+    "sellerName",
+    "sellerStreet",
+    "sellerPostCode",
+    "sellerCity",
+    "sellerCountry",
+    "sellerVatNumber",
+    "sellerIBAN",
+    "sellerSWIFT",
+    "sellerBank",
+    "sellerOperator",
+    "buyerName",
+    "buyerStreet",
+    "buyerPostCode",
+    "buyerCity",
+    "buyerCountry",
+    "buyerVatNumber",
+    "items"
+  ]
+}
