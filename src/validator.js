@@ -9,7 +9,7 @@ const isValidString = (input) => {
 };
 
 const isValidInteger = (input) => {
-  return (!!input) && (Number.isInteger(input)) && (input > 0) && (input <= maxNumberValue);
+  return (!!input) && Number.isInteger(input) && (input > 0) && (input <= maxNumberValue);
 };
 
 const isValidDecimal = (input) => {
@@ -21,8 +21,8 @@ validator.customFormats.fmtDecimal = (input) => isValidDecimal(input);
 validator.customFormats.fmtString = (input) => isValidString(input);
 validator.customFormats.fmtInteger = (input) => isValidInteger(input);
 validator.customFormats.fmtUrl = (input) => isValidString(input) && input.startsWith('https://');
-validator.customFormats.fmtYear = (input) => isValidInteger(input) && input >= 2001 && input <= 2100;
-validator.customFormats.fmtMonth = (input) => isValidInteger(input) && input >= 1 && input <= 12;
+validator.customFormats.fmtYear = (input) => isValidInteger(input) && (input >= 2001) && (input <= 2100);
+validator.customFormats.fmtMonth = (input) => isValidInteger(input) && (input >= 1) && (input <= 12);
 
 const getErrorMessage = (argument) => {
   if (!argument) {
