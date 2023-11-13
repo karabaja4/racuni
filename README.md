@@ -85,7 +85,7 @@ Validation rules:
 
 * `invoiceId` must be an integer.
 * `invoiceMonth` must be an integer between 1 and 12.
-* `invoiceYear` must be an integer representing a year, but not earlier than last year.
+* `invoiceYear` must be an integer representing a year.
 * `items[]` array can contain at most 5 items.
 * `items[].price` must be a decimal with at most 2 decimals, e.g. `400.55`.
 * `items[].quantity` must be a decimal with at most 2 decimals, e.g. `1.75`.
@@ -96,8 +96,14 @@ If there are errors in the request body, the response will return the list of in
 ```json
 {
   "errors": [
-    "Field invoiceYear is invalid.",
-    "Field sellerName is invalid."
+    {
+      "field": "invoiceMonth",
+      "message": "Must be a positive integer between 1 and 12."
+    },
+    {
+      "field": "items[1].quantity",
+      "message": "Must be a positive number, and can have at most 2 decimal places."
+    }
   ]
 }
 ```
