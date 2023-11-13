@@ -5,15 +5,15 @@ const maxStringLength = 300;
 const maxNumberValue = 1000000;
 
 const isValidString = (input) => {
-  return !!input && typeof input === 'string' && input.length > 0 && input.length <= maxStringLength;
+  return (!!input) && (typeof input === 'string') && (input.length > 0) && (input.length <= maxStringLength);
 };
 
 const isValidInteger = (input) => {
-  return !!input && Number.isInteger(input) && input > 0 && input <= maxNumberValue;
+  return (!!input) && (Number.isInteger(input)) && (input > 0) && (input <= maxNumberValue);
 };
 
 const isValidDecimal = (input) => {
-  return !!input && typeof input === 'number' && input > 0 && input <= maxNumberValue && ((input * 100) % 1 === 0);
+  return (!!input) && (typeof input === 'number') && (input > 0) && (input <= maxNumberValue) && ((input * 100) % 1 === 0);
 };
 
 const validator = new Validator();
