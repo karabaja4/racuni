@@ -22,7 +22,7 @@ const isValidUrl = (input) => {
   }
   if (typeof input === 'string') {
     const trimmed = input.trim();
-    if (trimmed === '') {
+    if (trimmed.length === 0) {
       return true;
     }
     if ((trimmed.startsWith('http://') || trimmed.startsWith('https://')) && trimmed.length <= maxStringLength) {
