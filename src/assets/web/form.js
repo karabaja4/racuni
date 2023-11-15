@@ -212,6 +212,8 @@ document.getElementById('submitButton').addEventListener('click', function () {
     } else if (this.status === 400) {
       var decoded = arrayBufferToString(this.response);
       showErrors(decoded);
+    } else if (this.status === 429) {
+      alert('Too many requests. Try again in a few seconds.');
     } else {
       alert('Unexpected error: ' + this.status);
     }
