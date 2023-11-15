@@ -5,7 +5,7 @@ const maxStringLength = 300;
 const maxNumberValue = 1000000;
 
 const isValidString = (input) => {
-  return (!!input) && (typeof input === 'string') && (input.length > 0) && (input.length <= maxStringLength);
+  return (!!input) && (typeof input === 'string') && (input.trim().length > 0) && (input.trim().length <= maxStringLength);
 };
 
 const isValidInteger = (input) => {
@@ -16,12 +16,28 @@ const isValidDecimal = (input) => {
   return (!!input) && (typeof input === 'number') && (input > 0) && (input <= maxNumberValue) && ((input * 100) % 1 === 0);
 };
 
+const isValidUrl = (input) => {
+  if (input === null) {
+    return true;
+  }
+  if (typeof input === 'string') {
+    const trimmed = input.trim();
+    if (trimmed === '') {
+      return true;
+    }
+    if ((trimmed.startsWith('http://') || trimmed.startsWith('https://')) && trimmed.length <= maxStringLength) {
+      return true;
+    }
+  }
+  return false;
+};
+
 const validator = new Validator();
 
 validator.customFormats.fmtDecimal = (input) => isValidDecimal(input);
 validator.customFormats.fmtString = (input) => isValidString(input);
 validator.customFormats.fmtInteger = (input) => isValidInteger(input);
-validator.customFormats.fmtUrl = (input) => (input === null) || (isValidString(input) && input.startsWith('https://'));
+validator.customFormats.fmtUrl = (input) => isValidUrl(input);
 validator.customFormats.fmtYear = (input) => isValidInteger(input) && (input >= 2001) && (input <= 2100);
 validator.customFormats.fmtMonth = (input) => isValidInteger(input) && (input >= 1) && (input <= 12);
 
