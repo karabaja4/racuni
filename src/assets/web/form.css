@@ -164,15 +164,14 @@ input[type=number] {
     cursor: default;
 }
 
-.monster {
-    position: fixed;
-    right: 0;
-    bottom: 0;
-}
-
 .revision {
     font-size: 14px;
     position: fixed;
-    right: 0;
-    bottom: 0;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding: 5px;
+    background-color: #FAFAFA;
+    color: #212121;
+    text-align: right;
 }
