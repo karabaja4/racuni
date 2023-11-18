@@ -72,7 +72,7 @@ const getError = (e) => {
   if (e.name === 'type' && e.message) {
     return {
       field: prop,
-      message: `${prop} ${e.message.replace('type(s)', 'type')}`
+      message: `${prop} ${e.message.replace('type(s)', 'type')}.`
     };
   }
   return null;
