@@ -1,32 +1,4 @@
-var inputIds = [
-  'invoiceId',
-  'invoiceMonth',
-  'invoiceYear',
-  'logoUrl',
-  'sellerName',
-  'sellerStreet',
-  'sellerPostCode',
-  'sellerCity',
-  'sellerCountry',
-  'sellerVatNumber',
-  'sellerIBAN',
-  'sellerSWIFT',
-  'sellerBank',
-  'sellerOperator',
-  'buyerName',
-  'buyerStreet',
-  'buyerPostCode',
-  'buyerCity',
-  'buyerCountry',
-  'buyerVatNumber'
-];
-
-var itemInputIds = [
-  'itemDescription',
-  'itemUnit',
-  'itemPrice',
-  'itemQuantity'
-];
+"use strict";
 
 function isValidInteger(value) {
   var regex = /^[0-9]+$/i;
@@ -38,55 +10,48 @@ function isValidDecimal(value) {
   return regex.test(value);
 }
 
-function addInputNumberValidation(ids, isDecimal) {
-  for (var i = 0; i < ids.length; i++) {
-    var input = document.getElementById(ids[i]);
-    input.addEventListener('keypress', function(event) {
-      if (isValidInteger(event.key)) {
-        return;
-      }
-      if (isDecimal) {
-        var validDot = event.key === '.' &&
-                       this.value !== '' &&
-                       this.value.indexOf('.') === -1 &&
-                       this.selectionStart > 0;
-        if (validDot) {
-          return;
-        }
-      }
+function addInputNumberValidation(input, isDecimal) {
+  input.addEventListener('keypress', function(event) {
+    if (isValidInteger(event.key)) {
+      return;
+    }
+    // decimal, dot pressed, field not empty, field does not have a dot and cursor is not at start
+    if (isDecimal && event.key === '.' && this.value !== '' && this.value.indexOf('.') === -1 && this.selectionStart > 0) {
+      return;
+    }
+    event.preventDefault();
+  });
+  input.addEventListener('paste', function(event) {
+    var text = null;
+    if (event.clipboardData && event.clipboardData.getData) {
+      text = event.clipboardData.getData('text/plain');
+    } else if (window.clipboardData && window.clipboardData.getData) {
+      text = window.clipboardData.getData('Text'); // IE
+    }
+    if (!text) {
       event.preventDefault();
-    });
-    input.addEventListener('paste', function(event) {
-      var text = null;
-      if (event.clipboardData && event.clipboardData.getData) {
-        text = event.clipboardData.getData('text/plain');
-      } else if (window.clipboardData && window.clipboardData.getData) {
-        text = window.clipboardData.getData('Text'); // IE
-      }
-      if (!text) {
-        event.preventDefault();
-      }
-      var isValid = isDecimal ? isValidDecimal(text) : isValidInteger(text);
-      if (!isValid) {
-        event.preventDefault();
-      }
-    });
+    }
+    var isValid = isDecimal ? isValidDecimal(text) : isValidInteger(text);
+    if (!isValid) {
+      event.preventDefault();
+    }
+  });
+}
+
+function setupValidation() {
+  var integers = document.querySelectorAll('input[data-type="integer"]');
+  var i;
+  for (i = 0; i < integers.length; i++) {
+    addInputNumberValidation(integers[i], false);
+  }
+  var decimals = document.querySelectorAll('input[data-type="decimal"]');
+  for (i = 0; i < decimals.length; i++) {
+    addInputNumberValidation(decimals[i], true);
   }
 }
 
-var integerIds = [
-  'invoiceId',
-  'invoiceMonth',
-  'invoiceYear'
-];
-
-var decimalIds = [
-  'itemPrice',
-  'itemQuantity'
-];
-
-addInputNumberValidation(integerIds, false);
-addInputNumberValidation(decimalIds, true);
+// localStorage setup
+var lsKey = 'invoiceJsonV2';
 
 function lsGet(key) {
   try {
@@ -105,59 +70,59 @@ function lsSet(key, value) {
   } catch (err) {}
 }
 
-window.addEventListener('load', function() {
-  var json = lsGet('invoiceJson');
-  if (json) {
-    var parsed = JSON.parse(json);
-    for (var i = 0; i < inputIds.length; i++) {
-      var inputId = inputIds[i];
-      var val = parsed[inputId];
-      if (val !== null && val !== undefined) {
-        document.getElementById(inputId).value = val;
-      }
-    }
-    for (var j = 0; j < itemInputIds.length; j++) {
-      var itemInputId = itemInputIds[j];
-      var realId = itemInputId.replace('item', '').toLowerCase();
-      var ival = parsed.items[0][realId];
-      if (ival !== null && ival !== undefined) {
-        document.getElementById(itemInputId).value = ival;
+function restoreInputsFromLocalStorage() {
+  var stored = lsGet(lsKey);
+  if (stored) {
+    var parsed = JSON.parse(stored);
+    var elems = document.querySelectorAll('input');
+    for (var i = 0; i < elems.length; i++) {
+      var elem = elems[i];
+      var map = elem.getAttribute('data-map');
+      if (map && parsed[map]) {
+        elem.value = parsed[map];
       }
     }
   }
-});
-
-function getJson() {
-  var result = {};
-  for (var i = 0; i < inputIds.length; i++) {
-    var inputId = inputIds[i];
-    if (integerIds.indexOf(inputId) > -1) {
-      result[inputId] = parseInt(document.getElementById(inputId).value);
-    } else {
-      result[inputId] = document.getElementById(inputId).value;
-    }
-  }
-  result.items = [{
-    description: document.getElementById('itemDescription').value,
-    unit: document.getElementById('itemUnit').value,
-    price: parseFloat(document.getElementById('itemPrice').value),
-    quantity: parseFloat(document.getElementById('itemQuantity').value)
-  }];
-  return JSON.stringify(result);
 }
 
+// load stored values from localStorage to inputs
+// and add input validation events
+window.addEventListener('load', function() {
+  restoreInputsFromLocalStorage();
+  setupValidation();
+});
+
+// build request model from all the inputs based on data attributes
+function buildRequestModel() {
+  var result = {
+    items: [{}]
+  };
+  var elems = document.querySelectorAll('input');
+  for (var i = 0; i < elems.length; i++) {
+    var elem = elems[i];
+    var map = elem.getAttribute('data-map');
+    var type = elem.getAttribute('data-type');
+    if (map && type) {
+      var idx = '[0].';
+      if (map.indexOf(idx) === -1) {
+        result[map] = (type === 'integer') ? parseInt(elem.value) : elem.value;
+      } else {
+        var prop = map.split(idx)[1];
+        result.items[0][prop] = (type === 'decimal') ? parseFloat(elem.value) : elem.value;
+      }
+    }
+  }
+  return result;
+}
+
+// add invalid class to fields returned by the 400 response
 function showErrors(message) {
   var parsed = JSON.parse(message);
   for (var i = 0; i < parsed.errors.length; i++) {
     var field = parsed.errors[i].field;
-    if (field.indexOf('items[0].') > -1) {
-      field = field.replace('items[0].', '');
-      field = field.charAt(0).toUpperCase() + field.slice(1);
-      field = 'item' + field;
-    }
-    var elem = document.getElementById(field);
-    if (elem) {
-      elem.classList.add('invalid');
+    var elem = document.querySelectorAll('input[data-map="' + field + '"]');
+    if (elem && elem[0] && elem[0].classList) {
+      elem[0].classList.add('invalid');
     }
   }
 }
@@ -165,7 +130,10 @@ function showErrors(message) {
 function clearErrors() {
   var elems = document.getElementsByTagName('input');
   for (var i = 0; i < elems.length; i++) {
-    elems[i].classList.remove('invalid');
+    var elem = elems[i];
+    if (elem.classList) {
+      elem.classList.remove('invalid');
+    }
   }
 }
 
@@ -179,28 +147,42 @@ function arrayBufferToString(buffer) {
   return str;
 }
 
-document.getElementById('submitButton').addEventListener('click', function () {
+// flatten out the sent request to be stored into localStorage
+function flatten(obj) {
+  var result = {};
+  for (var objKey in obj) {
+    var objValue = obj[objKey];
+    if (!!objValue && objValue.constructor === Array) {
+      for (var i = 0; i < objValue.length; i++) {
+        var arrObj = objValue[i];
+        for (var arrObjKey in arrObj) {
+          result[objKey + '[' + i + '].' + arrObjKey] = arrObj[arrObjKey];
+        }
+      }
+    } else {
+      result[objKey] = objValue;
+    }
+  }
+  return result;
+}
 
+document.getElementById('submitButton').addEventListener('click', function () {
   var btn = this;
   if (btn.classList.contains('disabled')) {
     return;
   }
-
   clearErrors();
   btn.classList.add('disabled');
   var xhr = new XMLHttpRequest();
   xhr.open('POST', '/generate', true);
   xhr.setRequestHeader('Content-Type', 'application/json');
   xhr.responseType = 'arraybuffer';
-
-  var json = getJson();
-  var parsed = JSON.parse(json);
-
+  var model = buildRequestModel();
   xhr.onload = function () {
     if (this.status === 200) {
-      lsSet('invoiceJson', json);
+      lsSet(lsKey, JSON.stringify(flatten(model)));
       var blob = new Blob([this.response], { type: 'application/pdf' });
-      var filename = parsed.invoiceYear + '-' + parsed.invoiceId + '-1-1.pdf';
+      var filename = model.invoiceYear + '-' + model.invoiceId + '-1-1.pdf';
       if (window.navigator && window.navigator.msSaveBlob) {
         window.navigator.msSaveBlob(blob, filename); // IE
       } else {
@@ -219,6 +201,5 @@ document.getElementById('submitButton').addEventListener('click', function () {
     }
     btn.classList.remove('disabled');
   };
-  xhr.send(json);
-  
+  xhr.send(JSON.stringify(model));
 });

@@ -13,10 +13,12 @@ const isValidInteger = (input) => {
 };
 
 const isValidDecimal = (input) => {
-  return (!!input) && (typeof input === 'number') && (input > 0) && (input <= maxNumberValue) && ((input * 100) % 1 === 0);
+  const regex = /^[0-9]+(?:\.[0-9]{1,2})?$/;
+  return (!!input) && regex.test(input.toString()) && (typeof input === 'number') && (input > 0) && (input <= maxNumberValue);
 };
 
 const isValidUrl = (input) => {
+  // null or empty string is a valid url
   if (input === null) {
     return true;
   }
