@@ -1,5 +1,6 @@
 const path = require('node:path');
 const crypto = require('node:crypto');
+const proc = require('node:child_process');
 
 const puppeteer = require('puppeteer-core');
 const express = require('express');
@@ -11,6 +12,7 @@ const validator = require('./validator');
 
 const port = 33198;
 const app = express();
+let revision = 'git';
 
 const production = process.env.NODE_ENV?.toLowerCase() === 'production';
 if (production) {
@@ -31,8 +33,24 @@ const log = (message) => {
   console.log(`[${date}] ${message}`);
 };
 
-app.get('/', (request, response) => {
-  response.sendFile(path.join(__dirname, '/form.html'));
+app.get('/', async (request, response) => {
+  
+  try {
+    
+    const ejsPath = path.join(__dirname, 'form.ejs');
+    const model = {
+      vm: { revision: revision }
+    };
+    const html = await ejs.renderFile(ejsPath, model);
+    return response.send(html);
+    
+  } catch (err) {
+    
+    log(err.stack);
+    return response.status(500).send('Internal server error.');
+    
+  }
+  
 });
 
 const jsonStore = {};
@@ -110,11 +128,9 @@ app.get('/render', async (request, response) => {
     if (production) {
       delete jsonStore[jsonHash];
     }
+    const ejsPath = path.join(__dirname, 'template.ejs');
     const model = JSON.parse(json);
-  
-    const templatePath = path.join(__dirname, 'template.ejs');
-  
-    const html = await ejs.renderFile(templatePath, model);
+    const html = await ejs.renderFile(ejsPath, model);
     return response.send(html);
 
   } catch (err) {
@@ -131,4 +147,13 @@ app.get('/favicon.ico', (request, response) => response.status(204).send());
 
 app.listen(port, '127.0.0.1', () => {
   log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
+});
+
+proc.exec('git rev-parse --short HEAD', (err, stdout, stderr) => {
+  if (!err && !stderr && stdout) {
+    const rev = stdout.trim();
+    if (rev && rev.length === 7) {
+      revision = rev;
+    }
+  }
 });

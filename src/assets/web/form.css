@@ -3,7 +3,6 @@ body {
     font-size: 0;
     background-color: #FAFAFA;
     margin: 0;
-    min-width: 440px;
 }
 
 .header {
@@ -98,7 +97,7 @@ body {
 }
 
 input {
-    width: 342px;
+    width: 332px;
     height: 22px;
     border: 1px solid #E0E0E0;
     padding: 8px;
@@ -166,6 +165,13 @@ input[type=number] {
 }
 
 .monster {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+}
+
+.revision {
+    font-size: 14px;
     position: fixed;
     right: 0;
     bottom: 0;
