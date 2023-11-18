@@ -166,7 +166,7 @@ function flatten(obj) {
   return result;
 }
 
-document.getElementById('submitButton').addEventListener('click', function () {
+document.getElementsByClassName('submit-button')[0].addEventListener('click', function () {
   var btn = this;
   if (btn.classList.contains('disabled')) {
     return;
