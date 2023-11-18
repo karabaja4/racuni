@@ -155,7 +155,7 @@ proc.exec('git rev-parse --short HEAD', { cwd: __dirname }, (err, stdout, stderr
     if (rev && rev.length === 7) {
       revision = rev;
     }
-  } else {
-    log(stderr);
+  } else if (stdout) {
+    log(stdout.trim());
   }
 });
