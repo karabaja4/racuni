@@ -147,8 +147,6 @@ app.get('/favicon.ico', (request, response) => response.status(204).send());
 
 app.listen(port, '127.0.0.1', () => {
   log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
-  log(`Dirname: ${__dirname}`);
-  log(`Cwd: ${process.cwd()}`);
 });
 
 proc.exec('git rev-parse --short HEAD', { cwd: __dirname }, (err, stdout, stderr) => {
@@ -157,5 +155,7 @@ proc.exec('git rev-parse --short HEAD', { cwd: __dirname }, (err, stdout, stderr
     if (rev && rev.length === 7) {
       revision = rev;
     }
+  } else {
+    log(stderr);
   }
 });
