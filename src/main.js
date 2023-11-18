@@ -146,12 +146,10 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.get('/favicon.ico', (request, response) => response.status(204).send());
 
 app.listen(port, '127.0.0.1', () => {
-  const environment = process.env.NODE_ENV || 'development';
-  const directory = process.cwd();
-  log(`The server is running.\nPort: ${port}\nEnvironment: ${environment}\nDirectory: ${directory}`);
+  log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
 });
 
-proc.exec('git rev-parse --short HEAD', (err, stdout, stderr) => {
+proc.exec('git rev-parse --short HEAD', { cwd: __dirname }, (err, stdout, stderr) => {
   if (!err && !stderr && stdout) {
     const rev = stdout.trim();
     if (rev && rev.length === 7) {
