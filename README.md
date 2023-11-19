@@ -120,3 +120,7 @@ The HTTP status code in this case is 400.
 <p align="center">
   <img src="https://user-images.githubusercontent.com/1043015/281582481-ac3cde23-ab07-4aca-80f7-34141d844e10.png">
 </p>
+
+## References
+
+https://github.com/pkoretic/pdf417-generator - PDF417 barcode generation
