@@ -109,7 +109,7 @@ If there are errors in the request body, the response will return the list of in
 ```
 The HTTP status code in this case is 400.
 
-## Screenshot
+## Screenshots
 
 ### with VAT:
 <p align="center">
