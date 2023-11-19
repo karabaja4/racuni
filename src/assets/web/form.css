@@ -74,6 +74,9 @@ body {
 
 .content {
     padding: 40px;
+    position: relative;
+    z-index: 1000;
+    background-color: #FAFAFA;
 }
 
 .column {
@@ -169,10 +172,9 @@ input[type=number] {
     font-size: 14px;
     position: fixed;
     bottom: 0px;
-    left: 0px;
     right: 0px;
     padding: 5px;
-    background-color: #FAFAFA;
     color: #212121;
-    text-align: right;
+    background-color: #FAFAFA;
+    z-index: 100;
 }
