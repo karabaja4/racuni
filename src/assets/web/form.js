@@ -1,5 +1,7 @@
 "use strict";
 
+// IE11 compatible JS
+
 function isValidInteger(value) {
   var regex = /^[0-9]+$/i;
   return regex.test(value);
