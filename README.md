@@ -89,7 +89,7 @@ Validation rules:
 * `items[]` array can contain at most 5 items.
 * `items[].price` must be a decimal with at most 2 decimals, e.g. `400.55`.
 * `items[].quantity` must be a decimal with at most 2 decimals, e.g. `1.75`.
-* All string lengths must be less than or equal to 200 characters.
+* All string lengths must be less than or equal to 300 characters.
 
 If there are errors in the request body, the response will return the list of invalid fields, for example:
 
@@ -98,11 +98,11 @@ If there are errors in the request body, the response will return the list of in
   "errors": [
     {
       "field": "invoiceMonth",
-      "message": "Must be a positive integer between 1 and 12."
+      "message": "invoiceMonth must be a positive integer between 1 and 12."
     },
     {
       "field": "items[1].quantity",
-      "message": "Must be a positive number, and can have at most 2 decimal places."
+      "message": "items[1].quantity must be a positive number, and can have at most 2 decimal places."
     }
   ]
 }

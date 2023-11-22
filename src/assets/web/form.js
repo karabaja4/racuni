@@ -107,10 +107,10 @@ function buildRequestModel() {
     if (map && type) {
       var idx = '[0].';
       if (map.indexOf(idx) === -1) {
-        result[map] = (type === 'integer') ? parseInt(elem.value) : elem.value;
+        result[map] = ((type === 'integer' && elem.value) ? parseInt(elem.value) : elem.value) || null;
       } else {
         var prop = map.split(idx)[1];
-        result.items[0][prop] = (type === 'decimal') ? parseFloat(elem.value) : elem.value;
+        result.items[0][prop] = ((type === 'decimal' && elem.value) ? parseFloat(elem.value) : elem.value) || null;
       }
     }
   }
@@ -130,7 +130,7 @@ function showErrors(message) {
 }
 
 function clearErrors() {
-  var elems = document.getElementsByTagName('input');
+  var elems = document.querySelectorAll('input');
   for (var i = 0; i < elems.length; i++) {
     var elem = elems[i];
     if (elem.classList) {
