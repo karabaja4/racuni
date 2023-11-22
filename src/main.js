@@ -12,7 +12,12 @@ const validator = require('./validator');
 
 const port = 33198;
 const app = express();
-let revision = 'git';
+
+const errorResponse = (message) => {
+  return {
+    errors: [{ message: message }]
+  };
+};
 
 const production = process.env.NODE_ENV?.toLowerCase() === 'production';
 if (production) {
@@ -21,7 +26,10 @@ if (production) {
     windowMs: 10000,
     max: 2,
     standardHeaders: true,
-    legacyHeaders: false
+    legacyHeaders: false,
+    handler: (req, res) => {
+      return res.status(429).send(errorResponse('Too many requests, please try again later.'));
+    }
   });
   app.use('/generate', limit);
 }
@@ -32,6 +40,8 @@ const log = (message) => {
   var date = (new Date()).toISOString();
   console.log(`[${date}] ${message}`);
 };
+
+let revision = 'git';
 
 app.get('/', async (request, response) => {
   
@@ -57,12 +67,6 @@ const jsonStore = {};
 
 const getJsonHash = (json) => {
   return crypto.createHash('sha256').update(json).digest('hex');
-};
-
-const errorResponse = (message) => {
-  return {
-    errors: [{ message: message }]
-  };
 };
 
 app.post('/generate', async (request, response) => {
@@ -106,7 +110,7 @@ app.post('/generate', async (request, response) => {
     await browser.close();
   
     response.set('Content-Type', 'application/pdf');
-    response.set('Content-Disposition', `attachment; filename=${model.filename}.pdf`);
+    response.set('Content-Disposition', `attachment; filename=${model.vm.filename}.pdf`);
     response.set('Content-Length', pdf.length);
     response.send(pdf);
 
