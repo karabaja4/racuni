@@ -23,6 +23,7 @@
     "buyerVatNumber":  { "type": "string", "format": "fmtString" },
     "items": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
         "properties": {

@@ -59,14 +59,18 @@ const getJsonHash = (json) => {
   return crypto.createHash('sha256').update(json).digest('hex');
 };
 
+const errorResponse = (message) => {
+  return {
+    errors: [{ message: message }]
+  };
+};
+
 app.post('/generate', async (request, response) => {
 
   try {
 
     if (!Object.keys(request.body).length) {
-      return response.status(400).send({
-        errors: ['Unable to parse JSON.']
-      });
+      return response.status(400).send(errorResponse('Unable to parse body JSON.'));
     }
   
     const result = validator.validate(request.body);
@@ -144,6 +148,17 @@ app.get('/render', async (request, response) => {
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.get('/favicon.ico', (request, response) => response.status(204).send());
+
+app.use((err, req, res, next) => {
+  if (err?.stack) {
+    log(err.stack);
+  }
+  if ((err instanceof SyntaxError) && (err.status === 400) && (err.type === 'entity.parse.failed')) {
+    return res.status(400).send(errorResponse('Unable to parse body JSON.'));
+  } else {
+    return res.status(500).send(errorResponse('Unexpected error.'));
+  }
+});
 
 app.listen(port, '127.0.0.1', () => {
   log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
