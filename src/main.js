@@ -50,7 +50,7 @@ app.get('/', async (request, response) => {
     
   } catch (err) {
     
-    log.info(err.stack);
+    log.error(err);
     return response.status(500).send('Internal server error.');
     
   }
@@ -106,7 +106,7 @@ app.post('/generate', async (request, response) => {
 
   } catch (err) {
 
-    log.info(err.stack);
+    log.error(err);
     return response.status(500).send({
       errors: ['Internal server error.']
     });
@@ -133,7 +133,7 @@ app.get('/render', async (request, response) => {
 
   } catch (err) {
 
-    log.info(err.stack);
+    log.error(err);
     return response.status(500).send();
 
   }
@@ -144,9 +144,7 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.get('/favicon.ico', (request, response) => response.status(204).send());
 
 app.use((err, req, res, next) => {
-  if (err?.stack) {
-    log.info(err.stack);
-  }
+  log.error(err);
   if ((err.status === 400) && (err.type === 'entity.parse.failed')) {
     return res.status(400).send(errorResponse('Unable to parse body JSON.'));
   } else {
