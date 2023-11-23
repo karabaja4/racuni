@@ -34,8 +34,6 @@ if (production) {
   app.use('/generate', limit);
 }
 
-app.use(express.json());
-
 const log = (message) => {
   var date = (new Date()).toISOString();
   console.log(`[${date}] ${message}`);
@@ -50,6 +48,8 @@ const resolveRevision = async () => {
     log(err.stack);
   }
 };
+
+app.use(express.json());
 
 app.get('/', async (request, response) => {
   
