@@ -174,5 +174,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, '127.0.0.1', async () => {
   await resolveRevision();
-  log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
+  log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'} (${revision})`);
 });
