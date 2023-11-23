@@ -42,6 +42,14 @@ const log = (message) => {
 };
 
 let revision = 'git';
+const resolveRevision = async () => {
+  try {
+    const data = await fs.promises.readFile(path.join(path.resolve(__dirname, '..'), '.git/refs/heads/master'));
+    revision = data.toString().trim().substring(0, 7);
+  } catch (err) {
+    log(err.stack);
+  }
+};
 
 app.get('/', async (request, response) => {
   
@@ -164,12 +172,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.listen(port, '127.0.0.1', () => {
+app.listen(port, '127.0.0.1', async () => {
+  await resolveRevision();
   log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
-});
-
-fs.readFile(path.join(path.resolve(__dirname, '..'), '.git/refs/heads/master'), (err, data) => {
-  if (!err && data) {
-    revision = data.toString().trim().substring(0, 7);
-  }
 });
