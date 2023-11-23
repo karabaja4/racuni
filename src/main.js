@@ -66,11 +66,7 @@ const getJsonHash = (json) => {
 app.post('/generate', async (request, response) => {
 
   try {
-
-    if (!Object.keys(request.body).length) {
-      return response.status(400).send(errorResponse('Unable to parse body JSON.'));
-    }
-  
+    
     const result = validator.validate(request.body);
     if (!result.valid) {
       return response.status(400).send({
