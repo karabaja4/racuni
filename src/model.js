@@ -72,10 +72,11 @@ const buildViewModel = (requestModel) => {
 
   // show barcode only for croatian customers
   const buyerFrom = model.buyerCountry.toLowerCase();
+  const buyerName = model.buyerName.replace(/\s/g, '').toLowerCase();
   const isCroatian = formatVat(model.buyerVatNumber).startsWith("HR") ||
                      buyerFrom.includes("hrvat") ||
                      buyerFrom.includes("croat") ||
-                     model.buyerName.replace(/\s/g, '').toLowerCase().includes('d.o.o');
+                     buyerName.includes('d.o.o');
                      
   if (isCroatian) {
     const croatianVat = 0.25;
