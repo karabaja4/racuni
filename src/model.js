@@ -75,7 +75,7 @@ const buildViewModel = (requestModel) => {
   const isCroatian = formatVat(model.buyerVatNumber).startsWith("HR") ||
                      buyerFrom.includes("hrvat") ||
                      buyerFrom.includes("croat") ||
-                     model.buyerName.replace(/\s/g, '').includes('d.o.o');
+                     model.buyerName.replace(/\s/g, '').toLowerCase().includes('d.o.o');
                      
   if (isCroatian) {
     const croatianVat = 0.25;
