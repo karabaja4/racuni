@@ -10,6 +10,7 @@ const viewModel = require('./model');
 const validator = require('./validator');
 const log = require('./log');
 const revision = require('./revision');
+const env = require('./env');
 
 const port = 33198;
 const app = express();
@@ -20,8 +21,7 @@ const errorResponse = (message) => {
   };
 };
 
-const production = process.env.NODE_ENV?.toLowerCase() === 'production';
-if (production) {
+if (env.isProduction()) {
   app.set('trust proxy', 'loopback');
   const limit = limiter.rateLimit({
     windowMs: 10000,
@@ -123,7 +123,7 @@ app.get('/render', async (request, response) => {
     if (!json) {
       throw new Error(`JSON with ${jsonHash} not found.`);
     }
-    if (production) {
+    if (env.isProduction()) {
       delete jsonStore[jsonHash];
     }
     const ejsPath = path.join(__dirname, 'template.ejs');
@@ -154,5 +154,5 @@ app.use((err, req, res, next) => {
 
 app.listen(port, '127.0.0.1', async () => {
   await revision.resolve();
-  log.info(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'} (${revision.get()})`);
+  log.info(`The server is running on port ${port} in ${env.stage()} (${revision.get()})`);
 });
