@@ -1,6 +1,5 @@
 const path = require('node:path');
 const crypto = require('node:crypto');
-const fs = require('node:fs');
 
 const puppeteer = require('puppeteer-core');
 const express = require('express');
@@ -9,6 +8,8 @@ const ejs = require('ejs');
 
 const viewModel = require('./model');
 const validator = require('./validator');
+const log = require('./log');
+const revision = require('./revision');
 
 const port = 33198;
 const app = express();
@@ -34,21 +35,6 @@ if (production) {
   app.use('/generate', limit);
 }
 
-const log = (message) => {
-  var date = (new Date()).toISOString();
-  console.log(`[${date}] ${message}`);
-};
-
-let revision = 'git';
-const resolveRevision = async () => {
-  try {
-    const data = await fs.promises.readFile(path.join(path.resolve(__dirname, '..'), '.git/refs/heads/master'));
-    revision = data.toString().trim().substring(0, 7);
-  } catch (err) {
-    log(err.stack);
-  }
-};
-
 app.use(express.json());
 
 app.get('/', async (request, response) => {
@@ -57,14 +43,14 @@ app.get('/', async (request, response) => {
     
     const ejsPath = path.join(__dirname, 'form.ejs');
     const model = {
-      vm: { revision: revision }
+      vm: { revision: revision.get() }
     };
     const html = await ejs.renderFile(ejsPath, model);
     return response.send(html);
     
   } catch (err) {
     
-    log(err.stack);
+    log.info(err.stack);
     return response.status(500).send('Internal server error.');
     
   }
@@ -98,7 +84,7 @@ app.post('/generate', async (request, response) => {
     const jsonHash = getJsonHash(json);
     jsonStore[jsonHash] = json;
   
-    log(`Generating (${jsonHash}): ${json}`);
+    log.info(`Generating (${jsonHash}): ${json}`);
     const browser = await puppeteer.launch({
       executablePath: '/usr/bin/chromium-browser',
       headless: true
@@ -124,7 +110,7 @@ app.post('/generate', async (request, response) => {
 
   } catch (err) {
 
-    log(err.stack);
+    log.info(err.stack);
     return response.status(500).send({
       errors: ['Internal server error.']
     });
@@ -151,7 +137,7 @@ app.get('/render', async (request, response) => {
 
   } catch (err) {
 
-    log(err.stack);
+    log.info(err.stack);
     return response.status(500).send();
 
   }
@@ -163,9 +149,9 @@ app.get('/favicon.ico', (request, response) => response.status(204).send());
 
 app.use((err, req, res, next) => {
   if (err?.stack) {
-    log(err.stack);
+    log.info(err.stack);
   }
-  if ((err instanceof SyntaxError) && (err.status === 400) && (err.type === 'entity.parse.failed')) {
+  if ((err.status === 400) && (err.type === 'entity.parse.failed')) {
     return res.status(400).send(errorResponse('Unable to parse body JSON.'));
   } else {
     return res.status(500).send(errorResponse('Unexpected error.'));
@@ -173,6 +159,6 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(port, '127.0.0.1', async () => {
-  await resolveRevision();
-  log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'} (${revision})`);
+  await revision.resolve();
+  log.info(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'} (${revision.get()})`);
 });
