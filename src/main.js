@@ -1,6 +1,6 @@
 const path = require('node:path');
 const crypto = require('node:crypto');
-const proc = require('node:child_process');
+const fs = require('node:fs');
 
 const puppeteer = require('puppeteer-core');
 const express = require('express');
@@ -168,11 +168,8 @@ app.listen(port, '127.0.0.1', () => {
   log(`The server is running on port ${port} in ${process.env.NODE_ENV || 'development'}`);
 });
 
-proc.exec('git rev-parse --short HEAD', { cwd: __dirname }, (err, stdout, stderr) => {
-  if (!err && !stderr && stdout) {
-    const rev = stdout.trim();
-    if (rev && rev.length === 7) {
-      revision = rev;
-    }
+fs.readFile(path.join(path.resolve(__dirname, '..'), '.git/refs/heads/master'), (err, data) => {
+  if (!err && data) {
+    revision = data.toString().trim().substring(0, 7);
   }
 });
