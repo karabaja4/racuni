@@ -28,6 +28,9 @@ body {
 .title-text,
 .title-links {
     display: table-cell;
+    color: #FFFFFF;
+    font-size: 14px;
+    line-height: 48px;
 }
 
 .title-text {
@@ -40,14 +43,6 @@ body {
 .title-icon {
     padding-left: 10px;
     padding-right: 10px;
-}
-
-.title-text,
-.title-links,
-.title-icon {
-    color: #FFFFFF;
-    font-size: 14px;
-    line-height: 48px;
 }
 
 .title-links {
