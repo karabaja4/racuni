@@ -91,6 +91,10 @@ body {
     margin-bottom: 10px;
 }
 
+.input-row .label {
+    color: #212121;
+}
+
 .hidden {
     display: none;
 }
