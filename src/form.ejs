@@ -23,133 +23,193 @@
   </div>
 
   <div class="content">
-
-    <div class="column">
-
-      <div class="input-row">
-        <div class="label">Broj računa:</div>
-        <input type="text" placeholder="Redni broj računa, npr. 1" data-type="integer" data-map="invoiceId">
-      </div>
     
-      <div class="input-row">
-        <div class="label">Mjesec računa:</div>
-        <input type="text" placeholder="Mjesec računa, npr. 4" data-type="integer" data-map="invoiceMonth">
-      </div>
-  
-      <div class="input-row">
-        <div class="label">Godina računa:</div>
-        <input type="text" placeholder="Godina računa, npr. 2022" data-type="integer" data-map="invoiceYear">
-      </div>
+    <div>
+      <div class="inline-row">
+        
+        <div class="column-header">
+          <div class="column-text">Podaci o računu</div>
+        </div>
+        
+        <div class="input-row">
+          <div class="label">Broj računa:</div>
+          <input type="text" placeholder="Redni broj računa, npr. 1" data-type="integer" data-map="invoiceId">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">Mjesec računa:</div>
+          <input type="text" placeholder="Mjesec računa, npr. 4" data-type="integer" data-map="invoiceMonth">
+        </div>
     
-      <div class="input-row">
-        <div class="label">Logo URL (neobavezno):</div>
-        <input type="text" placeholder="URL na logo tvrtke, npr. https://www.oblak.hr/logo.svg" data-type="string" data-map="logoUrl">
+        <div class="input-row">
+          <div class="label">Godina računa:</div>
+          <input type="text" placeholder="Godina računa, npr. 2022" data-type="integer" data-map="invoiceYear">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">Logo URL (neobavezno):</div>
+          <input type="text" placeholder="URL na logo tvrtke, npr. https://www.oblak.hr/logo.svg" data-type="string" data-map="logoUrl">
+        </div>
+        
       </div>
-    
-      <div class="input-row">
-        <div class="label">Ime prodavača:</div>
-        <input type="text" placeholder="Ime prodavača, npr. Oblak d.o.o." data-type="string" data-map="sellerName">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">Ulica prodavača:</div>
-        <input type="text" placeholder="Ulica prodavača, npr. Trg Bana Jelačića 1" data-type="string" data-map="sellerStreet">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">Poštanski broj prodavača:</div>
-        <input type="text" placeholder="Poštanski broj prodavača, npr. 10000" data-type="string" data-map="sellerPostCode">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">Grad prodavača:</div>
-        <input type="text" placeholder="Grad prodavača, npr. Zagreb" data-type="string" data-map="sellerCity">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">Država prodavača:</div>
-        <input type="text" placeholder="Država prodavača, npr. Hrvatska" data-type="string" data-map="sellerCountry">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">PDV ID prodavača:</div>
-        <input type="text" placeholder="PDV ID prodavača, npr. HR 43739213344" data-type="string" data-map="sellerVatNumber">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">IBAN prodavača:</div>
-        <input type="text" placeholder="IBAN prodavača, npr. HR1234567890987654321" data-type="string" data-map="sellerIBAN">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">SWIFT banke prodavača:</div>
-        <input type="text" placeholder="SWIFT banke prodavača, npr. ESBCHR22" data-type="string" data-map="sellerSWIFT">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">Banka prodavača:</div>
-        <input type="text" placeholder="Banka prodavača, npr. Erste&Steiermärkische Bank d.d." data-type="string" data-map="sellerBank">
-      </div>
-    
-      <div class="input-row">
-        <div class="label">Operator prodavača:</div>
-        <input type="text" placeholder="Operator prodavač, npr. Pero Perić" data-type="string" data-map="sellerOperator">
-      </div>
-  
     </div>
-  
-    <div class="column">
-  
-      <div class="input-row">
-        <div class="label">Ime kupca:</div>
-        <input type="text" placeholder="Ime kupca, npr. Evil Corp Ltd" data-type="string" data-map="buyerName">
+    
+    <div>
+      <div class="column">
+        
+        <div class="column-header">
+          <div class="column-text">Podaci o prodavaču</div>
+        </div>
+    
+        <div class="input-row">
+          <div class="label">Ime prodavača:</div>
+          <input type="text" placeholder="Ime prodavača, npr. Oblak d.o.o." data-type="string" data-map="sellerName">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">Ulica prodavača:</div>
+          <input type="text" placeholder="Ulica prodavača, npr. Trg Bana Jelačića 1" data-type="string" data-map="sellerStreet">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">Poštanski broj prodavača:</div>
+          <input type="text" placeholder="Poštanski broj prodavača, npr. 10000" data-type="string" data-map="sellerPostCode">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">Grad prodavača:</div>
+          <input type="text" placeholder="Grad prodavača, npr. Zagreb" data-type="string" data-map="sellerCity">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">Država prodavača:</div>
+          <input type="text" placeholder="Država prodavača, npr. Hrvatska" data-type="string" data-map="sellerCountry">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">PDV ID prodavača:</div>
+          <input type="text" placeholder="PDV ID prodavača, npr. HR 43739213344" data-type="string" data-map="sellerVatNumber">
+        </div>
+    
       </div>
-  
-      <div class="input-row">
-        <div class="label">Ulica kupca:</div>
-        <input type="text" placeholder="Ulica kupca, npr. Sesame Street" data-type="string" data-map="buyerStreet">
+      <div class="column">
+        
+        <div class="column-header">
+          <div class="column-text">Podaci o kupcu</div>
+        </div>
+    
+        <div class="input-row">
+          <div class="label">Ime kupca:</div>
+          <input type="text" placeholder="Ime kupca, npr. Evil Corp Ltd" data-type="string" data-map="buyerName">
+        </div>
+    
+        <div class="input-row">
+          <div class="label">Ulica kupca:</div>
+          <input type="text" placeholder="Ulica kupca, npr. Sesame Street" data-type="string" data-map="buyerStreet">
+        </div>
+    
+        <div class="input-row">
+          <div class="label">Poštanski broj kupca:</div>
+          <input type="text" placeholder="Poštanski broj kupca, npr. 22412" data-type="string" data-map="buyerPostCode">
+        </div>
+    
+        <div class="input-row">
+          <div class="label">Grad kupca:</div>
+          <input type="text" placeholder="Grad kupca, npr. Hamburg" data-type="string" data-map="buyerCity">
+        </div>
+    
+        <div class="input-row">
+          <div class="label">Država kupca:</div>
+          <input type="text" placeholder="Država kupca, npr. Germany" data-type="string" data-map="buyerCountry">
+        </div>
+    
+        <div class="input-row">
+          <div class="label">PDV ID kupca:</div>
+          <input type="text" placeholder="PDV ID kupca, npr. DE12345678901" data-type="string" data-map="buyerVatNumber">
+        </div>
+    
       </div>
-  
-      <div class="input-row">
-        <div class="label">Poštanski broj kupca:</div>
-        <input type="text" placeholder="Poštanski broj kupca, npr. 22412" data-type="string" data-map="buyerPostCode">
+    </div>
+    
+    <div>
+      <div class="inline-row">
+      
+        <div class="column-header">
+          <div class="column-text">Podaci o isporučenoj usluzi</div>
+          <div class="control plus">➕</div>
+          <div class="control minus">➖</div>
+        </div>
+          
+        <table class="product-table">
+          <tr>
+            <th>Opis usluge</th>
+            <th>Jedinica usluge</th>
+            <th>Cijena usluge (u €, bez PDV)</th>
+            <th>Količina usluge</th>
+          </tr>
+          <tr>
+            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[0].description"></td>
+            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[0].unit"></td>
+            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[0].price"></td>
+            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[0].quantity"></td>
+          </tr>
+          <tr class="hidden">
+            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[1].description"></td>
+            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[1].unit"></td>
+            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[1].price"></td>
+            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[1].quantity"></td>
+          </tr>
+          <tr class="hidden">
+            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[2].description"></td>
+            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[2].unit"></td>
+            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[2].price"></td>
+            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[2].quantity"></td>
+          </tr>
+          <tr class="hidden">
+            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[3].description"></td>
+            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[3].unit"></td>
+            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[3].price"></td>
+            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[3].quantity"></td>
+          </tr>
+          <tr class="hidden">
+            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[4].description"></td>
+            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[4].unit"></td>
+            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[4].price"></td>
+            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[4].quantity"></td>
+          </tr>
+        </table>
+        
       </div>
-  
-      <div class="input-row">
-        <div class="label">Grad kupca:</div>
-        <input type="text" placeholder="Grad kupca, npr. Hamburg" data-type="string" data-map="buyerCity">
+    </div>
+    
+    <div>
+      <div class="inline-row">
+        
+        <div class="column-header">
+          <div class="column-text">Transakcijski podaci</div>
+        </div>
+        
+        <div class="input-row">
+          <div class="label">IBAN prodavača:</div>
+          <input type="text" placeholder="IBAN prodavača, npr. HR1234567890987654321" data-type="string" data-map="sellerIBAN">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">SWIFT banke prodavača:</div>
+          <input type="text" placeholder="SWIFT banke prodavača, npr. ESBCHR22" data-type="string" data-map="sellerSWIFT">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">Banka prodavača:</div>
+          <input type="text" placeholder="Banka prodavača, npr. Erste&Steiermärkische Bank d.d." data-type="string" data-map="sellerBank">
+        </div>
+      
+        <div class="input-row">
+          <div class="label">Operator prodavača:</div>
+          <input type="text" placeholder="Operator prodavač, npr. Pero Perić" data-type="string" data-map="sellerOperator">
+        </div>
+        
       </div>
-  
-      <div class="input-row">
-        <div class="label">Država kupca:</div>
-        <input type="text" placeholder="Država kupca, npr. Germany" data-type="string" data-map="buyerCountry">
-      </div>
-  
-      <div class="input-row">
-        <div class="label">PDV ID kupca:</div>
-        <input type="text" placeholder="PDV ID kupca, npr. DE12345678901" data-type="string" data-map="buyerVatNumber">
-      </div>
-  
-      <div class="input-row">
-        <div class="label">Opis usluge:</div>
-        <input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[0].description">
-      </div>
-  
-      <div class="input-row">
-        <div class="label">Jedinica usluge:</div>
-        <input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[0].unit">
-      </div>
-  
-      <div class="input-row">
-        <div class="label">Cijena usluge (u €, bez PDV):</div>
-        <input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[0].price">
-      </div>
-  
-      <div class="input-row">
-        <div class="label">Količina usluge:</div>
-        <input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[0].quantity">
-      </div>
-  
     </div>
   
     <div class="generate">

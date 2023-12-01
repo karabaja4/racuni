@@ -74,17 +74,15 @@ body {
     background-color: #FAFAFA;
 }
 
-.column {
-    display: inline-block;
-    vertical-align: top;
-    margin-right: 40px;
-}
-
 .label {
-    margin-right: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
     font-size: 14px;
     width: 200px;
     display: inline-block;
+    height: 40px;
+    line-height: 40px;
+    vertical-align: top;
 }
 
 .input-row {
@@ -100,12 +98,13 @@ body {
 }
 
 input {
-    width: 332px;
-    height: 22px;
+    width: 350px;
+    height: 40px;
     border: 1px solid #E0E0E0;
     padding: 8px;
     border-radius: 0;
     color: #212121;
+    box-sizing: border-box;
 }
 
 input::-webkit-input-placeholder {
@@ -176,4 +175,100 @@ input[type=number] {
     color: #212121;
     background-color: #FAFAFA;
     z-index: 100;
+}
+
+.column {
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 40px;
+    margin-bottom: 40px;
+}
+
+.inline-row {
+    display: inline-block;
+    vertical-align: top;
+    margin-bottom: 40px;
+}
+
+.column-header {
+    font-weight: bold;
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    background-color: #EEEEEE;
+    position: relative;
+}
+
+.column-header .column-text {
+    position: absolute;
+    top: 0;
+    left: 10px;
+    bottom: 0;
+    right: 80px;
+}
+
+.column-header .control {
+    width: 40px;
+    height: 40px;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    text-align: center;
+    
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.column-header .control:hover {
+    background-color: #E0E0E0;
+}
+
+.column-header .control.plus {
+    right: 0;
+    font-size: 20px;
+}
+
+.column-header .control.minus {
+    right: 40px;
+    font-size: 20px;
+}
+
+.product-table {
+    font-size: 14px;
+    font-weight: normal;
+    text-align: left;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    max-width: 1160px;
+    margin-left: 10px;
+}
+
+.product-table th {
+    font-weight: normal;
+    height: 40px;
+    padding: 0 5px 0 5px;
+}
+
+.product-table td {
+    padding: 5px;
+}
+
+.product-table td:first-child,
+.product-table th:first-child {
+    padding-left: 0;
+}
+
+.product-table td:last-child,
+.product-table th:last-child {
+    padding-right: 0;
+}
+
+.product-table input {
+    width: 100%;
 }

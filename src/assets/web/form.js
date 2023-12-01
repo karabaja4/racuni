@@ -72,6 +72,10 @@ function lsSet(key, value) {
   } catch (err) {}
 }
 
+function isArrayDataMap(value) {
+  return /\[[0-9]+\]\./.test(value);
+}
+
 function restoreInputsFromLocalStorage() {
   var stored = lsGet(lsKey);
   if (stored) {
@@ -82,6 +86,12 @@ function restoreInputsFromLocalStorage() {
       var map = elem.getAttribute('data-map');
       if (map && parsed[map]) {
         elem.value = parsed[map];
+        if (isArrayDataMap(map)) {
+          var parent = elem.parentNode.parentNode;
+          if (parent.tagName.toLowerCase() === 'tr') {
+            parent.classList.remove('hidden');
+          }
+        }
       }
     }
   }
@@ -96,21 +106,29 @@ window.addEventListener('load', function() {
 
 // build request model from all the inputs based on data attributes
 function buildRequestModel() {
-  var result = {
-    items: [{}]
-  };
+  var result = {};
   var elems = document.querySelectorAll('input');
   for (var i = 0; i < elems.length; i++) {
     var elem = elems[i];
-    var map = elem.getAttribute('data-map');
-    var type = elem.getAttribute('data-type');
-    if (map && type) {
-      var idx = '[0].';
-      if (map.indexOf(idx) === -1) {
-        result[map] = ((type === 'integer' && elem.value) ? parseInt(elem.value) : elem.value) || null;
-      } else {
-        var prop = map.split(idx)[1];
-        result.items[0][prop] = ((type === 'decimal' && elem.value) ? parseFloat(elem.value) : elem.value) || null;
+    if (elem.offsetParent !== null) {
+      var map = elem.getAttribute('data-map');
+      var type = elem.getAttribute('data-type');
+      if (map && type) {
+        if (!isArrayDataMap(map)) {
+          result[map] = ((type === 'integer' && elem.value) ? parseInt(elem.value) : elem.value) || null;
+        } else {
+          var parts = map.split(/\[([0-9]+)\]\./);
+          var parent = parts[0];
+          if (!result[parent]) {
+            result[parent] = [];
+          }
+          var index = parseInt(parts[1]);
+          if (!result[parent][index]) {
+            result[parent][index] = {};
+          }
+          var child = parts[2];
+          result[parent][index][child] = ((type === 'decimal' && elem.value) ? parseFloat(elem.value) : elem.value) || null;
+        }
       }
     }
   }
@@ -168,7 +186,7 @@ function flatten(obj) {
   return result;
 }
 
-document.getElementsByClassName('submit-button')[0].addEventListener('click', function () {
+document.querySelectorAll('.submit-button')[0].addEventListener('click', function () {
   var btn = this;
   if (btn.classList.contains('disabled')) {
     return;
@@ -204,4 +222,58 @@ document.getElementsByClassName('submit-button')[0].addEventListener('click', fu
     btn.classList.remove('disabled');
   };
   xhr.send(JSON.stringify(model));
+});
+
+// product table controls
+function getLastVisibleRowIndex() {
+  var rowNodes = document.querySelectorAll('.product-table tr');
+  var rows = [];
+  for (var i = 0; i < rowNodes.length; i++) {
+    rows.push(rowNodes[i]);
+  }
+  rows.sort(function(a, b) {
+    return a.rowIndex - b.rowIndex;
+  });
+  var lastIndex = 0;
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    if (row.classList.contains('hidden')) {
+      return lastIndex;
+    }
+    lastIndex = row.rowIndex;
+  }
+  return lastIndex;
+}
+
+document.querySelectorAll('.column-header .control.plus')[0].addEventListener('click', function () {
+  var lastVisibleIndex = getLastVisibleRowIndex();
+  var rows = document.querySelectorAll('.product-table tr');
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    if (row && row.classList && row.rowIndex == (lastVisibleIndex + 1)) {
+      row.classList.remove('hidden');
+      break;
+    }
+  }
+});
+
+document.querySelectorAll('.column-header .control.minus')[0].addEventListener('click', function () {
+  var lastVisibleIndex = getLastVisibleRowIndex();
+  if (lastVisibleIndex <= 1) {
+    // prevent removing the last row
+    return;
+  }
+  var rows = document.querySelectorAll('.product-table tr');
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    if (row && row.classList && row.rowIndex == lastVisibleIndex) {
+      row.classList.add('hidden');
+      // clear inputs when removing row
+      var inputs = row.querySelectorAll('input');
+      for (var j = 0; j < inputs.length; j++) {
+        inputs[j].value = '';
+      }
+      break;
+    }
+  }
 });
