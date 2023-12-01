@@ -123,6 +123,14 @@ input:-ms-input-placeholder {
     color: #BDBDBD;
 }
 
+input::-ms-input-placeholder {
+    color: #BDBDBD;
+}
+
+input::placeholder {
+    color: #BDBDBD;
+}
+
 input.invalid {
     background-color: mistyrose;
 }
