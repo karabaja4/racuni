@@ -128,7 +128,7 @@ input::placeholder {
 }
 
 input.invalid {
-    background-color: mistyrose;
+    background-color: #FFE4E1;
 }
 
 input::-webkit-outer-spin-button,
