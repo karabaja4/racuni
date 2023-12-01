@@ -93,10 +93,6 @@ body {
     color: #212121;
 }
 
-.hidden {
-    display: none;
-}
-
 input {
     width: 350px;
     height: 40px;
@@ -145,6 +141,10 @@ input::-webkit-inner-spin-button {
 input[type=number] {
     appearance: none;
     -moz-appearance: textfield;
+}
+
+.hidden {
+    display: none;
 }
 
 .column {
