@@ -239,7 +239,7 @@ function getProductTableRows() {
 
 function getLastVisibleRowIndex() {
   var rows = getProductTableRows();
-  var lastIndex = 0;
+  var lastIndex = -1;
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
     if (row.classList.contains('hidden')) {
