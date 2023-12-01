@@ -139,33 +139,6 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.generate {
-    margin-top: 20px;
-}
-
-.submit-button {
-    border-radius: 0;
-    border: 0;
-    padding: 0;
-    background-color: #0D47A1;
-    color: #FFFFFF;
-    width: 160px;
-    height: 40px;
-}
-
-.submit-button:hover {
-    background-color: #1565C0;
-    cursor: pointer;
-}
-
-.submit-button.disabled,
-.submit-button.disabled:hover
-{
-    background-color: #BDBDBD;
-    color: #EEEEEE;
-    cursor: default;
-}
-
 .column {
     display: inline-block;
     vertical-align: top;
@@ -260,6 +233,33 @@ input[type=number] {
 
 .product-table input {
     width: 100%;
+}
+
+.generate {
+    margin-top: 20px;
+}
+
+.submit-button {
+    border-radius: 0;
+    border: 0;
+    padding: 0;
+    background-color: #0D47A1;
+    color: #FFFFFF;
+    width: 160px;
+    height: 40px;
+}
+
+.submit-button:hover {
+    background-color: #1565C0;
+    cursor: pointer;
+}
+
+.submit-button.disabled,
+.submit-button.disabled:hover
+{
+    background-color: #BDBDBD;
+    color: #EEEEEE;
+    cursor: default;
 }
 
 .revision {
