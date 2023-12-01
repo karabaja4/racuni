@@ -238,6 +238,10 @@ input[type=number] {
     font-size: 20px;
 }
 
+.product-table-container {
+    padding-left: 10px;
+}
+
 .product-table {
     font-size: 14px;
     font-weight: normal;
@@ -245,8 +249,7 @@ input[type=number] {
     border-collapse: collapse;
     table-layout: fixed;
     width: 100%;
-    max-width: 1160px;
-    margin-left: 10px;
+    max-width: 1170px;
 }
 
 .product-table th {

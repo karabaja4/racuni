@@ -139,45 +139,47 @@
           <div class="control plus">➕</div>
           <div class="control minus">➖</div>
         </div>
-          
-        <table class="product-table">
-          <tr>
-            <th>Opis usluge</th>
-            <th>Jedinica usluge</th>
-            <th>Cijena usluge (u €, bez PDV)</th>
-            <th>Količina usluge</th>
-          </tr>
-          <tr>
-            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[0].description"></td>
-            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[0].unit"></td>
-            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[0].price"></td>
-            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[0].quantity"></td>
-          </tr>
-          <tr class="hidden">
-            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[1].description"></td>
-            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[1].unit"></td>
-            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[1].price"></td>
-            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[1].quantity"></td>
-          </tr>
-          <tr class="hidden">
-            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[2].description"></td>
-            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[2].unit"></td>
-            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[2].price"></td>
-            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[2].quantity"></td>
-          </tr>
-          <tr class="hidden">
-            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[3].description"></td>
-            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[3].unit"></td>
-            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[3].price"></td>
-            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[3].quantity"></td>
-          </tr>
-          <tr class="hidden">
-            <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[4].description"></td>
-            <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[4].unit"></td>
-            <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[4].price"></td>
-            <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[4].quantity"></td>
-          </tr>
-        </table>
+        
+        <div class="product-table-container">
+          <table class="product-table">
+            <tr>
+              <th>Opis usluge</th>
+              <th>Jedinica usluge</th>
+              <th>Cijena usluge (u €, bez PDV)</th>
+              <th>Količina usluge</th>
+            </tr>
+            <tr>
+              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[0].description"></td>
+              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[0].unit"></td>
+              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[0].price"></td>
+              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[0].quantity"></td>
+            </tr>
+            <tr class="hidden">
+              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[1].description"></td>
+              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[1].unit"></td>
+              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[1].price"></td>
+              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[1].quantity"></td>
+            </tr>
+            <tr class="hidden">
+              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[2].description"></td>
+              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[2].unit"></td>
+              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[2].price"></td>
+              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[2].quantity"></td>
+            </tr>
+            <tr class="hidden">
+              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[3].description"></td>
+              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[3].unit"></td>
+              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[3].price"></td>
+              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[3].quantity"></td>
+            </tr>
+            <tr class="hidden">
+              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[4].description"></td>
+              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[4].unit"></td>
+              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[4].price"></td>
+              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[4].quantity"></td>
+            </tr>
+          </table>
+        </div>
         
       </div>
     </div>
