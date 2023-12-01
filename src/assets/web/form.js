@@ -225,7 +225,7 @@ document.querySelectorAll('.submit-button')[0].addEventListener('click', functio
 });
 
 // product table controls
-function getLastVisibleRowIndex() {
+function getProductTableRows() {
   var rowNodes = document.querySelectorAll('.product-table tr');
   var rows = [];
   for (var i = 0; i < rowNodes.length; i++) {
@@ -234,6 +234,11 @@ function getLastVisibleRowIndex() {
   rows.sort(function(a, b) {
     return a.rowIndex - b.rowIndex;
   });
+  return rows;
+}
+
+function getLastVisibleRowIndex() {
+  var rows = getProductTableRows();
   var lastIndex = 0;
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
@@ -247,7 +252,7 @@ function getLastVisibleRowIndex() {
 
 document.querySelectorAll('.column-header .control.plus')[0].addEventListener('click', function () {
   var lastVisibleIndex = getLastVisibleRowIndex();
-  var rows = document.querySelectorAll('.product-table tr');
+  var rows = getProductTableRows();
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
     if (row && row.classList && row.rowIndex == (lastVisibleIndex + 1)) {
@@ -263,7 +268,7 @@ document.querySelectorAll('.column-header .control.minus')[0].addEventListener('
     // prevent removing the last row
     return;
   }
-  var rows = document.querySelectorAll('.product-table tr');
+  var rows = getProductTableRows();
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
     if (row && row.classList && row.rowIndex == lastVisibleIndex) {
