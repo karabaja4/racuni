@@ -118,16 +118,16 @@ function buildRequestModel() {
           result[map] = ((type === 'integer' && elem.value) ? parseInt(elem.value) : elem.value) || null;
         } else {
           var parts = map.split(/\[([0-9]+)\]\./);
-          var parent = parts[0];
-          if (!result[parent]) {
-            result[parent] = [];
+          var arrayName = parts[0];
+          if (!result[arrayName]) {
+            result[arrayName] = [];
           }
-          var index = parseInt(parts[1]);
-          if (!result[parent][index]) {
-            result[parent][index] = {};
+          var itemIndex = parseInt(parts[1]);
+          if (!result[arrayName][itemIndex]) {
+            result[arrayName][itemIndex] = {};
           }
-          var child = parts[2];
-          result[parent][index][child] = ((type === 'decimal' && elem.value) ? parseFloat(elem.value) : elem.value) || null;
+          var itemField = parts[2];
+          result[arrayName][itemIndex][itemField] = ((type === 'decimal' && elem.value) ? parseFloat(elem.value) : elem.value) || null;
         }
       }
     }
