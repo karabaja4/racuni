@@ -71,7 +71,6 @@ body {
 .content {
     padding: 40px;
     position: relative;
-    z-index: 1000;
     background-color: #FAFAFA;
 }
 
@@ -165,17 +164,6 @@ input[type=number] {
     background-color: #BDBDBD;
     color: #EEEEEE;
     cursor: default;
-}
-
-.revision {
-    font-size: 14px;
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    padding: 5px;
-    color: #212121;
-    background-color: #FAFAFA;
-    z-index: 100;
 }
 
 .column {
@@ -273,4 +261,15 @@ input[type=number] {
 
 .product-table input {
     width: 100%;
+}
+
+.revision {
+    font-size: 14px;
+    bottom: 0px;
+    right: 0px;
+    left: 0;
+    color: #212121;
+    background-color: #FAFAFA;
+    text-align: right;
+    padding: 5px;
 }
