@@ -27,10 +27,6 @@ const formatVat = (vatNumber) => {
   return vatNumber.replace(/\s/g, '').toUpperCase();
 };
 
-const isMine = (vatNumber) => {
-  return formatVat(vatNumber) === 'HR21522318070';
-};
-
 const buildViewModel = (requestModel) => {
 
   const now = dayjs().tz("Europe/Zagreb");
@@ -38,13 +34,12 @@ const buildViewModel = (requestModel) => {
 
   const eom = now.year(model.invoiceYear).month(model.invoiceMonth - 1).endOf('month');
   const fin = `${model.invoiceId}-1-1`;
-  const mine = isMine(model.sellerVatNumber);
 
   // start model calculations
   model.invoiceNumber = fin;
 
   // invoice date
-  const invoiceDate = (mine && now.isAfter(eom)) ? eom.startOf('day').add(16, 'hour').add(Math.floor(Math.random() * 60), 'minute') : now;
+  const invoiceDate = now.isAfter(eom) ? eom.startOf('day').add(16, 'hour').add(Math.floor(Math.random() * 60), 'minute') : now;
   const utcOffset = Math.round(invoiceDate.utcOffset() / 60);
   model.invoiceDate = `${invoiceDate.format(fullDateFormat)} (UTC${(utcOffset > 0 ? `+${utcOffset}` : utcOffset) || ''})`;
 
