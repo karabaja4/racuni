@@ -170,7 +170,6 @@ input[type=number] {
     display: inline-block;
     vertical-align: top;
     margin-bottom: 40px;
-    overflow: hidden;
 }
 
 .column:first-child:not(:only-child) {
