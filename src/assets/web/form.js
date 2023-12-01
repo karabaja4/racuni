@@ -255,7 +255,7 @@ document.querySelectorAll('.column-header .control.plus')[0].addEventListener('c
   var rows = getProductTableRows();
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
-    if (row && row.classList && row.rowIndex == (lastVisibleIndex + 1)) {
+    if (row && (row.rowIndex === (lastVisibleIndex + 1))) {
       row.classList.remove('hidden');
       break;
     }
@@ -271,7 +271,7 @@ document.querySelectorAll('.column-header .control.minus')[0].addEventListener('
   var rows = getProductTableRows();
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
-    if (row && row.classList && row.rowIndex == lastVisibleIndex) {
+    if (row && (row.rowIndex === lastVisibleIndex)) {
       row.classList.add('hidden');
       // clear inputs when removing row
       var inputs = row.querySelectorAll('input');
