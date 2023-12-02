@@ -225,60 +225,43 @@ document.querySelectorAll('.submit-button')[0].addEventListener('click', functio
 });
 
 // product table controls
-function getProductTableRows() {
+function getProductTableRows(ascending) {
   var rowNodes = document.querySelectorAll('.product-table tr');
   var rows = [];
   for (var i = 0; i < rowNodes.length; i++) {
     rows.push(rowNodes[i]);
   }
   rows.sort(function(a, b) {
-    return a.rowIndex - b.rowIndex;
+    return (a.rowIndex - b.rowIndex) * (ascending ? 1 : -1);
   });
   return rows;
 }
 
-function getLastVisibleRowIndex() {
-  var rows = getProductTableRows();
-  var lastIndex = -1;
+function getNextRow(hidden) {
+  var rows = getProductTableRows(hidden);
   for (var i = 0; i < rows.length; i++) {
     var row = rows[i];
-    if (row.classList.contains('hidden')) {
-      return lastIndex;
+    if (hidden === row.classList.contains('hidden')) {
+      return row;
     }
-    lastIndex = row.rowIndex;
   }
-  return lastIndex;
+  return null;
 }
 
 document.querySelectorAll('.column-header .control.plus')[0].addEventListener('click', function () {
-  var lastVisibleIndex = getLastVisibleRowIndex();
-  var rows = getProductTableRows();
-  for (var i = 0; i < rows.length; i++) {
-    var row = rows[i];
-    if (row && (row.rowIndex === (lastVisibleIndex + 1))) {
-      row.classList.remove('hidden');
-      break;
-    }
+  var row = getNextRow(true);
+  if (row) {
+    row.classList.remove('hidden');
   }
 });
 
 document.querySelectorAll('.column-header .control.minus')[0].addEventListener('click', function () {
-  var lastVisibleIndex = getLastVisibleRowIndex();
-  if (lastVisibleIndex <= 1) {
-    // prevent removing the last row
-    return;
-  }
-  var rows = getProductTableRows();
-  for (var i = 0; i < rows.length; i++) {
-    var row = rows[i];
-    if (row && (row.rowIndex === lastVisibleIndex)) {
-      row.classList.add('hidden');
-      // clear inputs when removing row
-      var inputs = row.querySelectorAll('input');
-      for (var j = 0; j < inputs.length; j++) {
-        inputs[j].value = '';
-      }
-      break;
+  var row = getNextRow(false);
+  if (row.rowIndex > 1) {
+    row.classList.add('hidden');
+    var inputs = row.querySelectorAll('input');
+    for (var j = 0; j < inputs.length; j++) {
+      inputs[j].value = '';
     }
   }
 });
