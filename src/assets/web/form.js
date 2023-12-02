@@ -260,8 +260,8 @@ document.querySelectorAll('.column-header .control.minus')[0].addEventListener('
   if (row.rowIndex > 1) {
     row.classList.add('hidden');
     var inputs = row.querySelectorAll('input');
-    for (var j = 0; j < inputs.length; j++) {
-      inputs[j].value = '';
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = '';
     }
   }
 });
