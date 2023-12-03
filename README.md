@@ -113,8 +113,8 @@ The HTTP status code in this case is 400.
 
 VAT will be applied automatically, if a Croatian company is detected as the buyer. This will be true:
 
-* If the buyer country is "Croatia" or "Hrvatska".
-* If the buyer name contains "d.o.o".
+* if the buyer country is "Croatia" or "Hrvatska".
+* if the buyer name contains "d.o.o".
 * if the buyer VAT number starts with "HR".
 
 ## Screenshots
