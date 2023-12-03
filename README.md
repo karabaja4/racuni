@@ -79,6 +79,14 @@ POST https://racuni.radiance.hr/generate
 ```
 The response is a binary file (PDF) with HTTP status code 200.
 
+### VAT
+
+VAT will be applied automatically, if a Croatian company is detected as the buyer. This will be true:
+
+* if the buyer country is "Croatia" or "Hrvatska".
+* if the buyer name contains "d.o.o".
+* if the buyer VAT number starts with "HR".
+
 ### Validation and error handling
 
 Validation rules:
@@ -108,14 +116,6 @@ If there are errors in the request body, the response will return the list of in
 }
 ```
 The HTTP status code in this case is 400.
-
-### VAT
-
-VAT will be applied automatically, if a Croatian company is detected as the buyer. This will be true:
-
-* if the buyer country is "Croatia" or "Hrvatska".
-* if the buyer name contains "d.o.o".
-* if the buyer VAT number starts with "HR".
 
 ## Screenshots
 
