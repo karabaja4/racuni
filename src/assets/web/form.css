@@ -59,7 +59,8 @@ body {
 
 .title-links a img {
     vertical-align: top;
-    margin: 16px 6px 16px 6px;
+    margin-top: 16px;
+    margin-right: 6px;
     width: 16px;
     height: 16px;
 }
