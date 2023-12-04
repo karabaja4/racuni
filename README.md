@@ -83,9 +83,13 @@ The response is a binary file (PDF) with HTTP status code 200.
 
 VAT will be applied automatically, if a Croatian company is detected as the buyer. This will be true:
 
-* if the buyer country is "Croatia" or "Hrvatska".
-* if the buyer name contains "d.o.o".
-* if the buyer VAT number starts with "HR".
+* If the buyer country is "Croatia" or "Hrvatska".
+* If the buyer name contains "d.o.o".
+* If the buyer VAT number starts with "HR".
+
+If Croatian company is detected as the buyer, a PDF417 barcode will be included to facilitate mobile payments by scanning the code.
+
+Read more about this on: [HUB 3A obrazac - specifikacija PDF417 barkoda](https://avacyn.radiance.hr/stuff/2DBK_EUR_Uputa_1.pdf)
 
 ### Validation and error handling
 
