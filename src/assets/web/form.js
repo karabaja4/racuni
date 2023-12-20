@@ -13,10 +13,13 @@ function isValidDecimal(value) {
 }
 
 function getEventKey(event) {
-  if (event?.key) {
+  if (!event) {
+    return null;
+  }
+  if (event.key) {
     return event.key;
   }
-  if (event?.which || event?.keyCode) {
+  if (event.which || event.keyCode) {
     return String.fromCharCode(event.which || event.keyCode);
   }
   return null;
