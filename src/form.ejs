@@ -33,22 +33,22 @@
         
         <div class="input-row">
           <div class="label">Broj računa:</div>
-          <input type="text" placeholder="Redni broj računa, npr. 1" data-type="integer" data-map="invoiceId">
+          <input id="invoice-id-input" type="text" placeholder="Redni broj računa, npr. 1" data-type="integer" data-map="invoiceId">
         </div>
       
         <div class="input-row">
           <div class="label">Mjesec računa:</div>
-          <input type="text" placeholder="Mjesec računa, npr. 4" data-type="integer" data-map="invoiceMonth">
+          <input id="invoice-month-input" type="text" placeholder="Mjesec računa, npr. 4" data-type="integer" data-map="invoiceMonth">
         </div>
     
         <div class="input-row">
           <div class="label">Godina računa:</div>
-          <input type="text" placeholder="Godina računa, npr. 2022" data-type="integer" data-map="invoiceYear">
+          <input id="invoice-year-input" type="text" placeholder="Godina računa, npr. 2022" data-type="integer" data-map="invoiceYear">
         </div>
       
         <div class="input-row">
           <div class="label">Logo URL (neobavezno):</div>
-          <input type="text" placeholder="URL na logo tvrtke, npr. https://www.oblak.hr/logo.svg" data-type="string" data-map="logoUrl">
+          <input id="logo-url-input" type="text" placeholder="URL na logo tvrtke, npr. https://www.oblak.hr/logo.svg" data-type="string" data-map="logoUrl">
         </div>
         
       </div>
@@ -63,32 +63,32 @@
     
         <div class="input-row">
           <div class="label">Ime prodavača:</div>
-          <input type="text" placeholder="Ime prodavača, npr. Oblak d.o.o." data-type="string" data-map="sellerName">
+          <input id="seller-name-input" type="text" placeholder="Ime prodavača, npr. Oblak d.o.o." data-type="string" data-map="sellerName">
         </div>
       
         <div class="input-row">
           <div class="label">Ulica prodavača:</div>
-          <input type="text" placeholder="Ulica prodavača, npr. Trg Bana Jelačića 1" data-type="string" data-map="sellerStreet">
+          <input id="seller-street-input" type="text" placeholder="Ulica prodavača, npr. Trg Bana Jelačića 1" data-type="string" data-map="sellerStreet">
         </div>
       
         <div class="input-row">
           <div class="label">Poštanski broj prodavača:</div>
-          <input type="text" placeholder="Poštanski broj prodavača, npr. 10000" data-type="string" data-map="sellerPostCode">
+          <input id="seller-postcode-input" type="text" placeholder="Poštanski broj prodavača, npr. 10000" data-type="string" data-map="sellerPostCode">
         </div>
       
         <div class="input-row">
           <div class="label">Grad prodavača:</div>
-          <input type="text" placeholder="Grad prodavača, npr. Zagreb" data-type="string" data-map="sellerCity">
+          <input id="seller-city-input" type="text" placeholder="Grad prodavača, npr. Zagreb" data-type="string" data-map="sellerCity">
         </div>
       
         <div class="input-row">
           <div class="label">Država prodavača:</div>
-          <input type="text" placeholder="Država prodavača, npr. Hrvatska" data-type="string" data-map="sellerCountry">
+          <input id="seller-country-input" type="text" placeholder="Država prodavača, npr. Hrvatska" data-type="string" data-map="sellerCountry">
         </div>
       
         <div class="input-row">
           <div class="label">PDV ID prodavača:</div>
-          <input type="text" placeholder="PDV ID prodavača, npr. HR 43739213344" data-type="string" data-map="sellerVatNumber">
+          <input id="seller-vatnumber-input" type="text" placeholder="PDV ID prodavača, npr. HR 43739213344" data-type="string" data-map="sellerVatNumber">
         </div>
     
       </div>
@@ -100,32 +100,32 @@
     
         <div class="input-row">
           <div class="label">Ime kupca:</div>
-          <input type="text" placeholder="Ime kupca, npr. Evil Corp Ltd" data-type="string" data-map="buyerName">
+          <input id="buyer-name-input" type="text" placeholder="Ime kupca, npr. Evil Corp Ltd" data-type="string" data-map="buyerName">
         </div>
     
         <div class="input-row">
           <div class="label">Ulica kupca:</div>
-          <input type="text" placeholder="Ulica kupca, npr. Sesame Street" data-type="string" data-map="buyerStreet">
+          <input id="buyer-street-input" type="text" placeholder="Ulica kupca, npr. Sesame Street" data-type="string" data-map="buyerStreet">
         </div>
     
         <div class="input-row">
           <div class="label">Poštanski broj kupca:</div>
-          <input type="text" placeholder="Poštanski broj kupca, npr. 22412" data-type="string" data-map="buyerPostCode">
+          <input id="buyer-postcode-input" type="text" placeholder="Poštanski broj kupca, npr. 22412" data-type="string" data-map="buyerPostCode">
         </div>
     
         <div class="input-row">
           <div class="label">Grad kupca:</div>
-          <input type="text" placeholder="Grad kupca, npr. Hamburg" data-type="string" data-map="buyerCity">
+          <input id="buyer-city-input" type="text" placeholder="Grad kupca, npr. Hamburg" data-type="string" data-map="buyerCity">
         </div>
     
         <div class="input-row">
           <div class="label">Država kupca:</div>
-          <input type="text" placeholder="Država kupca, npr. Germany" data-type="string" data-map="buyerCountry">
+          <input id="buyer-country-input" type="text" placeholder="Država kupca, npr. Germany" data-type="string" data-map="buyerCountry">
         </div>
     
         <div class="input-row">
           <div class="label">PDV ID kupca:</div>
-          <input type="text" placeholder="PDV ID kupca, npr. DE12345678901" data-type="string" data-map="buyerVatNumber">
+          <input id="buyer-vatnumber-input" type="text" placeholder="PDV ID kupca, npr. DE 12345678901" data-type="string" data-map="buyerVatNumber">
         </div>
     
       </div>
@@ -149,34 +149,34 @@
               <th>Količina usluge</th>
             </tr>
             <tr>
-              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[0].description"></td>
-              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[0].unit"></td>
-              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[0].price"></td>
-              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[0].quantity"></td>
+              <td><input id="item-0-description-input" type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[0].description"></td>
+              <td><input id="item-0-unit-input" type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[0].unit"></td>
+              <td><input id="item-0-price-input" type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[0].price"></td>
+              <td><input id="item-0-quantity-input" type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[0].quantity"></td>
             </tr>
             <tr class="hidden">
-              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[1].description"></td>
-              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[1].unit"></td>
-              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[1].price"></td>
-              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[1].quantity"></td>
+              <td><input id="item-1-description-input" type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[1].description"></td>
+              <td><input id="item-1-unit-input" type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[1].unit"></td>
+              <td><input id="item-1-price-input" type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[1].price"></td>
+              <td><input id="item-1-quantity-input" type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[1].quantity"></td>
             </tr>
             <tr class="hidden">
-              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[2].description"></td>
-              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[2].unit"></td>
-              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[2].price"></td>
-              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[2].quantity"></td>
+              <td><input id="item-2-description-input" type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[2].description"></td>
+              <td><input id="item-2-unit-input" type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[2].unit"></td>
+              <td><input id="item-2-price-input" type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[2].price"></td>
+              <td><input id="item-2-quantity-input" type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[2].quantity"></td>
             </tr>
             <tr class="hidden">
-              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[3].description"></td>
-              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[3].unit"></td>
-              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[3].price"></td>
-              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[3].quantity"></td>
+              <td><input id="item-3-description-input" type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[3].description"></td>
+              <td><input id="item-3-unit-input" type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[3].unit"></td>
+              <td><input id="item-3-price-input" type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[3].price"></td>
+              <td><input id="item-3-quantity-input" type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[3].quantity"></td>
             </tr>
             <tr class="hidden">
-              <td><input type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[4].description"></td>
-              <td><input type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[4].unit"></td>
-              <td><input type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[4].price"></td>
-              <td><input type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[4].quantity"></td>
+              <td><input id="item-4-description-input" type="text" placeholder="Opis usluge, npr. Software development" data-type="string" data-map="items[4].description"></td>
+              <td><input id="item-4-unit-input" type="text" placeholder="Jedinica usluge, npr. dan (day)" data-type="string" data-map="items[4].unit"></td>
+              <td><input id="item-4-price-input" type="text" placeholder="Cijena usluge (u €), npr. 323.50" data-type="decimal" data-map="items[4].price"></td>
+              <td><input id="item-4-quantity-input" type="text" placeholder="Količina usluge, npr. 21" data-type="decimal" data-map="items[4].quantity"></td>
             </tr>
           </table>
         </div>
@@ -193,22 +193,22 @@
         
         <div class="input-row">
           <div class="label">IBAN prodavača:</div>
-          <input type="text" placeholder="IBAN prodavača, npr. HR1234567890987654321" data-type="string" data-map="sellerIBAN">
+          <input id="seller-iban-input" type="text" placeholder="IBAN prodavača, npr. HR1234567890987654321" data-type="string" data-map="sellerIBAN">
         </div>
       
         <div class="input-row">
           <div class="label">SWIFT banke prodavača:</div>
-          <input type="text" placeholder="SWIFT banke prodavača, npr. ESBCHR22" data-type="string" data-map="sellerSWIFT">
+          <input id="seller-swift-input" type="text" placeholder="SWIFT banke prodavača, npr. ESBCHR22" data-type="string" data-map="sellerSWIFT">
         </div>
       
         <div class="input-row">
           <div class="label">Banka prodavača:</div>
-          <input type="text" placeholder="Banka prodavača, npr. Erste&Steiermärkische Bank d.d." data-type="string" data-map="sellerBank">
+          <input id="seller-bank-input" type="text" placeholder="Banka prodavača, npr. Erste&Steiermärkische Bank d.d." data-type="string" data-map="sellerBank">
         </div>
       
         <div class="input-row">
           <div class="label">Operator prodavača:</div>
-          <input type="text" placeholder="Operator prodavač, npr. Pero Perić" data-type="string" data-map="sellerOperator">
+          <input id="seller-operator-input" type="text" placeholder="Operator prodavač, npr. Pero Perić" data-type="string" data-map="sellerOperator">
         </div>
         
       </div>
