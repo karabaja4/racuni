@@ -12,14 +12,27 @@ function isValidDecimal(value) {
   return regex.test(value);
 }
 
+function getEventKey(event) {
+  if (event?.key) {
+    return event.key;
+  }
+  if (event?.which || event?.keyCode) {
+    return String.fromCharCode(event.which || event.keyCode);
+  }
+  return null;
+}
+
 function addInputNumberValidation(input, isDecimal) {
   input.addEventListener('keypress', function(event) {
-    if (isValidInteger(event.key)) {
-      return;
-    }
-    // decimal, dot pressed, field not empty, field does not have a dot and cursor is not at start
-    if (isDecimal && event.key === '.' && this.value !== '' && this.value.indexOf('.') === -1 && this.selectionStart > 0) {
-      return;
+    const eventKey = getEventKey(event);
+    if (eventKey) {
+      if (isValidInteger(eventKey)) {
+        return;
+      }
+      // decimal, dot pressed, field not empty, field does not have a dot and cursor is not at start
+      if (isDecimal && eventKey === '.' && this.value !== '' && this.value.indexOf('.') === -1 && this.selectionStart > 0) {
+        return;
+      }
     }
     event.preventDefault();
   });
