@@ -11,6 +11,7 @@ const validator = require('./validator');
 const log = require('./log');
 const revision = require('./revision');
 const env = require('./env');
+const optimizer = require('./optimizer');
 
 const port = 33198;
 const app = express();
@@ -98,11 +99,13 @@ app.post('/generate', async (request, response) => {
     });
   
     await browser.close();
+    
+    const final = await optimizer.optimize(pdf);
   
     response.set('Content-Type', 'application/pdf');
     response.set('Content-Disposition', `attachment; filename=${model.vm.filename}.pdf`);
-    response.set('Content-Length', pdf.length);
-    response.send(pdf);
+    response.set('Content-Length', final.length);
+    response.send(final);
 
   } catch (err) {
 

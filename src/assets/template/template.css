@@ -179,6 +179,7 @@ table.items {
 
 
 .bottom .bullet {
+    font-family: 'DejaVu Sans';
     font-size: 6px;
     display: inline-block;
     vertical-align: top;
