@@ -78,7 +78,7 @@ const buildViewModel = (requestModel) => {
     const vatAmount = model.grandTotal * croatianVat;
 
     model.vat = {
-      percentage: formatDecimal(Math.round(croatianVat * 100)) + ' %',
+      percentage: formatDecimal(Math.round(croatianVat * 100)) + String.fromCharCode(160) + '%',
       referenceNumber: `HR00 ${fin}`,
       barcodeData: null,
       grandTotalVatBase: formatMoney(model.grandTotal, 10000),
