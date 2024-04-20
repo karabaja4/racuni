@@ -110,7 +110,7 @@ const validate = (model) => {
   if (!model.items || !Array.isArray(model.items) || (model.items.length === 0)) {
     push('items', 'must be a non-empty array.');
   } else if (model.items.length > 5) {
-    push('items', 'must have at most 5 elements.');
+    push('items', 'can have at most 5 elements.');
   } else {
     for (let i = 0; i < model.items.length; i++) {
       const item = model.items[i];
