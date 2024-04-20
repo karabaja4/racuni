@@ -74,7 +74,7 @@ const extractError = (e) => {
       message: `${instancePath} is a required field.`
     };
   }
-  else if ((e.keyword === 'type' || e.keyword === 'minItems') && e.instancePath) {
+  else if ((e.keyword === 'type' || e.keyword === 'minItems' || e.keyword === 'maxItems') && e.instancePath) {
     const instancePath = formatInstancePath(e.instancePath);
     return {
       field: instancePath,
