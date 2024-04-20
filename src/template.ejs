@@ -89,21 +89,21 @@
     <div class="vat-row">
       <div class="vat-container row1">
         <span>Ukupno (Total):</span>
-        <span><%= vm.vat.grandTotalVatBase %></span>
+        <span class="no-wrap"><%= vm.vat.grandTotalVatBase %></span>
       </div>
     </div>
     <div class="vat-row">
       <div class="vat-container row2">
-        <span>PDV (VAT): <%= vm.vat.percentage %></span>
-        <span>(osnovica (base): <%= vm.vat.grandTotalVatBase %>)</span>
-        <span><%= vm.vat.vatAmount %></span>
+        <span>PDV (VAT): <span class="no-wrap"><%= vm.vat.percentage %></span></span>
+        <span>(osnovica (base): <span class="no-wrap"><%= vm.vat.grandTotalVatBase %></span>)</span>
+        <span class="no-wrap"><%= vm.vat.vatAmount %></span>
       </div>
     </div>
   <% }; %>
   <div class="vat-row">
     <div class="vat-container row3">
       <span>Ukupan iznos naplate (Grand total):</span>
-      <span><%= vm.grandTotal %></span>
+      <span class="no-wrap"><%= vm.grandTotal %></span>
     </div>
   </div>
 
