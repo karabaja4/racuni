@@ -114,11 +114,15 @@ const validate = (model) => {
   } else {
     for (let i = 0; i < model.items.length; i++) {
       const item = model.items[i];
-      const prefix = `items[${i}]`;
-      validateString(item, 'description', `${prefix}.description`);
-      validateString(item, 'unit', `${prefix}.unit`);
-      validateDecimal(item, 'price', `${prefix}.price`);
-      validateDecimal(item, 'quantity', `${prefix}.quantity`);
+      if (!item || (item.constructor !== Object)) {
+        push('items', 'must contain objects.');
+      } else {
+        const prefix = `items[${i}]`;
+        validateString(item, 'description', `${prefix}.description`);
+        validateString(item, 'unit', `${prefix}.unit`);
+        validateDecimal(item, 'price', `${prefix}.price`);
+        validateDecimal(item, 'quantity', `${prefix}.quantity`);
+      }
     }
   }
   
