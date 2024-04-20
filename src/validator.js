@@ -44,6 +44,10 @@ const validate = (model) => {
   const errors = [];
   
   const push = (fieldName, message) => {
+    if (errors.some(x => x.field === fieldName)) {
+      // each field only once
+      return;
+    }
     errors.push({
       field: fieldName,
       message: `${fieldName} ${message}`
@@ -116,7 +120,6 @@ const validate = (model) => {
       const item = model.items[i];
       if (!item || (item.constructor !== Object)) {
         push('items', 'array can only contain objects.');
-        break;
       } else {
         const prefix = `items[${i}]`;
         validateString(item, 'description', `${prefix}.description`);
