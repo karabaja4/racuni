@@ -223,6 +223,7 @@ input[type=number] {
     font-weight: normal;
     height: 40px;
     padding: 0 5px 0 5px;
+    text-align: left;
 }
 
 .product-table td {
