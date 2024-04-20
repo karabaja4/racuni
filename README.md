@@ -133,6 +133,20 @@ The HTTP status code in this case is 400.
   <img src="https://user-images.githubusercontent.com/1043015/281582481-ac3cde23-ab07-4aca-80f7-34141d844e10.png">
 </p>
 
+## Dependencies
+
+### Applications
+
+* Chromium (`/usr/bin/chromium-browser`) - for generating PDF via headless Chromium/Skia
+* QPDF (`/usr/bin/qpdf`) - for PDF optimization and removing Chromium PDF metadata (Title, Creator etc.) _(optional)_
+
+### System Fonts (TTF):
+
+* Roboto
+* DejaVu
+
+Application is written for and tested on Linux only.
+
 ## References
 
 https://github.com/pkoretic/pdf417-generator - PDF417 barcode generation
