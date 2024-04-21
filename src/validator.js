@@ -1,4 +1,4 @@
-const maxStringLength = 100;
+const maxStringLength = 80;
 const maxUrlLength = 500;
 const maxNumberValue = 1000000;
 
