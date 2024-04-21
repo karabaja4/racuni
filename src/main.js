@@ -68,10 +68,10 @@ app.post('/generate', async (request, response) => {
 
   try {
     
-    const result = validator.validate(request.body);
-    if (!result.valid) {
+    const validationResult = validator.validate(request.body);
+    if (!validationResult.valid) {
       return response.status(400).send({
-        errors: result.errors
+        errors: validationResult.errors
       });
     }
   
@@ -106,6 +106,8 @@ app.post('/generate', async (request, response) => {
     response.set('Content-Disposition', `attachment; filename=${model.vm.filename}.pdf`);
     response.set('Content-Length', final.length);
     response.send(final);
+    
+    log.info(`Successfully returned ${model.vm.filename}.pdf`);
 
   } catch (err) {
 

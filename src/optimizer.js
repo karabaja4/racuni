@@ -23,7 +23,7 @@ const optimize = async (pdfBuffer) => {
     await fs.promises.unlink(sourceFile);
     await fs.promises.unlink(destFile);
     
-    log.info(`Successfully optimized PDF (${pdfBuffer.length} bytes -> ${optimizedPdfBuffer.length} bytes)`)
+    log.info(`Optimized PDF (${pdfBuffer.length} bytes -> ${optimizedPdfBuffer.length} bytes)`)
     
     return optimizedPdfBuffer;
     
