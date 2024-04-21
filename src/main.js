@@ -125,7 +125,7 @@ app.get('/render', async (request, response) => {
   try {
     const jsonHash = request.query.hash;
     if (!jsonHash) {
-      throw new Error(`JSON hash not provided.`);
+      throw new Error('JSON hash not provided.');
     }
     const json = jsonStore[jsonHash];
     if (!json) {
