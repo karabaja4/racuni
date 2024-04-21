@@ -1,4 +1,5 @@
-const maxStringLength = 300;
+const maxStringLength = 100;
+const maxUrlLength = 500;
 const maxNumberValue = 1000000;
 
 const isValidInteger = (input) => {
@@ -23,7 +24,7 @@ const isValidUrl = (input) => {
     if (trimmed === '') {
       return true;
     }
-    if ((trimmed.startsWith('http://') || trimmed.startsWith('https://')) && trimmed.length <= maxStringLength) {
+    if ((trimmed.startsWith('http://') || trimmed.startsWith('https://')) && trimmed.length <= maxUrlLength) {
       return true;
     }
   }
@@ -74,7 +75,7 @@ const validate = (model) => {
   
   const validateUrl = (obj, fieldName) => {
     if (!isValidUrl(obj[fieldName])) {
-      push(fieldName, `must be a non-empty string, have less than ${maxStringLength} characters and start with https://.`);
+      push(fieldName, `must be a non-empty string, have less than ${maxUrlLength} characters and start with https://.`);
     }
   };
   
