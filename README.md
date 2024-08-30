@@ -101,7 +101,7 @@ Validation rules:
 * `items[]` array can contain at most 5 items.
 * `items[].price` must be a decimal with at most 2 decimals, e.g. `400.55`.
 * `items[].quantity` must be a decimal with at most 2 decimals, e.g. `1.75`.
-* All string lengths must be less than or equal to 300 characters.
+* All string lengths must be less than or equal to 80 characters.
 
 If there are errors in the request body, the response will return the list of invalid fields, for example:
 
