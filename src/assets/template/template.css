@@ -172,8 +172,8 @@ table.items {
     text-align: center;
     border-top: 1px solid #212121;
     position: fixed;
-    bottom: 40px;
-    right: 40px;
+    bottom: 38px;
+    right: 38px;
     left: 40px;
 }
 
@@ -183,7 +183,7 @@ table.items {
     font-size: 6px;
     display: inline-block;
     vertical-align: top;
-    padding-top: 4px;
+    padding-top: 5px;
 }
 
 .bottom .line {
