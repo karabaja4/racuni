@@ -141,16 +141,11 @@
 
   <div class="bottom">
     <div class="line"><%= vm.sellerName %></div>
-    <div class="bullet">●</div>
-    <div class="line">Address: <%= vm.sellerStreet %>, <%= vm.sellerPostCode %> <%= vm.sellerCity %>, <%= vm.sellerCountry %></div>
-    <div class="bullet">●</div>
-    <div class="line">VAT number: <%= vm.sellerVatNumber %></div>
-    <div class="bullet">●</div>
-    <div class="line">IBAN: <%= vm.sellerIBAN %></div>
-    <div class="bullet">●</div>
-    <div class="line">SWIFT: <%= vm.sellerSWIFT %></div>
-    <div class="bullet">●</div>
-    <div class="line">Bank: <%= vm.sellerBank %></div>
+    <div class="line">● Address: <%= vm.sellerStreet %>, <%= vm.sellerPostCode %> <%= vm.sellerCity %>, <%= vm.sellerCountry %></div>
+    <div class="line">● VAT number: <%= vm.sellerVatNumber %></div>
+    <div class="line">● IBAN: <%= vm.sellerIBAN %></div>
+    <div class="line">● SWIFT: <%= vm.sellerSWIFT %></div>
+    <div class="line">● Bank: <%= vm.sellerBank %></div>
   </div>
 
   <% if (vm.vat && vm.vat.barcodeData) { %>

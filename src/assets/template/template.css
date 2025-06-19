@@ -175,15 +175,7 @@ table.items {
     bottom: 40px;
     right: 40px;
     left: 40px;
-}
-
-
-.bottom .bullet {
-    font-family: 'DejaVu Sans';
-    font-size: 6px;
-    display: inline-block;
-    vertical-align: top;
-    padding-top: 5px;
+    padding-top: 3px;
 }
 
 .bottom .line {
