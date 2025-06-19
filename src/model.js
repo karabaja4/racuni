@@ -29,7 +29,7 @@ const formatVat = (vatNumber) => {
 
 const buildViewModel = (requestModel) => {
 
-  const now = dayjs().tz("Europe/Zagreb");
+  const now = dayjs().tz('Europe/Zagreb');
   const model = JSON.parse(JSON.stringify(requestModel));
 
   const eom = now.year(model.invoiceYear).month(model.invoiceMonth - 1).endOf('month');
@@ -68,9 +68,9 @@ const buildViewModel = (requestModel) => {
   // show barcode only for croatian customers
   const buyerFrom = model.buyerCountry.toLowerCase();
   const buyerName = model.buyerName.replace(/\s/g, '').toLowerCase();
-  const isCroatian = formatVat(model.buyerVatNumber).startsWith("HR") ||
-                     buyerFrom.includes("hrvat") ||
-                     buyerFrom.includes("croat") ||
+  const isCroatian = formatVat(model.buyerVatNumber).startsWith('HR') ||
+                     buyerFrom.includes('hrvat') ||
+                     buyerFrom.includes('croat') ||
                      buyerName.includes('d.o.o');
                      
   if (isCroatian) {
