@@ -38,7 +38,7 @@ if (env.isProduction()) {
 
 app.use(express.json());
 
-app.get('/', async (request, response) => {
+app.get('/', async (request, response, next) => {
   
   try {
     
@@ -51,8 +51,7 @@ app.get('/', async (request, response) => {
     
   } catch (err) {
     
-    log.error(err);
-    return response.status(500).send('Internal server error.');
+    next(err);
     
   }
   
@@ -64,7 +63,7 @@ const getJsonHash = (json) => {
   return crypto.createHash('sha256').update(json).digest('hex');
 };
 
-app.post('/generate', async (request, response) => {
+app.post('/generate', async (request, response, next) => {
 
   try {
     
@@ -111,16 +110,13 @@ app.post('/generate', async (request, response) => {
 
   } catch (err) {
 
-    log.error(err);
-    return response.status(500).send({
-      errors: ['Internal server error.']
-    });
+    next(err);
 
   }
 
 });
 
-app.get('/render', async (request, response) => {
+app.get('/render', async (request, response, next) => {
 
   try {
     const jsonHash = request.query.hash;
@@ -141,8 +137,7 @@ app.get('/render', async (request, response) => {
 
   } catch (err) {
 
-    log.error(err);
-    return response.status(500).send();
+    next(err);
 
   }
 
