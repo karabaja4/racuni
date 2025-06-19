@@ -38,22 +38,14 @@ if (env.isProduction()) {
 
 app.use(express.json());
 
-app.get('/', async (request, response, next) => {
+app.get('/', async (request, response) => {
   
-  try {
-    
-    const ejsPath = path.join(__dirname, 'form.ejs');
-    const model = {
-      vm: { revision: revision.get() }
-    };
-    const html = await ejs.renderFile(ejsPath, model);
-    return response.send(html);
-    
-  } catch (err) {
-    
-    next(err);
-    
-  }
+  const ejsPath = path.join(__dirname, 'form.ejs');
+  const model = {
+    vm: { revision: revision.get() }
+  };
+  const html = await ejs.renderFile(ejsPath, model);
+  return response.send(html);
   
 });
 
@@ -63,83 +55,68 @@ const getJsonHash = (json) => {
   return crypto.createHash('sha256').update(json).digest('hex');
 };
 
-app.post('/generate', async (request, response, next) => {
-
-  try {
-    
-    const validationResult = validator.validate(request.body);
-    if (!validationResult.valid) {
-      return response.status(400).send({
-        errors: validationResult.errors
-      });
-    }
+app.post('/generate', async (request, response) => {
   
-    const model = viewModel.buildViewModel(request.body);
-    const json = JSON.stringify(model);
-
-    const jsonHash = getJsonHash(json);
-    jsonStore[jsonHash] = json;
-  
-    log.info(`Generating (${jsonHash}): ${json}`);
-    const browser = await puppeteer.launch({
-      executablePath: '/usr/bin/chromium-browser',
-      headless: 'shell'
+  const validationResult = validator.validate(request.body);
+  if (!validationResult.valid) {
+    return response.status(400).send({
+      errors: validationResult.errors
     });
-  
-    const page = await browser.newPage();
-    const status = await page.goto(`http://localhost:${port}/render?hash=${jsonHash}`);
-    if (!status.ok()) {
-      throw new Error(`Failed to render (${status.status()})`);
-    }
-    
-    const pdf = await page.pdf({
-      format: 'A4',
-      printBackground: true
-    });
-  
-    await browser.close();
-    
-    const final = await optimizer.optimize(pdf);
-  
-    response.set('Content-Type', 'application/pdf');
-    response.set('Content-Disposition', `attachment; filename=${model.vm.filename}.pdf`);
-    response.set('Content-Length', final.length);
-    response.send(final);
-    
-    log.info(`Successfully returned ${model.vm.filename}.pdf`);
-
-  } catch (err) {
-
-    next(err);
-
   }
 
+  const model = viewModel.buildViewModel(request.body);
+  const json = JSON.stringify(model);
+
+  const jsonHash = getJsonHash(json);
+  jsonStore[jsonHash] = json;
+
+  log.info(`Generating (${jsonHash}): ${json}`);
+  const browser = await puppeteer.launch({
+    executablePath: '/usr/bin/chromium-browser',
+    headless: 'shell'
+  });
+
+  const page = await browser.newPage();
+  const status = await page.goto(`http://localhost:${port}/render?hash=${jsonHash}`);
+  if (!status.ok()) {
+    throw new Error(`Failed to render (${status.status()})`);
+  }
+  
+  const pdf = await page.pdf({
+    format: 'A4',
+    printBackground: true
+  });
+
+  await browser.close();
+  
+  const final = await optimizer.optimize(pdf);
+
+  response.set('Content-Type', 'application/pdf');
+  response.set('Content-Disposition', `attachment; filename=${model.vm.filename}.pdf`);
+  response.set('Content-Length', final.length);
+  response.send(final);
+  
+  log.info(`Successfully returned ${model.vm.filename}.pdf`);
+  
 });
 
-app.get('/render', async (request, response, next) => {
+app.get('/render', async (request, response) => {
 
-  try {
-    const jsonHash = request.query.hash;
-    if (!jsonHash) {
-      throw new Error('JSON hash not provided.');
-    }
-    const json = jsonStore[jsonHash];
-    if (!json) {
-      throw new Error(`JSON with ${jsonHash} not found.`);
-    }
-    if (env.isProduction()) {
-      delete jsonStore[jsonHash];
-    }
-    const ejsPath = path.join(__dirname, 'template.ejs');
-    const model = JSON.parse(json);
-    const html = await ejs.renderFile(ejsPath, model);
-    return response.send(html);
-
-  } catch (err) {
-
-    next(err);
-
+  const jsonHash = request.query.hash;
+  if (!jsonHash) {
+    throw new Error('JSON hash not provided.');
   }
+  const json = jsonStore[jsonHash];
+  if (!json) {
+    throw new Error(`JSON with ${jsonHash} not found.`);
+  }
+  if (env.isProduction()) {
+    delete jsonStore[jsonHash];
+  }
+  const ejsPath = path.join(__dirname, 'template.ejs');
+  const model = JSON.parse(json);
+  const html = await ejs.renderFile(ejsPath, model);
+  return response.send(html);
 
 });
 
