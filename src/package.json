@@ -3,7 +3,7 @@
     "ejs": "3.1.10",
     "express": "5.1.0",
     "express-rate-limit": "7.5.1",
-    "puppeteer-core": "24.10.2",
+    "puppeteer-core": "24.13.0",
     "dayjs": "1.11.13"
   }
 }
