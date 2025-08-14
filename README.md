@@ -137,7 +137,7 @@ The HTTP status code in this case is 400.
 
 ### Applications
 
-* Chromium (`/usr/bin/chromium-browser`) - for generating PDF via headless Chromium/Skia
+* Chromium (`/usr/bin/chromium`) - for generating PDF via headless Chromium/Skia
 * QPDF (`/usr/bin/qpdf`) - for PDF optimization and removing Chromium PDF metadata (Title, Creator etc.) _(optional)_
 
 ### System Fonts (TTF)

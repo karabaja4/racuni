@@ -24,7 +24,7 @@ const isValidUrl = (input) => {
     if (trimmed === '') {
       return true;
     }
-    if ((trimmed.startsWith('http://') || trimmed.startsWith('https://')) && trimmed.length <= maxUrlLength) {
+    if ((trimmed.startsWith('http://') || trimmed.startsWith('https://')) && (trimmed.length <= maxUrlLength)) {
       return true;
     }
   }
