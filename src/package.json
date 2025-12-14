@@ -4,6 +4,6 @@
     "express": "5.1.0",
     "express-rate-limit": "8.1.0",
     "puppeteer-core": "24.22.3",
-    "dayjs": "1.11.18"
+    "dayjs": "1.11.19"
   }
 }
