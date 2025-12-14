@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "ejs": "3.1.10",
-    "express": "5.1.0",
-    "express-rate-limit": "8.1.0",
-    "puppeteer-core": "24.22.3",
+    "express": "5.2.1",
+    "express-rate-limit": "8.2.1",
+    "puppeteer-core": "24.33.0",
     "dayjs": "1.11.19"
   }
 }
