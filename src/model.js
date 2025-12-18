@@ -39,7 +39,7 @@ const buildViewModel = (requestModel) => {
   model.invoiceNumber = fin;
 
   // invoice date
-  const invoiceDate = now.isAfter(eom) ? eom.startOf('day').add(16, 'hour').add(Math.floor(Math.random() * 60), 'minute') : now;
+  const invoiceDate = now.isAfter(eom) ? eom.startOf('day').add(16, 'hour').add(Math.floor(Math.random() * 60), 'minute') : now.subtract(1, 'day');
   const utcOffset = Math.round(invoiceDate.utcOffset() / 60);
   model.invoiceDate = `${invoiceDate.format(fullDateFormat)} (UTC${(utcOffset > 0 ? `+${utcOffset}` : utcOffset) || ''})`;
 
