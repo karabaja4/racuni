@@ -72,7 +72,7 @@ app.post('/generate', async (request, response) => {
 
   log.info(`Generating (${jsonHash}): ${json}`);
   const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium-headless-shell',
+    executablePath: '/usr/bin/chromium-test',
     args: [ '--disable-gpu' ]
   });
 
