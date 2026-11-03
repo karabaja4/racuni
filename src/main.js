@@ -73,7 +73,10 @@ app.post('/generate', async (request, response) => {
   log.info(`Generating (${jsonHash}): ${json}`);
   const browser = await puppeteer.launch({
     executablePath: '/usr/lib/chromium/chromium',
-    args: [ '--disable-gpu' ]
+    args: [
+      '--disable-gpu',
+      '--disable-features=FedCm'
+    ]
   });
 
   const page = await browser.newPage();
